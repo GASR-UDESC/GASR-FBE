@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SEND_LINE_DATA" Comment= "Send linear movement data" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-04-2012" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="C1" />
+				<With Var="C2" />
+				<With Var="C3" />
+				<With Var="C4" />
+				<With Var="C5" />
+				<With Var="C6" />
+				<With Var="C7" />
+				<With Var="C8" />
+				<With Var="C9" />
+				<With Var="C10" />
+				<With Var="C11" />
+				<With Var="C12" />
+				<With Var="C13" />
+				<With Var="C14" />
+				<With Var="C15" />
+				<With Var="C16" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="C1" Type="REAL" Comment="Coeficient 1" />
+			<VarDeclaration Name="C2" Type="REAL" Comment="Coeficient 2" />
+			<VarDeclaration Name="C3" Type="REAL" Comment="Coeficient 3" />
+			<VarDeclaration Name="C4" Type="REAL" Comment="Coeficient 4" />
+			<VarDeclaration Name="C5" Type="REAL" Comment="Coeficient 5" />
+			<VarDeclaration Name="C6" Type="REAL" Comment="Coeficient 6" />
+			<VarDeclaration Name="C7" Type="REAL" Comment="Coeficient 7" />
+			<VarDeclaration Name="C8" Type="REAL" Comment="Coeficient 8" />
+			<VarDeclaration Name="C9" Type="REAL" Comment="Coeficient 9" />
+			<VarDeclaration Name="C10" Type="REAL" Comment="Coeficient 10" />
+			<VarDeclaration Name="C11" Type="REAL" Comment="Coeficient 11" />
+			<VarDeclaration Name="C12" Type="REAL" Comment="Coeficient 12" />
+			<VarDeclaration Name="C13" Type="REAL" Comment="Coeficient 13" />
+			<VarDeclaration Name="C14" Type="REAL" Comment="Coeficient 14" />
+			<VarDeclaration Name="C15" Type="REAL" Comment="Coeficient 15" />
+			<VarDeclaration Name="C16" Type="REAL" Comment="Coeficient 16" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="set_line_data" Type="SET_LINE_DATA" x="41.384061408258" y="41.551328215979" />
+		<FB Name="comm_all_axel" Type="GENERAL_DATA_SENDER" x="381.5628099526" y="43.437190047398" />
+		<FB Name="comm_x" Type="AXIS_DATA_SENDER" x="806.79468713608" y="44.102656431957" />
+		<FB Name="comm_y" Type="AXIS_DATA_SENDER" x="1220.2699232397" y="43.870779248473" />
+		<FB Name="comm_z" Type="AXIS_DATA_SENDER" x="1715.9455129656" y="42.768802014166" />
+		<EventConnections>
+			<Connection Source="INIT" Destination="set_line_data.INIT" />
+			<Connection Source="set_line_data.CNF" Destination="comm_all_axel.INIT" />
+			<Connection Source="comm_x.CNF" Destination="comm_y.INIT" />
+			<Connection Source="comm_y.CNF" Destination="comm_z.INIT" />
+			<Connection Source="comm_z.CNF" Destination="CNF" />
+			<Connection Source="comm_all_axel.CNF" Destination="comm_x.INIT" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="C16" Destination="set_line_data.C16" />
+			<Connection Source="C13" Destination="set_line_data.C13" />
+			<Connection Source="C15" Destination="set_line_data.C15" />
+			<Connection Source="C11" Destination="set_line_data.C11" />
+			<Connection Source="C6" Destination="set_line_data.C6" />
+			<Connection Source="C7" Destination="set_line_data.C7" />
+			<Connection Source="C4" Destination="set_line_data.C4" />
+			<Connection Source="C5" Destination="set_line_data.C5" />
+			<Connection Source="C12" Destination="set_line_data.C12" />
+			<Connection Source="C14" Destination="set_line_data.C14" />
+			<Connection Source="C9" Destination="set_line_data.C9" />
+			<Connection Source="C8" Destination="set_line_data.C8" />
+			<Connection Source="C1" Destination="set_line_data.C1" />
+			<Connection Source="C10" Destination="set_line_data.C10" />
+			<Connection Source="C3" Destination="set_line_data.C3" />
+			<Connection Source="C2" Destination="set_line_data.C2" />
+			<Connection Source="set_line_data.ax_1" Destination="comm_x.SD_1" />
+			<Connection Source="set_line_data.ax_2" Destination="comm_x.SD_2" />
+			<Connection Source="set_line_data.Vx_2" Destination="comm_x.SD_6" />
+			<Connection Source="set_line_data.bx_1" Destination="comm_x.SD_3" />
+			<Connection Source="set_line_data.Vx_1" Destination="comm_x.SD_5" />
+			<Connection Source="set_line_data.id" Destination="comm_x.ID" />
+			<Connection Source="set_line_data.bx_2" Destination="comm_x.SD_4" />
+			<Connection Source="set_line_data.ay_1" Destination="comm_y.SD_1" />
+			<Connection Source="set_line_data.ay_2" Destination="comm_y.SD_2" />
+			<Connection Source="set_line_data.Vy_2" Destination="comm_y.SD_6" />
+			<Connection Source="set_line_data.by_1" Destination="comm_y.SD_3" />
+			<Connection Source="set_line_data.Vy_1" Destination="comm_y.SD_5" />
+			<Connection Source="set_line_data.id" Destination="comm_y.ID" />
+			<Connection Source="set_line_data.by_2" Destination="comm_y.SD_4" />
+			<Connection Source="set_line_data.az_1" Destination="comm_z.SD_1" />
+			<Connection Source="set_line_data.az_2" Destination="comm_z.SD_2" />
+			<Connection Source="set_line_data.Vz_2" Destination="comm_z.SD_6" />
+			<Connection Source="set_line_data.bz_1" Destination="comm_z.SD_3" />
+			<Connection Source="set_line_data.Vz_1" Destination="comm_z.SD_5" />
+			<Connection Source="set_line_data.id" Destination="comm_z.ID" />
+			<Connection Source="set_line_data.bz_2" Destination="comm_z.SD_4" />
+			<Connection Source="set_line_data.t0" Destination="comm_all_axel.SD_1" />
+			<Connection Source="set_line_data.t" Destination="comm_all_axel.SD_2" />
+			<Connection Source="set_line_data.speed_1" Destination="comm_all_axel.SD_3" />
+			<Connection Source="set_line_data.id" Destination="comm_all_axel.ID" />
+			<Connection Source="set_line_data.speed_2" Destination="comm_all_axel.SD_4" />
+		</DataConnections>
+	</FBNetwork>
+</FBType>

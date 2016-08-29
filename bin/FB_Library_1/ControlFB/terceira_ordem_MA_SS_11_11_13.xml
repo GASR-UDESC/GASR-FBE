@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="terceira_ordem_MA_SS_11_11_13" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="" Date="" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="STARTER" x="20" y="119" >
+		</FB>
+		<FB Name="step" Type="STEP_SOURCE" x="333.266125" y="135.059375" >
+			<Parameter Name="K" Value="1" />
+			<Parameter Name="t_end" Value="20" />
+			<Parameter Name="delay" Value="0" />
+			<Parameter Name="dt" Value="0.01" />
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="328.047" y="502.8945" >
+			<Parameter Name="dt" Value="0.01" />
+		</FB>
+		<FB Name="plant" Type="THIRD_ORDER_SYSTEM_SS" x="671.044" y="89.157625" >
+			<Parameter Name="dt" Value="0.01" />
+			<Parameter Name="A1" Value="[0, 1, 0]" />
+			<Parameter Name="A2" Value="[0, 0, 1]" />
+			<Parameter Name="B1" Value="[0, 0, 0]" />
+			<Parameter Name="B2" Value="[0, 0, 0]" />
+			<Parameter Name="C1" Value="[1, 0, 0]" />
+			<Parameter Name="C2" Value="[0, 0, 0]" />
+			<Parameter Name="C3" Value="[0, 0, 0]" />
+			<Parameter Name="u2" Value="0" />
+			<Parameter Name="u3" Value="0" />
+			<Parameter Name="x1_0" Value="0" />
+			<Parameter Name="x2_0" Value="0" />
+			<Parameter Name="x3_0" Value="0" />
+			<Parameter Name="B3" Value="[6, 0, 0]" />
+			<Parameter Name="A3" Value="[-6, -11, -6]" />
+		</FB>
+		<EventConnections>
+			<Connection Source="scope.Cnf" Destination="step.Init" />
+			<Connection Source="start.start" Destination="step.Start" />
+			<Connection Source="step.Finish" Destination="plant.Init" />
+			<Connection Source="plant.Finish" Destination="scope.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="plant.y1" Destination="scope.DataIn" />
+			<Connection Source="step.U" Destination="plant.u1" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

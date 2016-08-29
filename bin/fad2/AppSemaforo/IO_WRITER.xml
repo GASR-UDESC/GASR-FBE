@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="IO_WRITER" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="IECVM" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="QI" />
+				<With Var="PARAMS" />
+			</Event>
+			<Event Name="REQ" >
+				<With Var="SD_1" />
+				<With Var="SD_2" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INIT0" >
+			</Event>
+			<Event Name="CNF" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="QI" Type="BOOL" ArraySize="" />
+			<VarDeclaration Name="PARAMS" Type="INT" ArraySize="" />
+			<VarDeclaration Name="SD_1" Type="INT" ArraySize="" />
+			<VarDeclaration Name="SD_2" Type="INT" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="QO" Type="BOOL" ArraySize="" />
+			<VarDeclaration Name="STATUS" Type="INT" ArraySize="" />
+			<VarDeclaration Name="RD_1" Type="INT" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="WRITE" x="245" y="370"  >
+				<ECAction Algorithm="ALG_WRITE" Output="CNF" />
+			</ECState>
+			<ECState Name="START" x="245" y="276"  >
+			</ECState>
+			<ECState Name="INIT" x="382" y="276"  >
+				<ECAction Algorithm="ALG_INIT" Output="INIT0" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="INIT" />
+			<ECTransition Source="INIT" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="WRITE" Condition="REQ" />
+			<ECTransition Source="WRITE" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="ALG_WRITE"  >
+			<Lua Text="SET_REG(SD_1, SD_2);" />
+		</Algorithm>
+		<Algorithm Name="ALG_INIT"  >
+			<Lua Text="" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

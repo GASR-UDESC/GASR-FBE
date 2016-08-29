@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="RES_CONTROL" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="IECVM" Date="2014-01-13" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="START" x="93.241082676457" y="61.48971879001" >
+		</FB>
+		<FB Name="scontrol" Type="SEM_CONTROL" x="323.71464564662" y="59.892992117484" >
+		</FB>
+		<FB Name="scycle" Type="E_CYCLE" x="94.063785151249" y="165.51028120999" >
+			<Parameter Name="DT" Value="5" />
+		</FB>
+		<FB Name="car1" Type="CAR_SEMAPHORE" x="607.42173785614" y="15.014057928538" >
+		</FB>
+		<FB Name="pub1" Type="PUB_2" x="618.48237617043" y="291.93957250322" >
+			<Parameter Name="ID" Value="71" />
+		</FB>
+		<FB Name="sp1" Type="E_SPLIT" x="353.33424344794" y="303.44544711308" >
+		</FB>
+		<FB Name="lred" Type="IO_WRITER" x="883.29752520809" y="181.95132172294" >
+			<Parameter Name="SD_1" Value="1" />
+		</FB>
+		<FB Name="lyellow" Type="IO_WRITER" x="884.47482273333" y="29.798993217847" >
+			<Parameter Name="SD_1" Value="2" />
+		</FB>
+		<FB Name="lgreen" Type="IO_WRITER" x="885.76563263246" y="356.73625701226" >
+			<Parameter Name="SD_1" Value="3" />
+		</FB>
+		<FB Name="btwalker" Type="IO_READER" x="278.39467094472" y="481.27675197063" >
+			<Parameter Name="SD_1" Value="21" />
+		</FB>
+		<FB Name="walk_split" Type="E_SPLIT" x="65.028115857078" y="480.32543024768" >
+		</FB>
+		<FB Name="w2_split" Type="E_SPLIT" x="91.988250780284" y="278.12337451987" >
+		</FB>
+		<EventConnections>
+			<Connection Source="pub1.INIT0" Destination="walk_split.EI1" />
+			<Connection Source="sp1.EO1" Destination="car1.SET" />
+			<Connection Source="sp1.EO2" Destination="pub1.REQ" />
+			<Connection Source="scontrol.SET_SEMAPHORE" Destination="sp1.EI1" />
+			<Connection Source="scontrol.INIT0" Destination="car1.INIT" />
+			<Connection Source="car1.OUT_RED" Destination="lred.REQ" />
+			<Connection Source="car1.INIT0" Destination="pub1.INIT" />
+			<Connection Source="car1.OUT_GREEN" Destination="lgreen.REQ" />
+			<Connection Source="car1.OUT_YELLOW" Destination="lyellow.REQ" />
+			<Connection Source="scycle.EO" Destination="scontrol.ETIME" />
+			<Connection Source="btwalker.IND" Destination="w2_split.EI1" />
+			<Connection Source="start.COLD" Destination="scontrol.INIT" />
+			<Connection Source="walk_split.EO1" Destination="scycle.START" />
+			<Connection Source="walk_split.EO2" Destination="btwalker.RSP" />
+			<Connection Source="w2_split.EO1" Destination="scontrol.BTWALKER" />
+			<Connection Source="w2_split.EO2" Destination="btwalker.RSP" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="scontrol.SEMAPHORE_2" Destination="pub1.RD_1" />
+			<Connection Source="scontrol.WALKER" Destination="pub1.RD_2" />
+			<Connection Source="car1.YELLOW" Destination="lyellow.SD_2" />
+			<Connection Source="car1.RED" Destination="lred.SD_2" />
+			<Connection Source="scontrol.SEMAPHORE_1" Destination="car1.CYCLE" />
+			<Connection Source="btwalker.RD_1" Destination="scontrol.btwalker" />
+			<Connection Source="car1.GREEN" Destination="lgreen.SD_2" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

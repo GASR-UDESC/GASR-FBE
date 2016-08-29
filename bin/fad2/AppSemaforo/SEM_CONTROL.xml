@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SEM_CONTROL" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="IECVM" Date="10-12-2013" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+			</Event>
+			<Event Name="ETIME" >
+			</Event>
+			<Event Name="BTWALKER" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INIT0" >
+			</Event>
+			<Event Name="SET_SEMAPHORE" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="lbtwalker" Type="BOOL" ArraySize="" />
+			<VarDeclaration Name="btwalker" Type="BOOL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="SEMAPHORE_1" Type="BYTE" ArraySize="" />
+			<VarDeclaration Name="SEMAPHORE_2" Type="BYTE" ArraySize="" />
+			<VarDeclaration Name="SEMAPHORE_3" Type="BYTE" ArraySize="" />
+			<VarDeclaration Name="SEMAPHORE_4" Type="BYTE" ArraySize="" />
+			<VarDeclaration Name="WALKER" Type="BOOL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+		<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECState Name="RUN" x="519" y="198"  >
+				<ECAction Algorithm="ALG_RUN" Output="SET_SEMAPHORE" />
+			</ECState>
+			
+			<ECState Name="ST_WALKER" x="523" y="278"  >
+				<ECAction Algorithm="ALG_WALKER" />
+			</ECState>
+			<ECState Name="INIT" x="323" y="318"  >
+				<ECAction Algorithm="ALG_INIT" Output="INIT0" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="INIT" />
+			<ECTransition Source="START" Destination="RUN" Condition="ETIME" />
+			<ECTransition Source="INIT" Destination="START" Condition="1" />
+			<ECTransition Source="RUN" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="ST_WALKER" Condition="BTWALKER" />
+			<ECTransition Source="ST_WALKER" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="ALG_INIT"  >
+			<Lua Text="SEMAPHORE_1 := 0; SEMAPHORE_2 := 0; SEMAPHORE_3 := 0; SEMAPHORE_4 := 0; WALKER :=0;" />
+		</Algorithm>
+		<Algorithm Name="ALG_WALKER"  >
+			<Lua Text="IF(btwalker) THEN lbtwalker:=1; END_IF;" />
+		</Algorithm>
+		<Algorithm Name="ALG_RUN"  >
+			<Lua Text="IF(WALKER) THEN  WALKER := 0;  SEMAPHORE_1 := 1;     SEMAPHORE_2 := 0;   lbtwalker := 0; ELSE  IF(SEMAPHORE_2 = 0) THEN     SEMAPHORE_1 := SEMAPHORE_1 + 1;     IF(SEMAPHORE_1 >= 3) THEN       SEMAPHORE_1 := 0;       SEMAPHORE_2 := 1;     END_IF;   ELSE     SEMAPHORE_2 := SEMAPHORE_2 + 1;     IF(SEMAPHORE_2 >= 3) THEN      IF(lbtwalker) THEN         WALKER := 1;     SEMAPHORE_1 := 0;        SEMAPHORE_2 := 0;     ELSE     SEMAPHORE_1 := 1;        SEMAPHORE_2 := 0;     END_IF;   END_IF;    END_IF;  END_IF;" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

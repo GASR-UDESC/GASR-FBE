@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="GENERAL_DATA_SENDER" Comment="Send data that all machine axel will use" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-04-2012" />
+	<CompilerInfo BaseFile="Modbus_write_7.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Comment="Initialize service" >
+				<With Var="PORT" />
+				<With Var="INIT_REG" />
+				<With Var="NUM_REG" />
+				<With Var="ID"   />
+				<With Var="SD_1" />
+				<With Var="SD_2" />
+				<With Var="SD_3" />
+				<With Var="SD_4" />
+				<With Var="SD_5" />
+				<With Var="SD_6" />
+				<With Var="PAGE" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" Comment="Execution confirmed" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="PORT"	    Type="STRING" Comment="Ethernet local port" />
+			<VarDeclaration Name="INIT_REG" Type="INT" Comment="Initial register" />
+			<VarDeclaration Name="NUM_REG"  Type="INT" Comment="Number of registers" />
+			<VarDeclaration Name="ID"       Type="INT" Comment="Process id" />
+			<VarDeclaration Name="SD_1" 	Type="INT" Comment="Parameter 1" />
+			<VarDeclaration Name="SD_2" 	Type="INT" Comment="Parameter 2" />
+			<VarDeclaration Name="SD_3" 	Type="INT" Comment="Parameter 3" />
+			<VarDeclaration Name="SD_4" 	Type="INT" Comment="Parameter 4" />
+			<VarDeclaration Name="SD_5" 	Type="INT" Comment="Parameter 5" />
+			<VarDeclaration Name="SD_6" 	Type="INT" Comment="Parameter 6" />
+			<VarDeclaration Name="PAGE" 	Type="INT" Comment="Change &#34;page&#34; parameter" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="MACHINE" LeftInterface="GENERAL_DATA_SENDER" Comment="Data publication service" >
+        <ServiceSequence Name="normal_data_transfer" >
+			<ServiceTransaction >
+				<InputPrimitive Interface="GENERAL_DATA_SENDER" Event="INIT" Parameters="PORT,INIT_REG,NUM_REG,ID,SD_1,SD_2,SD_3,SD_4,SD_5,SD_6,SD_7,SD_8,SD_9,SD_10,PAGE" />
+				<OutputPrimitive Interface="MACHINE" />
+            </ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

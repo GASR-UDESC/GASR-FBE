@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="Teste_Serial_#2" Comment= "MF com ganho" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="Gabriel" Date="2013_12_09" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="STARTER" x="55.41" y="38.6475" >
+		</FB>
+		<FB Name="plant" Type="SerialFB" x="1512.165" y="179.8" >
+			<Parameter Name="T" Value="0.1" />
+			<Parameter Name="port_name" Value="/dev/ttyACM0" />
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="1456.7475" y="368.3275" >
+			<Parameter Name="dt" Value="0.1" />
+		</FB>
+		<FB Name="step" Type="STEP_SOURCE" x="375.4675" y="32.4825" >
+			<Parameter Name="dt" Value="0.1" />
+			<Parameter Name="delay" Value="2" />
+			<Parameter Name="t_end" Value="14" />
+			<Parameter Name="K" Value="2" />
+		</FB>
+		<FB Name="K" Type="GAIN" x="1078.25" y="399.0825" >
+			<Parameter Name="K" Value="0.004882813" />
+		</FB>
+		<FB Name="sub" Type="SUBTRACTOR" x="754.4975" y="56.335" >
+		</FB>
+		<FB Name="scope2" Type="SCOPE" x="108.35" y="231.21" >
+			<Parameter Name="dt" Value="0.1" />
+		</FB>
+		<FB Name="integ" Type="INTEGRATOR" x="1090.22" y="38.18" >
+			<Parameter Name="dt" Value="0.1" />
+			<Parameter Name="K" Value="1.7" />
+		</FB>
+		<FB Name="close_serial" Type="STARTER" x="1482" y="70" >
+		</FB>
+		<EventConnections>
+			<Connection Source="integ.Finish" Destination="plant.Init" />
+			<Connection Source="scope2.Cnf" Destination="step.Init" />
+			<Connection Source="plant.Cnf" Destination="scope.Init" />
+			<Connection Source="scope.Cnf" Destination="K.Init" />
+			<Connection Source="step.Finish" Destination="sub.Init" />
+			<Connection Source="close_serial.start" Destination="plant.close" />
+			<Connection Source="K.Cnf" Destination="scope2.Init" />
+			<Connection Source="start.start" Destination="step.Start" />
+			<Connection Source="sub.Finish" Destination="integ.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="scope2.DataOut" Destination="sub.X2" />
+			<Connection Source="step.U" Destination="sub.X1" />
+			<Connection Source="K.Output" Destination="scope2.DataIn" />
+			<Connection Source="integ.Xout" Destination="plant.input" />
+			<Connection Source="plant.output" Destination="scope.DataIn" />
+			<Connection Source="scope.DataOut" Destination="K.Input" />
+			<Connection Source="sub.U" Destination="integ.Xin" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

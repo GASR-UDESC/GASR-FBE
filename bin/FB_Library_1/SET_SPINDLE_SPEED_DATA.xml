@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SET_SPINDLE_DATA" Comment="Sets spindle speed data to machine" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="18-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="C1" />
+				<With Var="C2" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" >
+				<With Var="id" />
+				<With Var="speed_1" />
+				<With Var="speed_2" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="C1" Type="REAL" Comment="Coeficient 1" />
+			<VarDeclaration Name="C2" Type="REAL" Comment="Coeficient 2" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="id" Type="INT" />
+			<VarDeclaration Name="speed_1" Type="INT" />
+			<VarDeclaration Name="speed_2" Type="INT" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="SET_DATA" x="0" y="0" >
+				<ECAction Algorithm="set_data" Output="CNF" />
+			</ECState>
+			<ECTransition Source="START" Destination="SET_DATA" Condition="INIT" x="0" y="0" />
+			<ECTransition Source="SET_DATA" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="set_data" >
+			<Lua Text = "
+id = C1
+local precision = 3
+speed_1 = math.floor( C2 )
+speed_2 = (C2 - speed_1)*(10^precision)
+speed_2 = math.floor( speed_2 )
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

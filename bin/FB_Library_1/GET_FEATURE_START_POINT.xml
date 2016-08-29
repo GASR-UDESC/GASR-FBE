@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="GET_FEATURE_START_POINT" Comment="Get feature start point" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="14-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="start_point" />
+				<With Var="feature_placement" />
+				<With Var="depth" />
+				<With Var="allowance_bottom" />
+				<With Var="tool_offset_length" />
+				<With Var="overall_assembly_length" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="fsp" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="start_point" Type="REAL" ArraySize="3" Comment="Operation start point" />
+			<VarDeclaration Name="feature_placement" Type="REAL" ArraySize="3" Comment="Feature local coordinate system origin" />
+			<VarDeclaration Name="depth" Type="REAL" ArraySize="3" Comment="Feature depth" />
+			<VarDeclaration Name="allowance_bottom" Type="REAL" ArraySize="3" Comment="Material thickness to be left uncut" />
+			<VarDeclaration Name="tool_offset_length" Type="REAL" ArraySize="3" Comment="Tool blade length" />
+			<VarDeclaration Name="overall_assembly_length" Type="REAL" ArraySize="3" Comment="Tool length" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="fsp" Type="REAL" ArraySize="3" Comment="feature_start_point" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="alg" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="alg" >
+			<Lua Text = "
+local max_depth    = depth[3] + allowance_bottom
+local blade_length = overall_assembly_length - tool_offset_length
+if(( start_point[1] ~= 0 ) and ( start_point[2] ~= 0 ) and ( start_point[3] ~= 0 )) then
+    for i = 1, 3 do fsp[i] = start_point[i] end
+else
+    for i = 1, 3 do fsp[i] = feature_placement[i] end
+    if( blade_length > -max_depth ) then
+        fsp[3] = max_depth + feature_placement[3]
+    else
+        fsp[3] = -blade_length + feature_placement[3]
+    end
+end
+print( 'start_point', fsp[1], fsp[2], fsp[3] )
+print()
+--Check for depth violation
+if( math.abs(fsp[3] - feature_placement[3]) > blade_length ) then
+    fsp[3] = -blade_length
+end
+if( math.abs(fsp[3] - feature_placement[3]) > max_depth ) then
+    fsp[3] = -max_depth
+end
+
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

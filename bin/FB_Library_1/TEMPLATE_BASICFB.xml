@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="TEMPLATE_BASICFB" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+		</EventInputs>
+		<EventOutputs>
+		</EventOutputs>
+		<InputVars>
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+		</ECC>
+	</BasicFB>
+</FBType>

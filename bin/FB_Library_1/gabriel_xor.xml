@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="gabriel_xor" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo BaseFile="NeuralFB.lua" Neural="true" NetFile="gabriel_xor.net">
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="x1" />
+				<With Var="x2" />
+			</Event>
+			<Event Name="Init2" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Out" >
+				<With Var="y1" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="x1" Type="REAL" />
+			<VarDeclaration Name="x2" Type="REAL" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="y1" Type="REAL" />
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="lfann" LeftInterface="gabriel_xor" >
+	</Service>
+</FBType>

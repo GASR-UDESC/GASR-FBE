@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="ORDER_1D_MOVETO_PARALLEL_PLANE" Comment= "1D_MOVETO_PARALLEL_PLANE with FILE_WRITER inside" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="10-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="pos" />
+				<With Var="plane_distance" />
+				<With Var="move_in_axis" />
+				<With Var="speed" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="final_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="plane_distance" Type="REAL" ArraySize="3" Comment="Security plane position" />
+			<VarDeclaration Name="move_in_axis" Type="STRING" Comment="'x', 'y' or 'z'" />
+			<VarDeclaration Name="speed" Type="REAL" InitialValue="0" Comment="Feedrate in m/s" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="final_pos" Type="REAL" ArraySize="3" Comment="Final position" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="1d_moveto_parallel_plane" Type="1D_MOVETO_PARALLEL_PLANE" x="122" y="135" />
+		<FB Name="order_1d_moveto_parallel_plane" Type="FILE_WRITER_7_LINEAR_MOVE" x="491" y="178" />
+		<EventConnections>
+			<Connection Source="1d_moveto_parallel_plane.Send" Destination="order_1d_moveto_parallel_plane.REQ" />
+			<Connection Source="1d_moveto_parallel_plane.Cnf" Destination="Cnf" />
+			<Connection Source="order_1d_moveto_parallel_plane.RSP" Destination="1d_moveto_parallel_plane.Req" />
+			<Connection Source="Init" Destination="1d_moveto_parallel_plane.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="1d_moveto_parallel_plane.final_pos" Destination="final_pos" />
+			<Connection Source="1d_moveto_parallel_plane.final_pos" Destination="out_pos" />
+			<Connection Source="1d_moveto_parallel_plane.v_coef" Destination="order_1d_moveto_parallel_plane.P7" />
+			<Connection Source="1d_moveto_parallel_plane.out_speed" Destination="order_1d_moveto_parallel_plane.P6" />
+			<Connection Source="1d_moveto_parallel_plane.final_pos" Destination="order_1d_moveto_parallel_plane.P5" />
+			<Connection Source="1d_moveto_parallel_plane.t0" Destination="order_1d_moveto_parallel_plane.P4" />
+			<Connection Source="1d_moveto_parallel_plane.coef_b" Destination="order_1d_moveto_parallel_plane.P2" />
+			<Connection Source="1d_moveto_parallel_plane.t" Destination="order_1d_moveto_parallel_plane.P3" />
+			<Connection Source="1d_moveto_parallel_plane.eq_id" Destination="order_1d_moveto_parallel_plane.P0" />
+			<Connection Source="1d_moveto_parallel_plane.coef_a" Destination="order_1d_moveto_parallel_plane.P1" />
+			<Connection Source="plane_distance" Destination="1d_moveto_parallel_plane.plane_distance" />
+			<Connection Source="speed" Destination="1d_moveto_parallel_plane.speed" />
+			<Connection Source="move_in_axis" Destination="1d_moveto_parallel_plane.move_in_axis" />
+			<Connection Source="pos" Destination="1d_moveto_parallel_plane.pos" />
+		</DataConnections>
+	</FBNetwork>
+</FBType>

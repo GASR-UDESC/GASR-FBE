@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SUBL_8_SETUP" Comment="8-variable local group subscriber for setup resource" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="13-04-12" />
+	<CompilerInfo BaseFile="SIFB_Subl.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Comment="Service Initialization" >
+				<With Var="ID" />
+			</Event>
+			<Event Name="REQ" Comment="Service Request" />
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Comment="Initialization Confirm" />
+			<Event Name="IND" Comment="Service Confirmation" >
+                <With Var="RD_1" />
+				<With Var="RD_2" />
+				<With Var="RD_3" />
+				<With Var="RD_4" />
+				<With Var="RD_5" />
+				<With Var="RD_6" />
+				<With Var="RD_7" />
+				<With Var="RD_8" />
+            </Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="ID" Type="STRING" ArraySize="2" Comment="Default id is the FB instance name" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="RD_1" Type="STRING" Comment="workplan.its_setup.its_origin.name" />
+			<VarDeclaration Name="RD_2" Type="STRING" Comment="workplan.its_setup.its_origin.location.name" />
+			<VarDeclaration Name="RD_3" Type="REAL" Comment="workplan.its_setup.its_origin.location.coordinates" />
+			<VarDeclaration Name="RD_4" Type="STRING" Comment="workplan.its_setup.its_origin.axis.its_id" />
+			<VarDeclaration Name="RD_5" Type="REAL" Comment="workplan.its_setup.its_origin.axis.direction_ratios" />
+			<VarDeclaration Name="RD_6" Type="STRING" Comment="workplan.its_setup.its_origin.ref_direction.its_id" />
+			<VarDeclaration Name="RD_7" Type="REAL" Comment="workplan.its_setup.its_origin.ref_direction_ratios" />
+			<VarDeclaration Name="RD_8" Type="STRING" Comment="current_tool" />
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="PUBL_8_SETUP" LeftInterface="SUBL_8_SETUP" Comment="Data publication service" >
+		<ServiceSequence Name="normal_establishment" >
+			<ServiceTransaction >
+				<InputPrimitive Interface="SUBL_8_SETUP" Event="INIT" Parameters="ID" />
+				<OutputPrimitive Interface="PUBL_8_SETUP" Event="INITO" Parameters="" />
+			</ServiceTransaction>
+			<ServiceTransaction >
+				<InputPrimitive Interface="PUBL_8_SETUP" Event="INIT" Parameters="ID" />
+				<OutputPrimitive Interface="PUBL_8_SETUP" Event="INITO" Parameters="" />
+			</ServiceTransaction>
+		</ServiceSequence>
+		<ServiceSequence Name="normal_data_transfer" >
+			<ServiceTransaction >
+				<InputPrimitive Interface="SUBL_8_SETUP" Event="REQ" Parameters="RD_1,RD_2,RD_3,RD_4,RD_5,RD_6,RD_7,RD_8" />
+				<OutputPrimitive Interface="PUBL_8_SETUP" Event="IND" Parameters="SD_1,SD_2,SD_3,SD_4,SD_5,SD_6,SD_7,SD_8" />
+				<OutputPrimitive Interface="SUBL_8_SETUP" Event="CNF" />
+            </ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

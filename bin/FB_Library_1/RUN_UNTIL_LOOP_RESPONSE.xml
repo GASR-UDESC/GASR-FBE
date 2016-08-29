@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="RUN_UNTIL_LOOP_RESPONSE" Comment="Give the order to start the current order" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="18-04-2012" />
+	<CompilerInfo BaseFile="Run_until_loop_response.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="START" Comment="Start machine" />
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" Comment="Terminate after machine response" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="PORT" Type="STRING" InitialValue="localhost:502"/>
+			<VarDeclaration Name="REG_READ" Type="INT" InitialValue="1058"/>
+			<VarDeclaration Name="REG_WRITE" Type="INT" InitialValue="1057"/>
+			<VarDeclaration Name="NUM_REG" Type="INT" InitialValue="1"/>
+            <VarDeclaration Name="INIT_REG" Type="INT" InitialValue="1"/>
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="FRANK" LeftInterface="RUN_UNTIL_LOOP_RESPONSE" Comment="Data publication service" >
+		<ServiceSequence Name="seq1" >
+            <ServiceTransaction >
+                <InputPrimitive Interface="RUN_UNTIL_LOOP_RESPONSE" Event="REQ"/>
+                <OutputPrimitive Interface="FRANK" Event="IND"/>
+            </ServiceTransaction>
+        </ServiceSequence>
+	</Service>
+</FBType>

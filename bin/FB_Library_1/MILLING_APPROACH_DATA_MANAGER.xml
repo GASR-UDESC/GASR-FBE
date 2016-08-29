@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="MILLING_APPROACH_DATA_MANAGER" Comment="Approach strategy manager" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="not_implemented" />
+				<With Var="approach_strategy" />
+				<With Var="parameters" />
+				<With Var="start_point" />
+				<With Var="default_strategy" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="plunge_toolaxis" >
+				<With Var="point" />
+				<With Var="strategy" />
+			</Event>
+			<Event Name="plunge_ramp" >
+				<With Var="point" />
+				<With Var="strategy" />
+				<With Var="P1" />
+			</Event>
+			<Event Name="plunge_helix" >
+				<With Var="point" />
+				<With Var="strategy" />
+				<With Var="P1" />
+				<With Var="P2" />
+			</Event>
+			<Event Name="plunge_zigzag" >
+				<With Var="point" />
+				<With Var="strategy" />
+				<With Var="P1" />
+				<With Var="P2" />
+			</Event>
+			<Event Name="ap_retract_angle" >
+				<With Var="point" />
+				<With Var="strategy" />
+				<With Var="P1" />
+				<With Var="P2" />
+			</Event>
+			<Event Name="ap_retract_tangent" >
+				<With Var="point" />
+				<With Var="strategy" />
+				<With Var="P1" />
+			</Event>
+			<Event Name="along_path" >
+				<With Var="point" />
+				<With Var="strategy" />
+				<With Var="P1" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="not_implemented" Type="INT" ArraySize="7" Comment="list of not implemented strategies" />
+			<VarDeclaration Name="approach_strategy" Type="STRING" />
+			<VarDeclaration Name="parameters" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="start_point" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="default_strategy" Type="STRING" InitialValue="'plunge_tool_axis'" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="P1" Type="REAL" />
+			<VarDeclaration Name="P2" Type="REAL" />
+			<VarDeclaration Name="P3" Type="REAL" />
+			<VarDeclaration Name="point" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="strategy" Type="INT" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="ap_retract_tangent" x="0" y="0" >
+				<ECAction Algorithm="" Output="ap_retract_tangen" />
+			</ECState>
+			<ECState Name="plunge_helix" x="0" y="0" >
+				<ECAction Algorithm="" Output="plunge_helix" />
+			</ECState>
+			<ECState Name="along_path" x="0" y="0" >
+				<ECAction Algorithm="" Output="along_path" />
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="exe" />
+			</ECState>
+			<ECState Name="PLUNGE_TOOLAXIS" x="0" y="0" >
+				<ECAction Algorithm="" Output="plunge_toolaxis" />
+			</ECState>
+			<ECState Name="ap_retract_angle" x="0" y="0" >
+				<ECAction Algorithm="" Output="ap_retract_angle" />
+			</ECState>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="plunge_zigzag" x="0" y="0" >
+				<ECAction Algorithm="" Output="plunge_zigzag" />
+			</ECState>
+			<ECState Name="plunge_ramp" x="0" y="0" >
+				<ECAction Algorithm="" Output="plunge_ramp" />
+			</ECState>
+			<ECTransition Source="ap_retract_tangent" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="plunge_helix" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="along_path" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="PLUNGE_TOOLAXIS" Condition="strategy==1" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="plunge_ramp" Condition="strategy==2" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="plunge_helix" Condition="strategy==3" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="plunge_zigzag" Condition="strategy==4" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="ap_retract_angle" Condition="strategy==5" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="ap_retract_tangent" Condition="strategy==6" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="along_path" Condition="strategy==7" x="0" y="0" />
+			<ECTransition Source="PLUNGE_TOOLAXIS" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="ap_retract_angle" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+			<ECTransition Source="plunge_zigzag" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="plunge_ramp" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="exe" >
+			<Lua Text = "
+local id = {
+PLUNGE_TOOLAXIS    = 1,
+PLUNGE_RAMP        = 2,
+PLUNGE_HELIX       = 3,
+PLUNGE_ZIGZAG      = 4,
+AP_RETRACT_ANGLE   = 5,
+AP_RETRACT_TANGENT = 6,
+ALONG_PATH         = 7,
+}
+strategy = id[ approach_strategy ]
+for k,v in pairs( not_implemented ) do
+    if( strategy == v ) then
+        strategy = 1
+        break
+    end
+end
+point[1] = start_point[1]
+point[2] = start_point[2]
+point[3] = start_point[3]
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

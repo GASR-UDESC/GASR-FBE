@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SEND_CHIP_REMOVAL_DATA" Comment="Send chip removal data" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="C1" />
+				<With Var="S1" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="C1" Type="REAL" Comment="Coeficient 1" />
+			<VarDeclaration Name="S1" Type="STRING" Comment="String 1" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="print_chip_removal_data" Type="PRINT_TOOL_CHANGE_DATA" x="1" y="1" />
+		<EventConnections>
+			<Connection Source="INIT" Destination="print_chip_removal_data.INIT" dx="1" dy="1" />
+			<Connection Source="print_chip_removal_data.CNF" Destination="CNF" dx="1" dy="1" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="S1" Destination="print_chip_removal_data.S1" dx="1" dy="1" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

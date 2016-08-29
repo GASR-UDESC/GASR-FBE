@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE RSystem SYSTEM "FBSystem.dtd">
+
+<System Name="TEMPLATE_System" Comment="FRANK-II is the best machine">
+  <Identification Standard="61499-1" />
+  <VersionInfo Date="12/02/2014" Organization="UDESC" Author="LAPAS" Version="7.0" />
+</System>

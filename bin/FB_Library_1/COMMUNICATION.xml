@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="COMMUNICATION" Comment= "Machine data transfer resource" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="16-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="Subl_1_COMM_MACHINE_COMM" Type="SUBL_1_COMM" x="306.83327686433" y="60.098217751563" >
+		</FB>
+		<FB Name="Trajectory_Viewer" Type="TRAJECTORY_VIEWER_COMM" x="705.74624668738" y="39.413841538515" >
+		</FB>
+		<FB Name="data_manager" Type="DATA_MANAGER" x="1014.2146039955" y="97.4667994084" >
+		</FB>
+		<FB Name="send_circle_data" Type="SEND_CIRCLE_DATA" x="1899.4718760077" y="859.53535470473" >
+		</FB>
+		<FB Name="send_line_data" Type="SEND_LINE_DATA" x="1901.5684354469" y="291.91150692367" >
+		</FB>
+		<FB Name="send_mach_home" Type="SEND_MACH_HOME" x="2707.4216738765" y="934.27408719015" >
+		</FB>
+		<FB Name="send_tool_change_data" Type="SEND_TOOL_CHANGE_DATA" x="2687.353841865" y="1077.1235948231" >
+		</FB>
+		<FB Name="send_spindle_data" Type="SEND_SPINDLE_DATA" x="2701.112573492" y="1210.0322307405" >
+		</FB>
+		<FB Name="send_spindle_speed_data" Type="SEND_SPINDLE_SPEED_DATA" x="2669.5104422495" y="1666.7419533442" >
+		</FB>
+		<FB Name="send_timer_data" Type="SEND_TIMER_DATA" x="2711.8450063918" y="1481.4656218647" >
+		</FB>
+		<FB Name="send_chip_removal_data" Type="SEND_CHIP_REMOVAL_DATA" x="2670.6311655344" y="1348.6756714504" >
+		</FB>
+		<FB Name="not_implemented_merge" Type="E_MERGE" x="1792.5347914656" y="38.733020490807" >
+		</FB>
+		<FB Name="not_implemented_merge_2" Type="E_MERGE" x="2129.327277488" y="35.652387389596" >
+		</FB>
+		<FB Name="merge_to_start_machining" Type="E_MERGE_8" x="2304.1483606413" y="330.58916241197" >
+		</FB>
+		<FB Name="run_until_loop_response" Type="RUN_UNTIL_LOOP_RESPONSE" x="2636.3448500679" y="331.51115883152" >
+			<Parameter Name="PORT" Value="localhost:502" />
+			<Parameter Name="NUM_REG" Value="8" />
+			<Parameter Name="INIT_REG" Value="1050" />
+		</FB>
+		<FB Name="finish_machining" Type="PUBL_3_OK" x="2627.7323641984" y="660.37359768172" >
+		</FB>
+		<EventConnections>
+			<Connection Source="send_line_data.CNF" Destination="merge_to_start_machining.EI1" />
+			<Connection Source="send_circle_data.CNF" Destination="merge_to_start_machining.EI8" />
+			<Connection Source="Subl_1_COMM_MACHINE_COMM.IND" Destination="Trajectory_Viewer.REQ" />
+			<Connection Source="run_until_loop_response.CNF" Destination="not_implemented_merge_2.EI1" />
+			<Connection Source="Trajectory_Viewer.RSP" Destination="data_manager.INIT" />
+			<Connection Source="send_tool_change_data.CNF" Destination="merge_to_start_machining.EI2" />
+			<Connection Source="not_implemented_merge_2.EO" Destination="data_manager.REQ" />
+			<Connection Source="merge_to_start_machining.EO" Destination="run_until_loop_response.START" />
+			<Connection Source="send_mach_home.CNF" Destination="merge_to_start_machining.EI7" />
+			<Connection Source="send_timer_data.CNF" Destination="merge_to_start_machining.EI6" />
+			<Connection Source="send_spindle_speed_data.CNF" Destination="merge_to_start_machining.EI5" />
+			<Connection Source="send_chip_removal_data.CNF" Destination="merge_to_start_machining.EI4" />
+			<Connection Source="send_spindle_data.CNF" Destination="merge_to_start_machining.EI3" />
+			<Connection Source="not_implemented_merge.EO" Destination="not_implemented_merge_2.EI2" />
+			<Connection Source="data_manager.ID_M3" Destination="send_spindle_data.INIT" />
+			<Connection Source="data_manager.ID_M1" Destination="send_mach_home.INIT" />
+			<Connection Source="data_manager.ID_M6" Destination="send_timer_data.INIT" />
+			<Connection Source="data_manager.ID_M5" Destination="send_spindle_speed_data.INIT" />
+			<Connection Source="data_manager.ID_M4" Destination="send_chip_removal_data.INIT" />
+			<Connection Source="data_manager.ID_M2" Destination="send_tool_change_data.INIT" />
+			<Connection Source="data_manager.ID_2" Destination="send_circle_data.INIT" />
+			<Connection Source="data_manager.CNF" Destination="finish_machining.REQ" />
+			<Connection Source="data_manager.ID_0" Destination="not_implemented_merge.EI1" />
+			<Connection Source="data_manager.ID_1" Destination="send_line_data.INIT" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="data_manager.C16" Destination="send_line_data.C16" />
+			<Connection Source="data_manager.C13" Destination="send_line_data.C13" />
+			<Connection Source="data_manager.C15" Destination="send_line_data.C15" />
+			<Connection Source="data_manager.C11" Destination="send_line_data.C11" />
+			<Connection Source="data_manager.C6" Destination="send_line_data.C6" />
+			<Connection Source="data_manager.C7" Destination="send_line_data.C7" />
+			<Connection Source="data_manager.C4" Destination="send_line_data.C4" />
+			<Connection Source="data_manager.C5" Destination="send_line_data.C5" />
+			<Connection Source="data_manager.C12" Destination="send_line_data.C12" />
+			<Connection Source="data_manager.C14" Destination="send_line_data.C14" />
+			<Connection Source="data_manager.C9" Destination="send_line_data.C9" />
+			<Connection Source="data_manager.C8" Destination="send_line_data.C8" />
+			<Connection Source="data_manager.C1" Destination="send_line_data.C1" />
+			<Connection Source="data_manager.C10" Destination="send_line_data.C10" />
+			<Connection Source="data_manager.C3" Destination="send_line_data.C3" />
+			<Connection Source="data_manager.C2" Destination="send_line_data.C2" />
+			<Connection Source="data_manager.C21" Destination="send_circle_data.C21" />
+			<Connection Source="data_manager.C18" Destination="send_circle_data.C18" />
+			<Connection Source="data_manager.C11" Destination="send_circle_data.C11" />
+			<Connection Source="data_manager.C20" Destination="send_circle_data.C20" />
+			<Connection Source="data_manager.C10" Destination="send_circle_data.C10" />
+			<Connection Source="data_manager.C19" Destination="send_circle_data.C19" />
+			<Connection Source="data_manager.C1" Destination="send_circle_data.C1" />
+			<Connection Source="data_manager.C3" Destination="send_circle_data.C3" />
+			<Connection Source="data_manager.C2" Destination="send_circle_data.C2" />
+			<Connection Source="data_manager.C13" Destination="send_circle_data.C13" />
+			<Connection Source="data_manager.C23" Destination="send_circle_data.C23" />
+			<Connection Source="data_manager.C24" Destination="send_circle_data.C24" />
+			<Connection Source="data_manager.C6" Destination="send_circle_data.C6" />
+			<Connection Source="data_manager.C7" Destination="send_circle_data.C7" />
+			<Connection Source="data_manager.C4" Destination="send_circle_data.C4" />
+			<Connection Source="data_manager.C5" Destination="send_circle_data.C5" />
+			<Connection Source="data_manager.C12" Destination="send_circle_data.C12" />
+			<Connection Source="data_manager.C22" Destination="send_circle_data.C22" />
+			<Connection Source="data_manager.C9" Destination="send_circle_data.C9" />
+			<Connection Source="data_manager.C8" Destination="send_circle_data.C8" />
+			<Connection Source="data_manager.C17" Destination="send_circle_data.C17" />
+			<Connection Source="data_manager.C16" Destination="send_circle_data.C16" />
+			<Connection Source="data_manager.C15" Destination="send_circle_data.C15" />
+			<Connection Source="data_manager.C14" Destination="send_circle_data.C14" />
+			<Connection Source="data_manager.C1" Destination="send_chip_removal_data.C1" />
+			<Connection Source="data_manager.S1" Destination="send_chip_removal_data.S1" />
+			<Connection Source="data_manager.C1" Destination="send_tool_change_data.C1" />
+			<Connection Source="data_manager.S1" Destination="send_tool_change_data.S1" />
+			<Connection Source="data_manager.C1" Destination="send_timer_data.C1" />
+			<Connection Source="data_manager.C2" Destination="send_timer_data.C2" />
+			<Connection Source="data_manager.C1" Destination="send_mach_home.C1" />
+			<Connection Source="data_manager.C1" Destination="send_spindle_data.C1" />
+			<Connection Source="data_manager.S1" Destination="send_spindle_data.S1" />
+			<Connection Source="data_manager.C1" Destination="send_spindle_speed_data.C1" />
+			<Connection Source="data_manager.C2" Destination="send_spindle_speed_data.C2" />
+			<Connection Source="Subl_1_COMM_MACHINE_COMM.RD_1" Destination="data_manager.FILENAME" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

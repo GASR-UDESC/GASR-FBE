@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SET_DEPTH" Comment="Sets the final depth of a hole depending on its conditions" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="Guilherme Jarentchuk" Date="09-01-12" />
+	<CompilerInfo  >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialize execution" >
+				<With Var="round_hole__depth" />
+				<With Var="cutting_depth" />
+				<With Var="overcut_length" />
+				<With Var="bottom_condition" />
+				<With Var="pos" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Confirm execution" >
+				<With Var="depth_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="round_hole__depth" Type="REAL" ArraySize="3" Comment="Coordinates of the plan that contains hole depth" />
+			<VarDeclaration Name="cutting_depth" Type="REAL" InitialValue="0" Comment="Overrides depth value and overcut" />
+			<VarDeclaration Name="overcut_length" Type="REAL" InitialValue="0" Comment="Amount of overcut" />
+			<VarDeclaration Name="bottom_condition" Type="STRING" Comment="Types: &#34;blind&#34; or &#34;through&#34;" />
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="depth_pos" Type="REAL" ArraySize="3" Comment="Depth position" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="1" y="1" >
+			</ECState>
+			<ECState Name="EXE" x="2" y="2" >
+				<ECAction Algorithm="set_depth" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="1" />
+			<ECTransition Source="EXE" Destination="START" Condition="Init" />
+		</ECC>
+		<Algorithm Name="set_depth" >
+			<Lua Text = "
+if ( cutting_depth > 0 ) then
+	depth_pos[ 1 ] = pos[ 1 ]
+	depth_pos[ 2 ] = pos[ 2 ]
+	depth_pos[ 3 ] = pos[ 3 ] - cutting_depth
+elseif( bottom_condition == 'BLIND_BOTTOM_CONDITION' ) then
+	depth_pos[ 1 ] = pos[ 1 ]
+	depth_pos[ 2 ] = pos[ 2 ]
+	depth_pos[ 3 ] = pos[ 3 ] + round_hole__depth[ 3 ]
+elseif( bottom_condition == 'THROUGH_BOTTOM_CONDITION' ) then
+	depth_pos[ 1 ] = pos[ 1 ]
+	depth_pos[ 2 ] = pos[ 2 ]
+	depth_pos[ 3 ] = pos[ 3 ] + round_hole__depth[ 3 ] - overcut_length
+end
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

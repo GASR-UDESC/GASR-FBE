@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="GET_1D_COORD" Comment="Set coordinates for 1D movement destination" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="23-03-12" />
+	<CompilerInfo  >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialization Request" >
+				<With Var="pos" />
+				<With Var="distance" />
+				<With Var="move_in_axis" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Execution confirmed" >
+				<With Var="out_pos" />
+				<With Var="destination" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="distance" Type="REAL" ArraySize="3" Comment="Distance" />
+			<VarDeclaration Name="move_in_axis" Type="STRING" Comment="x, y or z axis?" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="destination" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial state" dx="100" dy="100" >
+			</ECState>
+			<ECState Name="INIT" Comment="Algorithm execution" dx="200" dy="100" >
+				<ECAction Algorithm="set_point" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="Init" x="50" y="50" />
+			<ECTransition Source="INIT" Destination="START" Condition="1" x="40" y="40" />
+		</ECC>
+		<Algorithm Name="set_point" >
+			<Lua Text = "
+out_pos[1]     = pos[1]
+out_pos[2]     = pos[2]
+out_pos[3]     = pos[3]
+destination[1] = pos[1]
+destination[2] = pos[2]
+destination[3] = pos[3]
+if( move_in_axis == 'x' ) then
+	destination[1] = distance[1]
+elseif( move_in_axis == 'y' ) then
+	destination[2] = distance[2]
+elseif( move_in_axis == 'z' ) then
+	destination[3] = distance[3]
+end
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

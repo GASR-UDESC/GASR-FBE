@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE RSystem SYSTEM "FBSystem.dtd">
+<System Name="System" Comment="FRANK-II is the best machine" >
+	<Identification Standard="61499-1" />
+	<VersionInfo Date="10/01/2012" Author="LAPAS" Organization="UDESC" Version="7.0" />
+	<Device Name="RTE_Lua" Type="PC" x="386" y ="213" >
+		<Resource Name="STEP-NC_DATA1" Type="STEP-NC_DATA" x="52" y ="60" >
+		</Resource>
+		<Resource Name="SETUP_FRANK" Type="SETUP" x="382" y ="63" >
+			<Parameter Name="Subl_8_SETUP.ID" Value="[SETUP_FRANK,Subl_8_SETUP]" />
+			<Parameter Name="finish_setup.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_setup.SD_1" Value="SETUP_FRANK" />
+		</Resource>
+		<Resource Name="FINISH_PLANAR_PLANAR_FACE" Type="BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE_RES" x="756" y ="71" >
+			<Parameter Name="Subl_132_BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE.ID" Value="[FINISH_PLANAR_PLANAR_FACE,Subl_132_BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE]" />
+			<Parameter Name="finish_milling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_milling.SD_1" Value="FINISH_PLANAR_PLANAR_FACE" />
+		</Resource>
+		<Resource Name="ROUGHING SLOT1_ROUGHING SLOT1" Type="BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE_RES" x="1115" y ="74" >
+			<Parameter Name="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.ID" Value="[ROUGHING SLOT1_ROUGHING SLOT1,Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE]" />
+			<Parameter Name="finish_milling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_milling.SD_1" Value="ROUGHING SLOT1_ROUGHING SLOT1" />
+		</Resource>
+		<Resource Name="ROUGHING SLOT2_ROUGHING SLOT2" Type="BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE_RES" x="50" y ="350" >
+			<Parameter Name="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.ID" Value="[ROUGHING SLOT2_ROUGHING SLOT2,Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE]" />
+			<Parameter Name="finish_milling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_milling.SD_1" Value="ROUGHING SLOT2_ROUGHING SLOT2" />
+		</Resource>
+		<Resource Name="ROUGHING SLOT3_ROUGHING SLOT3" Type="BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE_RES" x="400" y ="350" >
+			<Parameter Name="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.ID" Value="[ROUGHING SLOT3_ROUGHING SLOT3,Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE]" />
+			<Parameter Name="finish_milling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_milling.SD_1" Value="ROUGHING SLOT3_ROUGHING SLOT3" />
+		</Resource>
+		<Resource Name="ROUGHING SLOT4_ROUGHING SLOT4" Type="BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE_RES" x="750" y ="350" >
+			<Parameter Name="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.ID" Value="[ROUGHING SLOT4_ROUGHING SLOT4,Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE]" />
+			<Parameter Name="finish_milling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_milling.SD_1" Value="ROUGHING SLOT4_ROUGHING SLOT4" />
+		</Resource>
+		<Resource Name="SLIDE_PLANAR_FACE2" Type="BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE_RES" x="1100" y ="350" >
+			<Parameter Name="Subl_132_BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE.ID" Value="[SLIDE_PLANAR_FACE2,Subl_132_BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE]" />
+			<Parameter Name="finish_milling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_milling.SD_1" Value="SLIDE_PLANAR_FACE2" />
+		</Resource>
+		<Resource Name="ROUGHING SLOT4_ROUGHING SLOT5" Type="BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE_RES" x="50" y ="650" >
+			<Parameter Name="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.ID" Value="[ROUGHING SLOT4_ROUGHING SLOT5,Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE]" />
+			<Parameter Name="finish_milling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_milling.SD_1" Value="ROUGHING SLOT4_ROUGHING SLOT5" />
+		</Resource>
+		<Resource Name="DRILL HOLE_DRILL HOLE1" Type="DRILLING-ROUND_HOLE_RES" x="400" y ="650" >
+			<Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE_DRILL HOLE1,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+			<Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE_DRILL HOLE1" />
+		</Resource>
+		<Resource Name="DRILL HOLE_DRILL HOLE2" Type="DRILLING-ROUND_HOLE_RES" x="750" y ="650" >
+			<Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE_DRILL HOLE2,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+			<Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE_DRILL HOLE2" />
+		</Resource>
+		<Resource Name="DRILL HOLE_DRILL HOLE3" Type="DRILLING-ROUND_HOLE_RES" x="1100" y ="650" >
+			<Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE_DRILL HOLE3,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+			<Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+			<Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE_DRILL HOLE3" />
+		</Resource>
+		<Resource Name="COMMUNICATION_FRANK" Type="COMMUNICATION" x="50" y ="900" >
+			<Parameter Name="Subl_1_COMM_MACHINE_COMM.ID" Value="[COMMUNICATION_FRANK,Subl_1_COMM_MACHINE_COMM]" />
+			<Parameter Name="finish_machining.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+		</Resource>
+	</Device>
+</System>

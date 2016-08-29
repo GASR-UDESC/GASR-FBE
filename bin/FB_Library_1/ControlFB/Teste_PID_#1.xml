@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="Teste_PID_#1" Comment= "testando PID" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="Gabriel" Date="27_01_2014" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="STARTER" x="57.41" y="39.6475" >
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="1456.7475" y="368.3275" >
+			<Parameter Name="dt" Value="0.1" />
+		</FB>
+		<FB Name="step" Type="STEP_SOURCE" x="375.4675" y="32.4825" >
+			<Parameter Name="delay" Value="2" />
+			<Parameter Name="K" Value="2" />
+			<Parameter Name="dt" Value="0.1" />
+			<Parameter Name="t_end" Value="50" />
+		</FB>
+		<FB Name="K" Type="GAIN" x="1078.25" y="399.0825" >
+			<Parameter Name="K" Value="1" />
+		</FB>
+		<FB Name="sub" Type="SUBTRACTOR" x="754.4975" y="56.335" >
+		</FB>
+		<FB Name="scope2" Type="SCOPE" x="108.35" y="231.21" >
+			<Parameter Name="dt" Value="0.1" />
+		</FB>
+		<FB Name="control" Type="PID" x="1005" y="55" >
+			<Parameter Name="dt" Value="0.1" />
+			<Parameter Name="Kp" Value="3" />
+			<Parameter Name="Kd" Value="0.1" />
+			<Parameter Name="Ki" Value="1.2" />
+		</FB>
+		<FB Name="plant" Type="FIRST_ORDER_SYSTEM" x="1327" y="41" >
+			<Parameter Name="dt" Value="0.1" />
+			<Parameter Name="x1_0" Value="0" />
+			<Parameter Name="delay" Value="0" />
+			<Parameter Name="num" Value="[0,1]" />
+			<Parameter Name="den" Value="[1,1]" />
+		</FB>
+		<EventConnections>
+			<Connection Source="sub.Finish" Destination="control.Init" />
+			<Connection Source="scope2.Cnf" Destination="step.Init" />
+			<Connection Source="plant.Finish" Destination="scope.Init" />
+			<Connection Source="control.Finish" Destination="plant.Init" />
+			<Connection Source="scope.Cnf" Destination="K.Init" />
+			<Connection Source="K.Cnf" Destination="scope2.Init" />
+			<Connection Source="step.Finish" Destination="sub.Init" />
+			<Connection Source="start.start" Destination="step.Start" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="scope2.DataOut" Destination="sub.X2" />
+			<Connection Source="step.U" Destination="sub.X1" />
+			<Connection Source="K.Output" Destination="scope2.DataIn" />
+			<Connection Source="control.Xout" Destination="plant.u" />
+			<Connection Source="sub.U" Destination="control.Xin" />
+			<Connection Source="plant.x1" Destination="scope.DataIn" />
+			<Connection Source="scope.DataOut" Destination="K.Input" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

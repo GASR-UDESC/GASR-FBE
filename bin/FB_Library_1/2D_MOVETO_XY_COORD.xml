@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="2D_MOVETO_XY_COORD" Comment= "Move to location keeping 'z' constant" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="26-03-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialization Request" >
+				<With Var="pos" />
+				<With Var="destination" />
+				<With Var="speed" />
+			</Event>
+			<Event Name="Req" Comment="Requisition to finish" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Execution confirmed" >
+			</Event>
+			<Event Name="Send" Comment="Send data to output" >
+				<With Var="eq_id" />
+				<With Var="coef_a" />
+				<With Var="coef_b" />
+				<With Var="t0" />
+				<With Var="t" />
+				<With Var="final_pos" />
+				<With Var="out_speed" />
+				<With Var="v_coef" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="destination" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="speed" Type="REAL" InitialValue="0" Comment="Speed in m/s" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="eq_id" Type="INT" Comment="Curve equation type id" />
+			<VarDeclaration Name="coef_a" Type="REAL" ArraySize="3" Comment="Line angular coeficients" />
+			<VarDeclaration Name="coef_b" Type="REAL" ArraySize="3" Comment="Line linear coeficients" />
+			<VarDeclaration Name="t0" Type="REAL" Comment="Initial parameter" />
+			<VarDeclaration Name="t" Type="REAL" Comment="Final parameter" />
+			<VarDeclaration Name="final_pos" Type="REAL" ArraySize="3" Comment="Final position" />
+			<VarDeclaration Name="out_speed" Type="REAL" Comment="Speed in m/s" />
+			<VarDeclaration Name="v_coef" Type="REAL" ArraySize="3" Comment="Velocity coeficients" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="set_xy" Type="GET_XY_COORD" x="81" y="70.957238544858" />
+		<FB Name="moveto_xy" Type="LINEAR_MOVE" x="478.25466223106" y="71.017881246149" />
+		<EventConnections>
+			<Connection Source="moveto_xy.Send" Destination="Send" />
+			<Connection Source="moveto_xy.Cnf" Destination="Cnf" />
+			<Connection Source="Init" Destination="set_xy.Init" />
+			<Connection Source="Req" Destination="moveto_xy.Req" />
+			<Connection Source="set_xy.Cnf" Destination="moveto_xy.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="destination" Destination="set_xy.point" />
+			<Connection Source="pos" Destination="set_xy.pos" />
+			<Connection Source="moveto_xy.coef_a" Destination="coef_a" />
+			<Connection Source="moveto_xy.coef_b" Destination="coef_b" />
+			<Connection Source="moveto_xy.t0" Destination="t0" />
+			<Connection Source="moveto_xy.v_coef" Destination="v_coef" />
+			<Connection Source="moveto_xy.eq_id" Destination="eq_id" />
+			<Connection Source="moveto_xy.final_pos" Destination="final_pos" />
+			<Connection Source="moveto_xy.t" Destination="t" />
+			<Connection Source="moveto_xy.out_speed" Destination="out_speed" />
+			<Connection Source="speed" Destination="moveto_xy.speed" />
+			<Connection Source="set_xy.destination" Destination="moveto_xy.destination" />
+			<Connection Source="set_xy.out_pos" Destination="moveto_xy.pos" />
+		</DataConnections>
+	</FBNetwork>
+</FBType>

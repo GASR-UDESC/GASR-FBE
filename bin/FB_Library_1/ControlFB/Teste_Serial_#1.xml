@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="Teste_Serial_#1" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="gabriel" Date="2013_12_09" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="STARTER" x="3" y="139" >
+		</FB>
+		<FB Name="plant" Type="SerialFB" x="376" y="85" >
+			<Parameter Name="port_name" Value="/dev/ttyACM0" />
+			<Parameter Name="T" Value="0.1" />
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="734" y="145" >
+			<Parameter Name="dt" Value="0.1" />
+		</FB>
+		<FB Name="step" Type="STEP_SOURCE" x="134" y="290" >
+			<Parameter Name="dt" Value="0.1" />
+			<Parameter Name="delay" Value="2" />
+			<Parameter Name="t_end" Value="12" />
+			<Parameter Name="K" Value="3" />
+		</FB>
+		<EventConnections>
+			<Connection Source="scope.Cnf" Destination="step.Init" />
+			<Connection Source="plant.Cnf" Destination="scope.Init" />
+			<Connection Source="step.Finish" Destination="plant.Init" />
+			<Connection Source="start.start" Destination="step.Start" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="plant.output" Destination="scope.DataIn" />
+			<Connection Source="step.U" Destination="plant.input" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

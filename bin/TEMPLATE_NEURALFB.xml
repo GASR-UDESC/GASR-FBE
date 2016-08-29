@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="TEMPLATE_NEURALFB" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="11-01-12" />
+	<CompilerInfo Neural="true">
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+			</Event>
+			<Event Name="Init2" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Out" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="EXE" x="520" y="200"  >
+				<ECAction Output="Out" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" />
+		</ECC>
+	</BasicFB>
+</FBType>

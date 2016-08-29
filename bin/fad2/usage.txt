@@ -1,0 +1,37 @@
+Usage:
+    fad <commands> [optional]
+    
+    <commands>:
+        --system <filename.xml> 
+            To compile a entire system, including all blocks.
+        --clear <dev>    
+            Will clear all in the device <dev>. 
+        --load <commands.cmd>      
+            Execute the command list, provided by 
+            the file <commands.cmd>, over the system.
+        
+        FUNCTION BLOCK MANAGEMENT
+        --new_instance     <dev> <res> <iname> <itype>
+            Create a instance called <iname>, of type <itype>, in the 
+            device <dev> and resource <res>.
+        --del_instance <dev> <res> <iname>
+            Delete the instance <iname> located at resource <res> 
+            in device <dev>.
+        --new_var_conn <dev> <res> <from_fb> <from_var> <to_fb> <to_var> 
+        [-event]
+            Create connection between two blocks. If the connection is 
+            an event, the option -event must be included.
+        --new_cst_conn <dev> <res> <from_value> <to_fb> <to_var>
+            Create connection with a constant.
+        --del_conn <dev> <res> <to_fb> <to_var>
+            Delete a connection.
+        
+        FUNCTION BLOCK EXECUTION
+        --set_state <dev> <res> <iname> <state>
+            Change the state of a block. 
+            <state> = RUN or STOP
+        --get <dev> <res> <iname>    
+            Get the values of the variables from the instance <iname>, 
+            located in de device <dev> and resource <res>.    
+            
+        

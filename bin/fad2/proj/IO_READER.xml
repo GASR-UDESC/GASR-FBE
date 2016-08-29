@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="IO_READER" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="QI" />
+				<With Var="PARAMS" />
+			</Event>
+			<Event Name="RSP" >
+				<With Var="SD_1" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INIT0" >
+			</Event>
+			<Event Name="IND" >
+				<With Var="RD_1" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="QI" Type="BOOL" ArraySize="" />
+			<VarDeclaration Name="PARAMS" Type="ANY" ArraySize="" />
+			<VarDeclaration Name="SD_1" Type="INT" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="QO" Type="BOOL" ArraySize="" />
+			<VarDeclaration Name="STATUS" Type="BOOL" ArraySize="" />
+			<VarDeclaration Name="RD_1" Type="INT" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="216" y="252"  >
+			</ECState>
+			<ECState Name="READ" x="396" y="250"  >
+				<ECAction Algorithm="ALG_READ" Output="IND" />
+			</ECState>
+			<ECState Name="INIT" x="217" y="355"  >
+				<ECAction Algorithm="ALG_INIT" Output="INIT0" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="INIT" />
+			<ECTransition Source="INIT" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="READ" Condition="RSP" />
+			<ECTransition Source="READ" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="ALG_INIT"  >
+			<Lua Text="" />
+		</Algorithm>
+		<Algorithm Name="ALG_READ"  >
+			<Lua Text="RD_1 := GET_REG(SD_1);" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

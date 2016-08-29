@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SECOND_ORDER_SYSTEM" Comment= "2nd ordem system y'' + K2y' + K1y = K*Xin " >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="u" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Finish" >
+				<With Var="x1" />
+				<With Var="x2" />
+				<With Var="y" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="num" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="den" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="delay" Type="REAL" ArraySize="" InitialValue="0"/>
+			<VarDeclaration Name="dt" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="u" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="x1_0" Type="REAL" ArraySize="" Comment="condicao inicial"/>
+			<VarDeclaration Name="x2_0" Type="REAL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="x1" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="x2" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="y" Type="REAL" ArraySize="" />
+		</OutputVars>
+		<InternalVars>
+			<VarDeclaration Name="R11" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R12" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R21" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R22" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R31" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R32" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R41" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R42" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="x1aux" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="x2aux" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="input_buffer" Type="REAL" ArraySize="" />
+		</InternalVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="Exe" x="300" y="300"  >
+				<ECAction Algorithm="EquationStep" Output="Finish" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECTransition Source="Exe" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="Exe" Condition="Init" />
+		</ECC>
+		<Algorithm Name="EquationStep"  Comment="den[1] = b0, den[2] = b1">
+			<Lua Text=" 
+						if type(input_buffer) ~= 'table' then
+							input_buffer = {}
+							for i = 1, math.ceil(delay/dt) +2 do
+								input_buffer[#input_buffer +1] = 0
+							end
+						end
+						input_buffer[#input_buffer] = u
+						u = input_buffer[1]
+						for i = 1, #input_buffer-1 do
+							input_buffer[i] = input_buffer[i+1]
+						end
+						local beta1 = (num[2] - den[2]*num[1])
+						local beta2 = num[3] - den[2]*beta1 - num[1]*den[3];
+						
+						local function f1(X1, X2, U)
+							return X2 + beta1*U
+						end
+						
+						local function f2(X1, X2, U)
+							return (-den[3]*X1 - den[2]*X2 + beta2*U)
+						end
+						
+						R11 = dt*f1(x1_0, x2_0, u);
+						R12 = dt*f2(x1_0, x2_0, u);
+						
+						x1aux = x1_0 + 0.5*R11
+						x2aux = x2_0 + 0.5*R12
+						
+						R21 = dt*f1(x1aux, x2aux, u);
+						R22 = dt*f2(x1aux, x2aux, u);
+						
+						x1aux = x1aux + 0.5*R21
+						x2aux = x2aux + 0.5*R22
+						
+						R31 = dt*f1(x1aux, x2aux, u);
+						R32 = dt*f2(x1aux, x2aux, u);
+						
+						x1aux = x1aux + 0.5*R31
+						x2aux = x2aux + 0.5*R32
+						
+						R41 = dt*f1(x1aux, x2aux, u);
+						R42 = dt*f2(x1aux, x2aux, u);
+						
+						
+						x1 = x1_0 + (1/6)*(R11 + 2*R21 + 2*R31 + R41)
+						x2 = x2_0 + (1/6)*(R12 + 2*R22 + 2*R32 + R42)
+						
+						
+						y  = x1 + num[1]*u
+						
+						x1_0 = x1
+						x2_0 = x2
+" 
+/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

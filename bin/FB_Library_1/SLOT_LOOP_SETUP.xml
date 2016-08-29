@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SLOT_LOOP_SETUP" Comment="Setups data for main slot loop" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="25-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="pos" />
+				<With Var="feature_placement" />
+				<With Var="feature_z_axis" />
+				<With Var="feature_ref_axis" />
+				<With Var="its_machining_strategy" />
+				<With Var="slot_width" />
+				<With Var="slot_depth" />
+				<With Var="allowance_side" />
+				<With Var="allowance_bottom" />
+				<With Var="travel_path_placement" />
+				<With Var="travel_path_z_axis" />
+				<With Var="travel_path_ref_axis" />
+				<With Var="travel_path_type" />
+				<With Var="travel_path_distance" />
+				<With Var="travel_path_direction" />
+				<With Var="travel_path_radius" />
+				<With Var="travel_path_sweep_angle" />
+				<With Var="end_condition" />
+				<With Var="origin_end_vars" />
+				<With Var="end_end_vars" />
+				<With Var="tool_diameter" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="real_width" />
+				<With Var="real_depth" />
+				<With Var="offsets" />
+				<With Var="center" />
+				<With Var="origin_x" />
+				<With Var="origin_y" />
+				<With Var="origin_z" />
+				<With Var="end_x" />
+				<With Var="end_y" />
+				<With Var="end_z" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="feature_placement" Type="REAL" ArraySize="3" Comment="Slot placement" />
+			<VarDeclaration Name="feature_z_axis" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="feature_ref_axis" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="its_machining_strategy" Type="STRING" />
+			<VarDeclaration Name="slot_width" Type="REAL" />
+			<VarDeclaration Name="slot_depth" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="allowance_side" Type="REAL" />
+			<VarDeclaration Name="allowance_bottom" Type="REAL" />
+			<VarDeclaration Name="travel_path_placement" Type="REAL" ArraySize="3" InitialValue="[0,0,0]" />
+			<VarDeclaration Name="travel_path_z_axis" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="travel_path_ref_axis" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="travel_path_type" Type="STRING" />
+			<VarDeclaration Name="travel_path_distance" Type="REAL" />
+			<VarDeclaration Name="travel_path_direction" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="travel_path_radius" Type="REAL" />
+			<VarDeclaration Name="travel_path_sweep_angle" Type="REAL" />
+			<VarDeclaration Name="end_condition" Type="STRING" ArraySize="2" />
+			<VarDeclaration Name="origin_end_vars" Type="REAL" ArraySize="2" />
+			<VarDeclaration Name="end_end_vars" Type="REAL" ArraySize="2" />
+			<VarDeclaration Name="tool_diameter" Type="REAL" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="real_width" Type="REAL" />
+			<VarDeclaration Name="real_depth" Type="REAL" />
+			<VarDeclaration Name="offsets" Type="REAL" ArraySize="20" />
+			<VarDeclaration Name="center" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="origin_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="origin_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="origin_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_z" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="eval_slot_width" Type="ADD_WITH_SCALAR_FACTOR" x="1" y="1" >
+			<Parameter Name="f2" Value="-2" />
+			<Parameter Name="f1" Value="1" />
+		</FB>
+		<FB Name="set_feature_ref_axis" Type="PRIOR_IF_NOT_000_2" x="1" y="1" >
+			<Parameter Name="V2" Value="[1,0,0]" />
+		</FB>
+		<FB Name="eval_feature_unit_ref" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_feature_z_axis" Type="PRIOR_IF_NOT_000_2" x="1" y="1" >
+			<Parameter Name="V2" Value="[0,0,1]" />
+		</FB>
+		<FB Name="eval_feature_unit_z" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="eval_feature_unit_y" Type="VECTOR_CROSS_AND_NORMALIZE" x="1" y="1" />
+		<FB Name="set_travel_path_ref_axis" Type="PRIOR_IF_NOT_000_2" x="1" y="1" />
+		<FB Name="eval_travel_path_ref_axis" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="eval_travel_path_unit_y" Type="VECTOR_CROSS_AND_NORMALIZE" x="1" y="1" />
+		<FB Name="origin_end_vectors_and_center" Type="SIMPLE_SLOT_ORIGIN_END_VECTORS_AND_CENTER" x="1" y="1" />
+		<FB Name="get_slot_depth" Type="GET_TABLE_VALUE" x="1" y="1" >
+			<Parameter Name="position" Value="3" />
+        </FB>
+		<FB Name="eval_slot_depth" Type="ADD_WITH_SCALAR_FACTOR" x="1" y="1" >
+			<Parameter Name="f2" Value="1" />
+			<Parameter Name="f1" Value="1" />
+		</FB>
+		<FB Name="set_traj_offset" Type="SLOT_SET_TRAJ_OFFSET" x="1" y="1" />
+		<EventConnections>
+			<Connection Source="Init" Destination="eval_slot_width.Init" dx="1" dy="1" />
+			<Connection Source="eval_slot_width.Cnf" Destination="set_feature_ref_axis.Init" dx="1" dy="1" />
+			<Connection Source="set_feature_ref_axis.Cnf" Destination="eval_feature_unit_ref.Init" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_ref.Cnf" Destination="set_feature_z_axis.Init" dx="1" dy="1" />
+			<Connection Source="set_feature_z_axis.Cnf" Destination="eval_feature_unit_z.Init" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_z.Cnf" Destination="eval_feature_unit_y.Init" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_y.Cnf" Destination="set_travel_path_ref_axis.Init" dx="1" dy="1" />
+			<Connection Source="set_travel_path_ref_axis.Cnf" Destination="eval_travel_path_ref_axis.Init" dx="1" dy="1" />
+			<Connection Source="eval_travel_path_ref_axis.Cnf" Destination="eval_travel_path_unit_y.Init" dx="1" dy="1" />
+			<Connection Source="eval_travel_path_unit_y.Cnf" Destination="origin_end_vectors_and_center.Init" dx="1" dy="1" />
+			<Connection Source="origin_end_vectors_and_center.Cnf" Destination="get_slot_depth.Init" dx="1" dy="1" />
+			<Connection Source="get_slot_depth.Cnf" Destination="eval_slot_depth.Init" dx="1" dy="1" />
+			<Connection Source="eval_slot_depth.Cnf" Destination="set_traj_offset.Init" dx="0" dy="0" />
+			<Connection Source="set_traj_offset.Cnf" Destination="Cnf" dx="0" dy="0" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="slot_width" Destination="eval_slot_width.n1" dx="1" dy="1" />
+			<Connection Source="allowance_side" Destination="eval_slot_width.n2" dx="1" dy="1" />
+			<Connection Source="feature_ref_axis" Destination="set_feature_ref_axis.V1" dx="1" dy="1" />
+			<Connection Source="set_feature_ref_axis.VOUT" Destination="eval_feature_unit_ref.v" dx="1" dy="1" />
+			<Connection Source="feature_z_axis" Destination="set_feature_z_axis.V1" dx="1" dy="1" />
+			<Connection Source="set_feature_z_axis.VOUT" Destination="eval_feature_unit_z.v" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_ref.v_unit" Destination="eval_feature_unit_y.V2" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_z.v_unit" Destination="eval_feature_unit_y.V1" dx="1" dy="1" />
+			<Connection Source="travel_path_ref_axis" Destination="set_travel_path_ref_axis.V1" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_ref.v_unit" Destination="set_travel_path_ref_axis.V2" dx="1" dy="1" />
+			<Connection Source="set_travel_path_ref_axis.VOUT" Destination="eval_travel_path_ref_axis.v" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_z.v_unit" Destination="eval_travel_path_unit_y.V1" dx="1" dy="1" />
+			<Connection Source="eval_travel_path_ref_axis.v_unit" Destination="eval_travel_path_unit_y.V2" dx="1" dy="1" />
+			<Connection Source="travel_path_type" Destination="origin_end_vectors_and_center.travel_path" dx="1" dy="1" />
+			<Connection Source="travel_path_placement" Destination="origin_end_vectors_and_center.travel_path_location" dx="1" dy="1" />
+			<Connection Source="eval_travel_path_unit_y.RES" Destination="origin_end_vectors_and_center.travel_path_y" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_z.v_unit" Destination="origin_end_vectors_and_center.travel_path_z" dx="1" dy="1" />
+			<Connection Source="pos" Destination="origin_end_vectors_and_center.feature_placement" dx="1" dy="1" />
+			<Connection Source="eval_travel_path_ref_axis.v_unit" Destination="origin_end_vectors_and_center.travel_path_ref" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_z.v_unit" Destination="origin_end_vectors_and_center.feature_z" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_y.RES" Destination="origin_end_vectors_and_center.feature_y" dx="1" dy="1" />
+			<Connection Source="eval_feature_unit_ref.v_unit" Destination="origin_end_vectors_and_center.feature_x" dx="1" dy="1" />
+			<Connection Source="travel_path_sweep_angle" Destination="origin_end_vectors_and_center.travel_path_angle" dx="1" dy="1" />
+			<Connection Source="travel_path_radius" Destination="origin_end_vectors_and_center.radius" dx="1" dy="1" />
+			<Connection Source="slot_depth" Destination="get_slot_depth.table" dx="1" dy="1" />
+			<Connection Source="get_slot_depth.value" Destination="eval_slot_depth.n1" dx="1" dy="1" />
+			<Connection Source="allowance_bottom" Destination="eval_slot_depth.n2" dx="1" dy="1" />
+			<Connection Source="eval_slot_width.result" Destination="set_traj_offset.slot_width" dx="0" dy="0" />
+			<Connection Source="tool_diameter" Destination="set_traj_offset.tool_diameter" dx="0" dy="0" />
+			<Connection Source="eval_slot_width.result" Destination="real_width" dx="0" dy="0" />
+			<Connection Source="set_traj_offset.offset_points" Destination="offsets" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.center" Destination="center" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.origin_ref" Destination="origin_x" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.origin_y" Destination="origin_y" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.origin_z" Destination="origin_z" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.end_ref" Destination="end_x" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.end_y" Destination="end_y" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.end_z" Destination="end_z" dx="0" dy="0" />
+			<Connection Source="travel_path_type" Destination="set_traj_offset.path_type" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.origin_ref" Destination="set_traj_offset.origin_x" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.origin_y" Destination="set_traj_offset.origin_y" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.origin_z" Destination="set_traj_offset.origin_z" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.end_ref" Destination="set_traj_offset.end_x" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.end_y" Destination="set_traj_offset.end_y" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.end_z" Destination="set_traj_offset.end_z" dx="0" dy="0" />
+			<Connection Source="travel_path_distance" Destination="set_traj_offset.distance" dx="0" dy="0" />
+			<Connection Source="pos" Destination="set_traj_offset.pos" dx="0" dy="0" />
+			<Connection Source="travel_path_sweep_angle" Destination="set_traj_offset.angle" dx="0" dy="0" />
+			<Connection Source="travel_path_radius" Destination="set_traj_offset.radius" dx="0" dy="0" />
+			<Connection Source="origin_end_vectors_and_center.center" Destination="set_traj_offset.center" dx="0" dy="0" />
+			<Connection Source="eval_slot_depth.result" Destination="real_depth" dx="0" dy="0" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

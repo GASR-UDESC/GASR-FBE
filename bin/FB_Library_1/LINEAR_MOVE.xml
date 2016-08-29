@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="LINEAR_MOVE" Comment= "Linear movement" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="Guilherme Jarentchuk" Date="23-12-11" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialization Request" >
+				<With Var="pos" />
+				<With Var="destination" />
+				<With Var="speed" />
+			</Event>
+			<Event Name="Req" Comment="Requisition to finish" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Execution confirmed" >
+			</Event>
+			<Event Name="Send" Comment="Send data to output" >
+				<With Var="eq_id" />
+				<With Var="coef_a" />
+				<With Var="coef_b" />
+				<With Var="t0" />
+				<With Var="t" />
+				<With Var="final_pos" />
+				<With Var="out_speed" />
+				<With Var="v_coef" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" InitialValue="[0,0,0]" Comment="Machine position" />
+			<VarDeclaration Name="destination" Type="REAL" ArraySize="3" Comment="Destination point" />
+			<VarDeclaration Name="speed" Type="REAL" Comment="Speed in m/s" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="eq_id" Type="INT" Comment="Curve equation type id" />
+			<VarDeclaration Name="coef_a" Type="REAL" ArraySize="3" Comment="Line angular coefficients" />
+			<VarDeclaration Name="coef_b" Type="REAL" ArraySize="3" Comment="Line linear coefficients" />
+			<VarDeclaration Name="t0" Type="REAL" Comment="Initial parameter" />
+			<VarDeclaration Name="t" Type="REAL" Comment="Final parameter" />
+			<VarDeclaration Name="final_pos" Type="REAL" ArraySize="3" Comment="Final position" />
+			<VarDeclaration Name="out_speed" Type="REAL" Comment="Speed in m/s" />
+			<VarDeclaration Name="v_coef" Type="REAL" ArraySize="3" Comment="Velocity coefficients" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="502" y="185"  >
+			</ECState>
+			<ECState Name="REQ" x="680" y="187"  >
+				<ECAction Algorithm="" Output="Cnf" />
+			</ECState>
+			<ECState Name="INIT" x="330" y="202"  >
+				<ECAction Algorithm="line_equation" Output="Send" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="Init" />
+			<ECTransition Source="START" Destination="REQ" Condition="Req" />
+			<ECTransition Source="REQ" Destination="START" Condition="1" />
+			<ECTransition Source="INIT" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="line_equation"  >
+			<Lua Text=" eq_id = 1 coef_a[1] = (destination[1] - pos[1]) coef_a[2] = (destination[2] - pos[2]) coef_a[3] = (destination[3] - pos[3]) coef_b[1] = pos[1] coef_b[2] = pos[2] coef_b[3] = pos[3] t0 = 0 t = 1 final_pos[1] = destination[1] final_pos[2] = destination[2] final_pos[3] = destination[3] out_speed = speed speed_mod = (coef_a[1]^2 + coef_a[2]^2 + coef_a[3]^2)^(0.5) v_coef[1] = coef_a[1]/speed_mod v_coef[2] = coef_a[2]/speed_mod v_coef[3] = coef_a[3]/speed_mod    " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

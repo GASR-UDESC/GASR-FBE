@@ -1,0 +1,1 @@
+plot 'plot_file' using 1:2 with lines

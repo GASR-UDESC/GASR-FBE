@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="FILE_WRITER_7_LINEAR_MOVE" Comment="Writes equation coeficients to a file (7 coef) for LINEAR_MOVE block" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="23-03-12" />
+	<CompilerInfo BaseFile="File_Writer.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="REQ" Comment="Request file storage" >
+				<With Var="P0" />
+				<With Var="P1" />
+				<With Var="P2" />
+				<With Var="P3" />
+				<With Var="P4" />
+				<With Var="P5" />
+				<With Var="P6" />
+				<With Var="P7" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="RSP" Comment="Finished operation" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="P0" Type="INT" Comment="Process/equation id" />
+			<VarDeclaration Name="P1" Type="REAL" ArraySize="3" Comment="Coeficient 1" />
+			<VarDeclaration Name="P2" Type="REAL" ArraySize="3" Comment="Coeficient 2" />
+			<VarDeclaration Name="P3" Type="REAL" Comment="Coeficient 3" />
+			<VarDeclaration Name="P4" Type="REAL" Comment="Coeficient 4" />
+			<VarDeclaration Name="P5" Type="REAL" ArraySize="3" Comment="Coeficient 5" />
+			<VarDeclaration Name="P6" Type="REAL" Comment="Coeficient 6" />
+			<VarDeclaration Name="P7" Type="REAL" ArraySize="3" Comment="Coeficient 7" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="MACHINE" LeftInterface="FILE_WRITER_7" Comment="Coeficient file storage service" >
+		<ServiceSequence Name="normal_establishment" >
+			<ServiceTransaction >
+				<InputPrimitive Interface="FILE_WRITER_7" Event="REQ" Parameters="P0,P1,P2,P3,P4,P5,P6,P7" />
+				<OutputPrimitive Interface="MACHINE" Event="write-file" />
+			</ServiceTransaction>
+			<ServiceTransaction >
+				<InputPrimitive Interface="MACHINE" Event="response" />
+				<OutputPrimitive Interface="FILE_WRITER_7" Event="RSP" />
+			</ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

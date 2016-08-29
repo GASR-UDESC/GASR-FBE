@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="ORDER_LINEAR_MOVE" Comment="Linear movement with FILE_WRITER inside" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="10-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="pos" />
+				<With Var="destination" />
+				<With Var="speed" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="out_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="destination" Type="REAL" ArraySize="3" Comment="Destination point" />
+			<VarDeclaration Name="speed" Type="REAL" Comment="Speed in m/s" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="linear_move" Type="LINEAR_MOVE" x="1" y="1" />
+		<FB Name="order_linear_move" Type="FILE_WRITER_7_LINEAR_MOVE" x="1" y="1" />
+		<EventConnections>
+			<Connection Source="Init" Destination="linear_move.Init" dx="0" dy="0" />
+			<Connection Source="linear_move.Cnf" Destination="Cnf" dx="0" dy="0" />
+			<Connection Source="linear_move.Send" Destination="order_linear_move.REQ" dx="0" dy="0" />
+			<Connection Source="order_linear_move.RSP" Destination="linear_move.Req" dx="0" dy="0" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="pos" Destination="linear_move.pos" dx="0" dy="0" />
+			<Connection Source="destination" Destination="linear_move.destination" dx="0" dy="0" />
+			<Connection Source="speed" Destination="linear_move.speed" dx="0" dy="0" />
+			<Connection Source="linear_move.final_pos" Destination="out_pos" dx="0" dy="0" />
+			<Connection Source="linear_move.eq_id" Destination="order_linear_move.P0" dx="0" dy="0" />
+			<Connection Source="linear_move.coef_a" Destination="order_linear_move.P1" dx="0" dy="0" />
+			<Connection Source="linear_move.coef_b" Destination="order_linear_move.P2" dx="0" dy="0" />
+			<Connection Source="linear_move.t" Destination="order_linear_move.P3" dx="0" dy="0" />
+			<Connection Source="linear_move.t0" Destination="order_linear_move.P4" dx="0" dy="0" />
+			<Connection Source="linear_move.final_pos" Destination="order_linear_move.P5" dx="0" dy="0" />
+			<Connection Source="linear_move.out_speed" Destination="order_linear_move.P6" dx="0" dy="0" />
+			<Connection Source="linear_move.v_coef" Destination="order_linear_move.P7" dx="0" dy="0" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

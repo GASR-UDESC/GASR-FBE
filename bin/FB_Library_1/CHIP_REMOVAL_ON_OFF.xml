@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="CHIP_REMOVAL_ON_OFF" Comment="Activates chip removal" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="Guilherme Jarentchuk" Date="09-01-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialize execution" >
+				<With Var="action" />
+			</Event>
+			<Event Name="Req" Comment="Request to finish" />
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Confirm execution" />
+			<Event Name="call" Comment="Call execution device" >
+				<With Var="state" />
+				<With Var="process_id" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="action" Type="STRING" Comment="Can be only &#34;on&#34; or &#34;off&#34;" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="process_id" Type="INT" />
+			<VarDeclaration Name="state" Type="STRING" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="FINISH" x="0" y="0" >
+				<ECAction Output="Cnf" />
+			</ECState>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="switch" Output="call" />
+			</ECState>
+			<ECTransition Source="FINISH" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+			<ECTransition Source="START" Destination="FINISH" Condition="Req" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="switch" >
+			<Lua Text = "
+ if( action == &#34;on&#34; ) or ( action == &#34;true&#34; ) then
+    state = &#34;on&#34;
+elseif( action == &#34;off&#34; ) or ( action == &#34;false&#34; )  then
+    state = &#34;off&#34;
+end
+process_id = -4
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

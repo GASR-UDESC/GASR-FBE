@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="CONTROL_ITER" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Version="1.0" Author="GASR" Date="31/05/2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Start" Comment="first time execution" >
+				<With Var="width" />
+				<With Var="length" />
+				<With Var="start_pos" />
+				<With Var="Nin" />
+				<With Var="tool_diam" />
+			</Event>
+			<Event Name="move_done" >
+				<With Var="pos_in" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="move" >
+				<With Var="width_n" />
+				<With Var="length_n" />
+				<With Var="pos_out" />
+				<With Var="Iout" />
+				<With Var="Nout" />
+				<With Var="start_pos" />
+				<With Var="tool_diam" />
+			</Event>
+			<Event Name="finish" >
+				<With Var="pos_out" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Nin" Type="INT" />
+			<VarDeclaration Name="pos_in" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="tool_diam" Type="REAL" />
+			<VarDeclaration Name="width" Type="REAL" />
+			<VarDeclaration Name="length" Type="REAL" />
+			<VarDeclaration Name="start_pos" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="width_n" Type="REAL" />
+			<VarDeclaration Name="length_n" Type="REAL" />
+			<VarDeclaration Name="Nout" Type="INT" />
+			<VarDeclaration Name="Iout" Type="INT" />
+			<VarDeclaration Name="pos_out" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="LOOP" x="741" y="134"  >
+				<ECAction Algorithm="loop_calc" Output="move" />
+			</ECState>
+			<ECState Name="START" x="551" y="150"  >
+			</ECState>
+			<ECState Name="FINISH" x="597" y="300"  >
+				<ECAction Output="finish" />
+			</ECState>
+			<ECState Name="INITIAL_EXE" x="398" y="156"  >
+				<ECAction Algorithm="start_calc" Output="move" />
+			</ECState>
+			<ECTransition Source="START" Destination="INITIAL_EXE" Condition="Start" />
+			<ECTransition Source="START" Destination="LOOP" Condition="move_done &#38; Iout ~= Nin" />
+			<ECTransition Source="START" Destination="FINISH" Condition="move_done &#38; Iout == Nin" />
+			<ECTransition Source="LOOP" Destination="START" Condition="1" />
+			<ECTransition Source="INITIAL_EXE" Destination="START" Condition="1" />
+			<ECTransition Source="FINISH" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="start_calc"  >
+			<Lua Text="        width_n = tonumber(width-tool_diam)    length_n = tonumber(length - tool_diam)    pos_out = {start_pos[1],start_pos[2], start_pos[3]}     Iout = 0    Nout = Nin    " />
+		</Algorithm>
+		<Algorithm Name="loop_calc"  >
+			<Lua Text="    Iout = Iout + 1    width_n = ((Nin-Iout)/Nin)*(width -tool_diam)    length_n = ((Nin-Iout)/Nin)*(length-tool_diam)    Nout = Nin    pos_out = {pos_in[1], pos_in[2], pos_in[3]}    " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

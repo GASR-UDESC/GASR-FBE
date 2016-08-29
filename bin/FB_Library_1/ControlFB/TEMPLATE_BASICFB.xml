@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="TEMPLATE_BASICFB" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="ev1" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="ev2" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="input1" Type="INT" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="Execute" x="321" y="282"  >
+				<ECAction Output="ev2" />
+			</ECState>
+			<ECState Name="START" x="348" y="111"  >
+			</ECState>
+			<ECState Name="execute2" x="544" y="139"  >
+				<ECAction Output="ev2" />
+			</ECState>
+			<ECTransition Source="Execute" Destination="START" Condition="1" />
+			<ECTransition Source="Execute" Destination="execute2" Condition="1" />
+			<ECTransition Source="execute2" Destination="START" Condition="1" />
+		</ECC>
+	</BasicFB>
+</FBType>

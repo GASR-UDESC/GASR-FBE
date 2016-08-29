@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SWITCH" Comment= "Switch(demultiplex)an event" >
+	<Identification Standard="61499-1"/>
+	<VersionInfo Organization="UDESC" Version="7.0" Author="LAPAS" Date="01/12/2011" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INI" Comment="Inicializa o bloco" >
+			</Event>
+			<Event Name="START" Comment="Inicia o primeiro evento de saida" >
+			</Event>
+			<Event Name="NEXT" Comment="Gera o proximo evento de saida" >
+				<With Var="OK_WORK" />
+				<With Var="M_POS" />
+				<With Var="TOOL" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="SETUP" Comment="Setup da maquina" >
+			</Event>
+			<Event Name="EX_1" Comment="Executable 1" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="EX_2" Comment="Executable 2" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="EX_3" Comment="Executable 3" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="EX_4" Comment="Executable 4" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="EX_5" Comment="Executable 5" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="EX_6" Comment="Executable 6" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="EX_7" Comment="Executable 7" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="EX_8" Comment="Executable 8" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="EX_9" Comment="Executable 9" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="EX_10" Comment="Executable 10" >
+				<With Var="M_POS_OUT" />
+				<With Var="TOOL_OUT" />
+			</Event>
+			<Event Name="COMMUNICATION" Comment="comunicacao" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="OK_WORK" Type="STRING" />
+			<VarDeclaration Name="M_POS" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="TOOL" Type="STRING" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="M_POS_OUT" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="TOOL_OUT" Type="STRING" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="EXECUTABLE_3" x="1109" y="130"  >
+				<ECAction Algorithm="alg" Output="EX_3" />
+			</ECState>
+			<ECState Name="EXECUTABLE_6" x="1144" y="333"  >
+				<ECAction Algorithm="alg" Output="EX_6" />
+			</ECState>
+			<ECState Name="EXECUTABLE_5" x="1197" y="257"  >
+				<ECAction Algorithm="alg" Output="EX_5" />
+			</ECState>
+			<ECState Name="EXECUTABLE_4" x="1167" y="187"  >
+				<ECAction Algorithm="alg" Output="EX_4" />
+			</ECState>
+			<ECState Name="EXECUTABLE_8" x="952" y="474"  >
+				<ECAction Algorithm="alg" Output="EX_8" />
+			</ECState>
+			<ECState Name="START" x="778" y="249"  >
+			</ECState>
+			<ECState Name="EXECUTABLE_7" x="1072" y="425"  >
+				<ECAction Algorithm="alg" Output="EX_7" />
+			</ECState>
+			<ECState Name="COMMUNICATION" x="509" y="166"  >
+				<ECAction Output="COMMUNICATION" />
+			</ECState>
+			<ECState Name="EXECUTABLE_2" x="1045" y="79"  >
+				<ECAction Algorithm="alg" Output="EX_2" />
+			</ECState>
+			<ECState Name="EXECUTABLE_1" x="927" y="49"  >
+				<ECAction Algorithm="alg" Output="EX_1" />
+			</ECState>
+			<ECState Name="EXECUTABLE_9" x="726" y="474"  >
+				<ECAction Algorithm="alg" Output="EX_9" />
+			</ECState>
+			<ECState Name="SETUP" x="761" y="45"  >
+				<ECAction Algorithm="alg" Output="SETUP" />
+			</ECState>
+			<ECState Name="EXECUTABLE_10" x="562" y="342"  >
+				<ECAction Algorithm="alg" Output="EX_10" />
+			</ECState>
+			<ECTransition Source="START" Destination="SETUP" Condition="START" />
+			<ECTransition Source="START" Destination="EXECUTABLE_1" Condition="NEXT &#38; OK_WORK == 'SETUP_FRANK'" />
+			<ECTransition Source="START" Destination="EXECUTABLE_2" Condition="NEXT &#38; OK_WORK == 'FINISH_PLANAR_PLANAR_FACE'" />
+			<ECTransition Source="START" Destination="EXECUTABLE_3" Condition="NEXT &#38; OK_WORK == 'ROUGHING SLOT1_ROUGHING SLOT1'" />
+			<ECTransition Source="START" Destination="EXECUTABLE_4" Condition="NEXT &#38; OK_WORK == 'ROUGHING SLOT2_ROUGHING SLOT2'" />
+			<ECTransition Source="START" Destination="EXECUTABLE_5" Condition="NEXT &#38; OK_WORK == 'ROUGHING SLOT3_ROUGHING SLOT3'" />
+			<ECTransition Source="START" Destination="EXECUTABLE_6" Condition="NEXT &#38; OK_WORK == 'ROUGHING SLOT4_ROUGHING SLOT4'" />
+			<ECTransition Source="START" Destination="EXECUTABLE_7" Condition="NEXT &#38; OK_WORK == 'SLIDE_PLANAR_FACE2'" />
+			<ECTransition Source="START" Destination="EXECUTABLE_8" Condition="NEXT &#38; OK_WORK == 'ROUGHING SLOT4_ROUGHING SLOT5'" />
+			<ECTransition Source="START" Destination="EXECUTABLE_9" Condition="NEXT &#38; OK_WORK == 'DRILL HOLE_DRILL HOLE1'" />
+			<ECTransition Source="START" Destination="EXECUTABLE_10" Condition="NEXT &#38; OK_WORK == 'DRILL HOLE_DRILL HOLE2'" />
+			<ECTransition Source="START" Destination="COMMUNICATION" Condition="NEXT &#38; OK_WORK == 'DRILL HOLE_DRILL HOLE3'" />
+			<ECTransition Source="SETUP" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_1" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_2" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_3" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_4" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_5" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_6" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_7" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_8" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_9" Destination="START" Condition="1" />
+			<ECTransition Source="EXECUTABLE_10" Destination="START" Condition="1" />
+			<ECTransition Source="COMMUNICATION" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="alg"  >
+			<Lua Text="M_POS_OUT[1] = M_POS[1] M_POS_OUT[2] = M_POS[2] M_POS_OUT[3] = M_POS[3]" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

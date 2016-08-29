@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="FILE_WRITER_1_STRING" Comment="Writes equation coeficients to a file (1 coef)" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="21-03-12" />
+	<CompilerInfo BaseFile="File_Writer.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="REQ" Comment="Request file storage" >
+				<With Var="P0" />
+				<With Var="P1" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="RSP" Comment="Finished operation" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="P0" Type="INT" Comment="Process/equation id" />
+			<VarDeclaration Name="P1" Type="STRING" Comment="Coeficient 1" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="MACHINE" LeftInterface="FILE_WRITER_1" Comment="Coeficient file storage service" >
+		<ServiceSequence Name="normal_establishment" >
+			<ServiceTransaction >
+				<InputPrimitive Interface="FILE_WRITER_1" Event="REQ" Parameters="P0,P1" />
+				<OutputPrimitive Interface="MACHINE" Event="write-file" />
+			</ServiceTransaction>
+			<ServiceTransaction >
+				<InputPrimitive Interface="MACHINE" Event="response" />
+				<OutputPrimitive Interface="FILE_WRITER_1" Event="RSP" />
+			</ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

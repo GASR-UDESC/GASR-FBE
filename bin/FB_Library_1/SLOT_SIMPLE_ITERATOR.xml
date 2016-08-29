@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SLOT_SIMPLE_ITERATOR" Comment="Iterator" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="27-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="ini_pos" />
+				<With Var="pos" />
+				<With Var="feature_placement" />
+				<With Var="depth" />
+				<With Var="offsets" />
+				<With Var="tool_length" />
+				<With Var="path_type" />
+			</Event>
+			<Event Name="Req" >
+				<With Var="pos" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Line" >
+				<With Var="z" />
+				<With Var="offset_value" />
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="End" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="Circle" >
+				<With Var="z" />
+				<With Var="offset_value" />
+				<With Var="out_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="ini_pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="feature_placement" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="depth" Type="REAL" />
+			<VarDeclaration Name="offsets" Type="REAL" ArraySize="20" />
+			<VarDeclaration Name="tool_length" Type="REAL" />
+			<VarDeclaration Name="path_type" Type="STRING" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="z" Type="REAL" />
+			<VarDeclaration Name="offset_value" Type="REAL" ArraySize="8" />
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" />
+		</OutputVars>
+		<InternalVars>
+			<VarDeclaration Name="path_iteration" Type="REAL" InitialValue="0" />
+			<VarDeclaration Name="stop" Type="BOOL" InitialValue="false" />
+			<VarDeclaration Name="path" Type="STRING" />
+		</InternalVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="INIT" x="0" y="0" >
+				<ECAction Algorithm="init" />
+			</ECState>
+			<ECState Name="LOOP" x="0" y="0" >
+				<ECAction Algorithm="loop" />
+			</ECState>
+			<ECState Name="LINE" x="0" y="0" >
+				<ECAction Output="Line" />
+			</ECState>
+			<ECState Name="CIRCLE" x="0" y="0" >
+				<ECAction Output="Circle" />
+			</ECState>
+			<ECState Name="CHECK_Z" x="0" y="0" >
+				<ECAction Algorithm="check_z" />
+			</ECState>
+			<ECState Name="END" x="0" y="0" >
+				<ECAction Output="End" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="Init" x="0" y="0" />
+			<ECTransition Source="START" Destination="LOOP" Condition="Req" x="0" y="0" />
+			<ECTransition Source="INIT" Destination="LOOP" Condition="1" x="0" y="0" />
+			<ECTransition Source="LOOP" Destination="LINE" Condition="path=='line' and stop==false" x="0" y="0" />
+			<ECTransition Source="LOOP" Destination="CIRCLE" Condition="path=='circle' and stop==false" x="0" y="0" />
+			<ECTransition Source="LOOP" Destination="CHECK_Z" Condition="stop==true" x="0" y="0" />
+			<ECTransition Source="CHECK_Z" Destination="END" Condition="stop==true" x="0" y="0" />
+			<ECTransition Source="CHECK_Z" Destination="LOOP" Condition="stop==false" x="0" y="0" />
+			<ECTransition Source="LINE" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="CIRCLE" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="END" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="init" >
+			<Lua Text = "
+stop = false
+path_iteration = 0
+pos[1] = ini_pos[1]
+pos[2] = ini_pos[2]
+pos[3] = ini_pos[3]
+for k, v in ipairs( offsets ) do
+    if( type( v ) == 'number' ) then
+        offsets[ k ] = nil
+    end
+end
+z = pos[3]
+			"/>
+		</Algorithm>
+		<Algorithm Name="loop" >
+			<Lua Text = "
+if( path_iteration >= #offsets  ) then
+	stop = true
+    out_pos[i] = pos[i]
+else
+	path_iteration = path_iteration + 1
+	for i = 1, #offsets[ path_iteration ] do
+		out_pos[i] = pos[i]
+		offset_value[i] = offsets[ path_iteration ][i]
+	end
+	offset_value[3] = z
+	print( 'offset size', #offset_value, 'pos', out_pos[1], out_pos[2], out_pos[3] )
+	if(( (offset_value[1] - pos[1]) == 0 ) and ( (offset_value[2] - pos[2]) == 0 ) and ( (offset_value[3] - pos[3]) == 0 )) then
+        path_iteration = path_iteration + 1
+        for i = 1, #offsets[ path_iteration ] do
+            offset_value[i] = offsets[ path_iteration ][i]
+        end
+        offset_value[3] = z
+    end
+	if( path_type == 'LINEAR_PATH' ) or ((( path_type == 'COMPLETE_CIRCULAR_PATH' ) or ( path_type == 'PARTIAL_CIRCULAR_PATH' )) and ( #offsets[ path_iteration ] == 3 )) then
+		path = 'line'
+	elseif(( path_type == 'COMPLETE_CIRCULAR_PATH' ) or ( path_type == 'PARTIAL_CIRCULAR_PATH' )) and ( #offsets[ path_iteration ] == 8 ) then
+        path = 'circle'
+    end
+    print( 'path', path, #offset_value, #offsets[ path_iteration ], offset_value[5], path_iteration, '\n' )
+end
+			"/>
+		</Algorithm>
+		<Algorithm Name="check_z" >
+			<Lua Text = "
+current_z = pos[3]
+print( 'iterator', current_z, depth, feature_placement[3], 'pos', pos[1], pos[2], pos[3], depth )
+if not( current_z > (depth + feature_placement[3]) ) then
+	stop = true
+    for i = 1, 3 do
+        out_pos[i] = pos[i]
+    end
+elseif( z == 0 ) then
+    stop = false
+    for i = 1, 3 do
+        out_pos[i] = pos[i]
+    end
+else
+	stop = false
+	if( tool_length >= math.abs(depth - current_z) ) then
+		z = (current_z + tool_length) + feature_placement[3]
+	else
+		z = (current_z + (depth - current_z)) + feature_placement[3]
+	end
+	print( 'new_depth', z )
+	path_iteration = 0
+end
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

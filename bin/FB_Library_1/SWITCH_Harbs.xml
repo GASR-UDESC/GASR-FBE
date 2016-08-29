@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "harbs.dtd">
+
+<FBType Name="SWITCH" Comment="Switch(demultiplex)an event">
+  <Identification Function="Event Switch" Classification="Event Processing" Standard="61499-1" />
+  <VersionInfo Date="01/12/2011" Organization="UDESC" Author="LAPAS" Version="7.0" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INI" Comment="Inicializa o bloco" />
+      <Event Name="START" Comment="Inicia o primeiro evento de saida" />
+      <Event Name="NEXT" Comment="Gera o proximo evento de saida">
+        <With Var="OK_WORK" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="SETUP" Comment="Setup da maquina" />
+      <Event Name="EX_1" Comment="Executable 1" />
+      <Event Name="EX_2" Comment="Executable 2" />
+      <Event Name="EX_3" Comment="Executable 3" />
+      <Event Name="COMMUNICATION" Comment="comunicacao" />
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="OK_WORK" Type="STRING" />
+    </InputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" dx="50" dy="50" />
+      <ECState Name="SETUP" dx="50" dy="50">
+        <ECAction Output="SETUP" />
+      </ECState>
+      <ECState Name="EXECUTABLE_1" dx="60" dy="60">
+        <ECAction Output="EX_1" />
+      </ECState>
+      <ECState Name="EXECUTABLE_2" dx="60" dy="60">
+        <ECAction Output="EX_2" />
+      </ECState>
+      <ECState Name="EXECUTABLE_3" dx="60" dy="60">
+        <ECAction Output="EX_3" />
+      </ECState>
+      <ECState Name="COMMUNICATION" dx="50" dy="50">
+        <ECAction Output="COMMUNICATION" />
+      </ECState>
+      <ECTransition Source="START" Destination="SETUP" Condition="START" />
+      <ECTransition Source="START" Destination="EXECUTABLE_1" Condition="NEXT&amp;#38;OK_WORK == START" />
+      <ECTransition Source="START" Destination="EXECUTABLE_2" Condition="NEXT&amp;#38;OK_WORK == EXECUTABLE_1" />
+      <ECTransition Source="START" Destination="EXECUTABLE_3" Condition="NEXT&amp;#38;OK_WORK == EXECUTABLE_2" />
+      <ECTransition Source="START" Destination="COMMUNICATION" Condition="NEXT&amp;#38;OK_WORK == EXECUTABLE_3" />
+      <ECTransition Source="SETUP" Destination="START" Condition="1" />
+      <ECTransition Source="EXECUTABLE_1" Destination="START" Condition="1" />
+      <ECTransition Source="EXECUTABLE_2" Destination="START" Condition="1" />
+      <ECTransition Source="EXECUTABLE_3" Destination="START" Condition="1" />
+      <ECTransition Source="COMMUNICATION" Destination="START" Condition="1" />
+    </ECC>
+  </BasicFB>
+</FBType>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="segunda_ordem_MA_11_11_13" Comment= "1o teste com novo bloco" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="gabriel" Date="11_11_2013" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="STARTER" x="7" y="99" >
+		</FB>
+		<FB Name="step" Type="STEP_SOURCE" x="320.266125" y="104.059375" >
+			<Parameter Name="K" Value="1" />
+			<Parameter Name="t_end" Value="20" />
+			<Parameter Name="delay" Value="0" />
+			<Parameter Name="dt" Value="0.03" />
+		</FB>
+		<FB Name="plant" Type="SECOND_ORDER_SYSTEM" x="669.05425" y="100.61725" >
+			<Parameter Name="x1_0" Value="0" />
+			<Parameter Name="x2_0" Value="0" />
+			<Parameter Name="num" Value="[0, 2.2, 3.5]" />
+			<Parameter Name="den" Value="[1, 2.1, 3.3]" />
+			<Parameter Name="delay" Value="8" />
+			<Parameter Name="dt" Value="0.03" />
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="450.047" y="427.8945" >
+			<Parameter Name="dt" Value="0.03" />
+		</FB>
+		<EventConnections>
+			<Connection Source="scope.Cnf" Destination="step.Init" />
+			<Connection Source="start.start" Destination="step.Start" />
+			<Connection Source="plant.Finish" Destination="scope.Init" />
+			<Connection Source="step.Finish" Destination="plant.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="step.U" Destination="plant.u" />
+			<Connection Source="plant.y" Destination="scope.DataIn" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

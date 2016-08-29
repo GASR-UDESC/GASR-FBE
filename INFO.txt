@@ -1,0 +1,23 @@
+Last Modification 2014 / 5 / 26
+
+Contact:
+Gabriel Hermann Negri
+negri.gabriel@gmail.com
+
+
+Run:
+
+FBE.bat
+
+or in 'bin' folder:
+
+lua AmbienteExecucao.lua
+
+Example CNC control simulation Application (IEC61499 + STEP-NC):
+load file: Biblioteca FB (oficial)/System.xml
+enter Device: PC
+enter Resource: STEP-NC_Data
+double-click: Starter button
+Gmsh will run, showing the tool's calculated trajectory
+close Gmsh and press Enter on terminal to continue
+communication will fail, because PLC is not connected

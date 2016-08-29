@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SEND_CIRCLE_DATA" Comment="Send linear movement data" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="C1" />
+				<With Var="C2" />
+				<With Var="C3" />
+				<With Var="C4" />
+				<With Var="C5" />
+				<With Var="C6" />
+				<With Var="C7" />
+				<With Var="C8" />
+				<With Var="C9" />
+				<With Var="C10" />
+				<With Var="C11" />
+				<With Var="C12" />
+				<With Var="C13" />
+				<With Var="C14" />
+				<With Var="C15" />
+				<With Var="C16" />
+				<With Var="C17" />
+				<With Var="C18" />
+				<With Var="C19" />
+				<With Var="C20" />
+				<With Var="C21" />
+				<With Var="C22" />
+				<With Var="C23" />
+				<With Var="C24" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="C1" Type="REAL" Comment="Coeficient 1" />
+			<VarDeclaration Name="C2" Type="REAL" Comment="Coeficient 2" />
+			<VarDeclaration Name="C3" Type="REAL" Comment="Coeficient 3" />
+			<VarDeclaration Name="C4" Type="REAL" Comment="Coeficient 4" />
+			<VarDeclaration Name="C5" Type="REAL" Comment="Coeficient 5" />
+			<VarDeclaration Name="C6" Type="REAL" Comment="Coeficient 6" />
+			<VarDeclaration Name="C7" Type="REAL" Comment="Coeficient 7" />
+			<VarDeclaration Name="C8" Type="REAL" Comment="Coeficient 8" />
+			<VarDeclaration Name="C9" Type="REAL" Comment="Coeficient 9" />
+			<VarDeclaration Name="C10" Type="REAL" Comment="Coeficient 10" />
+			<VarDeclaration Name="C11" Type="REAL" Comment="Coeficient 11" />
+			<VarDeclaration Name="C12" Type="REAL" Comment="Coeficient 12" />
+			<VarDeclaration Name="C13" Type="REAL" Comment="Coeficient 13" />
+			<VarDeclaration Name="C14" Type="REAL" Comment="Coeficient 14" />
+			<VarDeclaration Name="C15" Type="REAL" Comment="Coeficient 15" />
+			<VarDeclaration Name="C16" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="C17" Type="REAL" Comment="Coeficient 17" />
+			<VarDeclaration Name="C18" Type="REAL" Comment="Coeficient 18" />
+			<VarDeclaration Name="C19" Type="REAL" Comment="Coeficient 19" />
+			<VarDeclaration Name="C20" Type="REAL" Comment="Coeficient 20" />
+			<VarDeclaration Name="C21" Type="REAL" Comment="Coeficient 21" />
+			<VarDeclaration Name="C22" Type="REAL" Comment="Coeficient 22" />
+			<VarDeclaration Name="C23" Type="REAL" Comment="Coeficient 23" />
+			<VarDeclaration Name="C24" Type="REAL" Comment="Coeficient 24" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="set_circle_data" Type="SET_CIRCLE_DATA" x="1" y="1" />
+		<FB Name="comm_all_axel" Type="GENERAL_DATA_SENDER" x="1" y="1" >
+			<Parameter Name="PORT" Value="localhost:502" />
+			<Parameter Name="NUM_REG" Value="8" />
+			<Parameter Name="INIT_REG" Value="1050" />
+		</FB>
+		<FB Name="comm_x" Type="AXIS_DATA_SENDER" x="1" y="1" >
+			<Parameter Name="PORT" Value="localhost:502" />
+			<Parameter Name="NUM_REG" Value="12" />
+			<Parameter Name="INIT_REG" Value="1100" />
+		</FB>
+		<FB Name="comm_y" Type="AXIS_DATA_SENDER" x="1" y="1" >
+			<Parameter Name="PORT" Value="localhost:502" />
+			<Parameter Name="NUM_REG" Value="12" />
+			<Parameter Name="INIT_REG" Value="1150" />
+		</FB>
+		<FB Name="comm_z" Type="AXIS_DATA_SENDER" x="1" y="1" >
+			<Parameter Name="PORT" Value="localhost:502" />
+			<Parameter Name="NUM_REG" Value="12" />
+			<Parameter Name="INIT_REG" Value="1200" />
+		</FB>
+		<EventConnections>
+			<Connection Source="INIT" Destination="set_circle_data.INIT" dx="1" dy="1" />
+			<Connection Source="set_circle_data.CNF" Destination="comm_all_axel.INIT" dx="1" dy="1" />
+			<Connection Source="comm_all_axel.CNF" Destination="comm_x.INIT" dx="1" dy="1" />
+			<Connection Source="comm_x.CNF" Destination="comm_y.INIT" dx="1" dy="1" />
+			<Connection Source="comm_y.CNF" Destination="comm_z.INIT" dx="1" dy="1" />
+			<Connection Source="comm_z.CNF" Destination="CNF" dx="1" dy="1" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="C1" Destination="set_circle_data.C1" dx="1" dy="1" />
+			<Connection Source="C2" Destination="set_circle_data.C2" dx="1" dy="1" />
+			<Connection Source="C3" Destination="set_circle_data.C3" dx="1" dy="1" />
+			<Connection Source="C4" Destination="set_circle_data.C4" dx="1" dy="1" />
+			<Connection Source="C5" Destination="set_circle_data.C5" dx="1" dy="1" />
+			<Connection Source="C6" Destination="set_circle_data.C6" dx="1" dy="1" />
+			<Connection Source="C7" Destination="set_circle_data.C7" dx="1" dy="1" />
+			<Connection Source="C8" Destination="set_circle_data.C8" dx="1" dy="1" />
+			<Connection Source="C9" Destination="set_circle_data.C9" dx="1" dy="1" />
+			<Connection Source="C10" Destination="set_circle_data.C10" dx="1" dy="1" />
+			<Connection Source="C11" Destination="set_circle_data.C11" dx="1" dy="1" />
+			<Connection Source="C12" Destination="set_circle_data.C12" dx="1" dy="1" />
+			<Connection Source="C13" Destination="set_circle_data.C13" dx="1" dy="1" />
+			<Connection Source="C14" Destination="set_circle_data.C14" dx="1" dy="1" />
+			<Connection Source="C15" Destination="set_circle_data.C15" dx="1" dy="1" />
+			<Connection Source="C16" Destination="set_circle_data.C16" dx="1" dy="1" />
+			<Connection Source="C17" Destination="set_circle_data.C17" dx="1" dy="1" />
+			<Connection Source="C18" Destination="set_circle_data.C18" dx="1" dy="1" />
+			<Connection Source="C19" Destination="set_circle_data.C19" dx="1" dy="1" />
+			<Connection Source="C20" Destination="set_circle_data.C20" dx="1" dy="1" />
+			<Connection Source="C21" Destination="set_circle_data.C21" dx="1" dy="1" />
+			<Connection Source="C22" Destination="set_circle_data.C22" dx="1" dy="1" />
+			<Connection Source="C23" Destination="set_circle_data.C23" dx="1" dy="1" />
+			<Connection Source="C24" Destination="set_circle_data.C24" dx="1" dy="1" />
+			<Connection Source="set_circle_data.id" Destination="comm_all_axel.ID" dx="1" dy="1" />
+			<Connection Source="set_circle_data.angle_1" Destination="comm_all_axel.SD_1" dx="1" dy="1" />
+			<Connection Source="set_circle_data.angle_2" Destination="comm_all_axel.SD_2" dx="1" dy="1" />
+			<Connection Source="set_circle_data.R_1" Destination="comm_all_axel.SD_3" dx="1" dy="1" />
+			<Connection Source="set_circle_data.R_2" Destination="comm_all_axel.SD_4" dx="1" dy="1" />
+			<Connection Source="set_circle_data.speed_1" Destination="comm_all_axel.SD_5" dx="1" dy="1" />
+			<Connection Source="set_circle_data.speed_2" Destination="comm_all_axel.SD_6" dx="1" dy="1" />
+			<Connection Source="set_circle_data.id" Destination="comm_x.ID" dx="1" dy="1" />
+			<Connection Source="set_circle_data.id" Destination="comm_y.ID" dx="1" dy="1" />
+			<Connection Source="set_circle_data.id" Destination="comm_z.ID" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Cx_1" Destination="comm_x.SD_1" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Cx_2" Destination="comm_x.SD_2" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Ux_1" Destination="comm_x.SD_3" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Ux_2" Destination="comm_x.SD_4" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Vx_1" Destination="comm_x.SD_5" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Vx_2" Destination="comm_x.SD_6" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Cy_1" Destination="comm_y.SD_1" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Cy_2" Destination="comm_y.SD_2" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Uy_1" Destination="comm_y.SD_3" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Uy_2" Destination="comm_y.SD_4" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Vy_1" Destination="comm_y.SD_5" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Vy_2" Destination="comm_y.SD_6" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Cz_1" Destination="comm_z.SD_1" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Cz_2" Destination="comm_z.SD_2" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Uz_1" Destination="comm_z.SD_3" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Uz_2" Destination="comm_z.SD_4" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Vz_1" Destination="comm_z.SD_5" dx="1" dy="1" />
+			<Connection Source="set_circle_data.Vz_2" Destination="comm_z.SD_6" dx="1" dy="1" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

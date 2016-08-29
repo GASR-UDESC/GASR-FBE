@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="POINT_LIST" >
+	<Identification Standard="61499-2" />
+	<VersionInfo />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="Next_Point" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="Point_List" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Next_Point" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="Point_List" Type="REAL" ArraySize="0" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="set_next_point" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="EXE" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="set_next_point" >
+			<Lua Text = "
+if type(Point_List) ~= 'table' then
+	Point_List = {}
+end
+if type (Point_List[#Point_List]) == 'table' and Point_List[#Point_List][1] == Next_Point[1] and Point_List[#Point_List][2] == Next_Point[2] and Point_List[#Point_List][3] == Next_Point[3]
+	then
+else
+Point_List[#Point_List +1] = {Next_Point[1], Next_Point[2], Next_Point[3]}
+end
+
+--print('\n\nLISTA DE PONTOS\n')
+for i, v in ipairs(Point_List) do
+	print(v[1], v[2], v[3])
+end
+
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

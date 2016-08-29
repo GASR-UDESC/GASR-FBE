@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE RSystem SYSTEM "FBSystem.dtd">
+<System Name="System" Comment="" >
+	<Identification Standard="61499-1" />
+	<VersionInfo Date="11/09/2013" Author="slimrte" Organization="UDESC" Version="1.0" />
+	<Device Name="DEV20" Type="EL1" x="50" y ="50" >
+		<Resource Name="RES0" Type="RES_BUTTON" x="52" y ="60" >
+		</Resource>
+	</Device>
+	<Device Name="DEV10" Type="EL2" x="300" y ="50" >
+		<Resource Name="RES0" Type="RES_LED_SUB" x="50" y ="60" >
+		</Resource>
+	</Device>
+</System>

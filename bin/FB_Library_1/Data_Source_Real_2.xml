@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="Data_Source_Real_2" Comment= "2 entrys" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="03-07-12" />
+	<CompilerInfo IsLua="true" BaseFile="Data_Source_Real.lua" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="output" >
+				<With Var="x1" />
+				<With Var="x2" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="x1" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="x2" Type="REAL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="Data_Source_Real_2" LeftInterface="USER" >
+		<ServiceSequence Name="seq1" >
+			<ServiceTransaction>
+				<InputPrimitive Interface="USER" Event="command" />
+				<OutputPrimitive Interface="Data_Source_Real_2" Event="output" />
+			</ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

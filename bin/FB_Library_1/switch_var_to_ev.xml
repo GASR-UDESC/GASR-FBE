@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="switch_var_to_ev" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="Input" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="On" >
+			</Event>
+			<Event Name="Off" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Input" Type="INT" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="331" y="201"  >
+			</ECState>
+			<ECState Name="ON" x="262" y="281"  >
+				<ECAction Output="On" />
+			</ECState>
+			<ECState Name="OFF" x="475" y="186"  >
+				<ECAction Output="Off" />
+			</ECState>
+			<ECTransition Source="START" Destination="ON" Condition="Init and Input > 0" />
+			<ECTransition Source="START" Destination="OFF" Condition="Init and 0 > Input" />
+			<ECTransition Source="ON" Destination="START" Condition="1" />
+			<ECTransition Source="OFF" Destination="START" Condition="1" />
+		</ECC>
+	</BasicFB>
+</FBType>

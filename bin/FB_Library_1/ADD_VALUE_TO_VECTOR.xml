@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="ADD_VALUE_TO_VECTOR" Comment= "Adds a value to one of the vector components" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="12-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Add" >
+				<With Var="value" />
+				<With Var="direction" />
+				<With Var="vector" />
+			</Event>
+			<Event Name="Sub" >
+				<With Var="value" />
+				<With Var="direction" />
+				<With Var="vector" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Res" >
+				<With Var="result" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="value" Type="REAL" InitialValue="0" Comment="Value" />
+			<VarDeclaration Name="direction" Type="STRING" Comment="x, y or z" />
+			<VarDeclaration Name="vector" Type="REAL" ArraySize="3" Comment="Vector to do the operation" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="result" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="SUBTRACT" x="486" y="175"  >
+				<ECAction Algorithm="sub" Output="Res" />
+			</ECState>
+			<ECState Name="ADD" x="796" y="178"  >
+				<ECAction Algorithm="add" Output="Res" />
+			</ECState>
+			<ECState Name="START" x="643" y="76"  >
+			</ECState>
+			<ECTransition Source="START" Destination="ADD" Condition="Add" />
+			<ECTransition Source="START" Destination="SUBTRACT" Condition="Sub" />
+			<ECTransition Source="ADD" Destination="START" Condition="1" />
+			<ECTransition Source="SUBTRACT" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="sub"  >
+			<Lua Text=" if( direction == 'x' ) then  result[1] = vector[1] - value  result[2] = vector[2]  result[3] = vector[3] elseif( direction == 'y' ) then  result[1] = vector[1]  result[2] = vector[2] - value  result[3] = vector[3] elseif( direction == 'z' ) then  result[1] = vector[1]  result[2] = vector[2]  result[3] = vector[3] - value  print( 'Subtratcing value', vector[1],vector[2],vector[3], 'value: '..value, result[1], result[2], result[3],direction ) end    " />
+		</Algorithm>
+		<Algorithm Name="add"  >
+			<Lua Text=" if( direction == 'x' ) then  result[1] = vector[1] + value  result[2] = vector[2]  result[3] = vector[3] elseif( direction == 'y' ) then  result[1] = vector[1]  result[2] = vector[2] + value  result[3] = vector[3] elseif( direction == 'z' ) then  result[1] = vector[1]  result[2] = vector[2]  result[3] = vector[3] + value end    " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

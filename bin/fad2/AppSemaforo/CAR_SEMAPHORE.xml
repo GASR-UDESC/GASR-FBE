@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="CAR_SEMAPHORE" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="IECV" Date="10-12-2013" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+			</Event>
+			<Event Name="SET" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INIT0" >
+			</Event>
+			<Event Name="OUT_RED" >
+			</Event>
+			<Event Name="OUT_YELLOW" >
+			</Event>
+			<Event Name="OUT_GREEN" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="CYCLE" Type="BYTE" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="RED" Type="BOOL" ArraySize="" />
+			<VarDeclaration Name="YELLOW" Type="BOOL" ArraySize="" />
+			<VarDeclaration Name="GREEN" Type="BOOL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="RUN" x="511" y="194"  >
+				<ECAction Algorithm="ALG_RUN" />
+				<ECAction Output="OUT_RED" />
+				<ECAction Output="OUT_YELLOW" />
+				<ECAction Output="OUT_GREEN" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECState Name="INIT" x="320" y="317"  >
+				<ECAction Algorithm="ALG_INIT" Output="INIT0" />
+				<ECAction Output="OUT_RED" />
+				<ECAction Output="OUT_YELLOW" />
+				<ECAction Output="OUT_GREEN" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="INIT" />
+			<ECTransition Source="INIT" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="RUN" Condition="SET" />
+			<ECTransition Source="RUN" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="ALG_RUN"  >
+			<Lua Text="RED := 0; YELLOW := 0; GREEN := 0;     IF(CYCLE = 0) THEN    RED:=1; END_IF;    IF(CYCLE=1)THEN GREEN:=1; END_IF;   IF(CYCLE=2)THEN YELLOW:=1; END_IF; " />
+		</Algorithm>
+		<Algorithm Name="ALG_INIT"  >
+			<Lua Text=" RED := 1; GREEN := 0; YELLOW := 0; " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

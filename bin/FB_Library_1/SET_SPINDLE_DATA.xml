@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SET_SPINDLE_DATA" Comment="Sets data to activate/deactivate machine spindle" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="18-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="C1" />
+				<With Var="S1" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" >
+				<With Var="id" />
+				<With Var="status" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="C1" Type="REAL" Comment="Coeficient 1" />
+			<VarDeclaration Name="S1" Type="STRING" Comment="String 1" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="id" Type="INT" />
+			<VarDeclaration Name="status" Type="INT" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="SET_DATA" x="0" y="0" >
+				<ECAction Algorithm="set_data" Output="CNF" />
+			</ECState>
+			<ECTransition Source="START" Destination="SET_DATA" Condition="INIT" x="0" y="0" />
+			<ECTransition Source="SET_DATA" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="set_data" >
+			<Lua Text = "
+id = C1
+if( S1 == &#34;on&#34; ) then
+    status = 1
+else
+    status = 0
+end
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

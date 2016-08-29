@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SUBL_2_OK" Comment="2-variable data subscriber" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="21-03-12" />
+	<CompilerInfo BaseFile="SIFB_Subl.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Comment="Service initiaization" >
+				<With Var="ID" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Comment="Initialization confirm" />
+			<Event Name="IND" Comment="Service indication" >
+				<With Var="RD_1" />
+				<With Var="RD_2" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="ID" Type="STRING" Comment="Default id is the FB instance name" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="RD_1" Type="STRING" />
+			<VarDeclaration Name="RD_2" Type="REAL" ArraySize="3" Comment="Machine Position" />
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="SUBL_2_OK" LeftInterface="PUBL_2_OK" Comment="Data publication service" >
+        <ServiceSequence Name="normal_establishment" >
+            <ServiceTransaction >
+                <InputPrimitive Interface="PUBL_2_OK" Event="INIT" Parameters="ID" />
+                <OutputPrimitive Interface="PUBL_2_OK" Event="INITO" Parameters="" />
+            </ServiceTransaction>
+            <ServiceTransaction >
+                <InputPrimitive Interface="SUBL_2_OK" Event="INIT" Parameters="ID" />
+                <OutputPrimitive Interface="SUBL_2_OK" Event="INITO" Parameters="" />
+            </ServiceTransaction>
+        </ServiceSequence>
+        <ServiceSequence Name="normal_data_transfer" >
+            <ServiceTransaction >
+                <InputPrimitive Interface="PUBL_2_OK" Event="REQ" Parameters="SD_1" />
+                <OutputPrimitive Interface="Subl_2_OK" Event="IND" Parameters="RD_1" />
+            </ServiceTransaction>
+        </ServiceSequence>
+    </Service>
+</FBType>

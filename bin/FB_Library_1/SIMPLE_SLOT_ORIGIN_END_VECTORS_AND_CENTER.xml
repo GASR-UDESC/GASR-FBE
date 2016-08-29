@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SIMPLE_SLOT_ORIGIN_END_VECTORS_AND_CENTER" Comment="Sets origin and end vectors for travel_path and also arc center for circular paths" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="26-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="travel_path" />
+				<With Var="travel_path_ref" />
+				<With Var="travel_path_y" />
+				<With Var="travel_path_z" />
+				<With Var="travel_path_location" />
+				<With Var="travel_path_angle" />
+                <With Var="feature_x" />
+                <With Var="feature_y" />
+                <With Var="feature_z" />
+                <With Var="feature_placement" />
+                <With Var="radius" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="origin_ref" />
+				<With Var="origin_y" />
+				<With Var="origin_z" />
+				<With Var="end_ref" />
+				<With Var="end_y" />
+				<With Var="end_z" />
+				<With Var="center" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="travel_path" Type="STRING" />
+			<VarDeclaration Name="travel_path_ref" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="travel_path_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="travel_path_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="travel_path_location" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="travel_path_angle" Type="REAL" />
+			<VarDeclaration Name="feature_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="feature_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="feature_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="feature_placement" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="radius" Type="REAL" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="origin_ref" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="origin_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="origin_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_ref" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="center" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="exe" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="exe" >
+			<Lua Text = "
+if( travel_path == 'LINEAR_PATH' ) then
+	for i = 1, 3 do
+		origin_ref[i] = travel_path_ref[i]
+		origin_y[i] = travel_path_y[i]
+		origin_z[i] = travel_path_z[i]
+		end_ref[i] = travel_path_ref[i]
+		end_y[i] = travel_path_y[i]
+		end_z[i] = travel_path_z[i]
+	end
+    print( 'origin_ref before', origin_ref[1], origin_ref[2], origin_ref[3] )
+    print( 'origin_y before', origin_y[1], origin_y[2], origin_y[3] )
+    print( 'feature x', feature_x[1], feature_x[2], feature_x[3] )
+    print( 'feature y', feature_y[1], feature_y[2], feature_y[3] )
+    print( 'feature z', feature_z[1], feature_z[2], feature_z[3] )
+	origin_ref = { origin_ref[1]*feature_x[1] + origin_ref[2]*feature_y[1] + origin_ref[3]*feature_z[1],
+                   origin_ref[1]*feature_x[2] + origin_ref[2]*feature_y[2] + origin_ref[3]*feature_z[2],
+                   origin_ref[1]*feature_x[3] + origin_ref[2]*feature_y[3] + origin_ref[3]*feature_z[3] }
+	origin_y = { origin_y[1]*feature_x[1] + origin_y[2]*feature_y[1] + origin_y[3]*feature_z[1],
+                 origin_y[1]*feature_x[2] + origin_y[2]*feature_y[2] + origin_y[3]*feature_z[2],
+                 origin_y[1]*feature_x[3] + origin_y[2]*feature_y[3] + origin_y[3]*feature_z[3] }
+    print( 'origin_ref', origin_ref[1], origin_ref[2], origin_ref[3] )
+    print( 'origin_y', origin_y[1], origin_y[2], origin_y[3] )
+elseif( travel_path == 'COMPLETE_CIRCULAR_PATH' ) then
+	for i = 1, 3 do
+		origin_ref[i] = travel_path_ref[i]
+		origin_y[i] = travel_path_y[i]
+		origin_z[i] = travel_path_z[i]
+		end_ref[i] = travel_path_ref[i]
+		end_y[i] = travel_path_y[i]
+		end_z[i] = travel_path_z[i]
+	end
+	print( travel_path_z[1], travel_path_z[2], travel_path_z[3] )
+	print( 'travel_path_location', travel_path_location[1] )
+	center[1] = feature_placement[1] + ( travel_path_location[1]*feature_x[1] + travel_path_location[2]*feature_y[1] + travel_path_location[3]*feature_z[1] )
+	center[2] = feature_placement[2] + ( travel_path_location[1]*feature_x[2] + travel_path_location[2]*feature_y[2] + travel_path_location[3]*feature_z[2] )
+	center[3] = feature_placement[3] + ( travel_path_location[1]*feature_x[3] + travel_path_location[2]*feature_y[3] + travel_path_location[3]*feature_z[3] )
+elseif( travel_path == 'PARTIAL_CIRCULAR_PATH' ) then
+	for i = 1, 3 do
+        origin_ref[i] = travel_path_ref[1]*feature_x[i] + travel_path_ref[2]*feature_y[i] + travel_path_ref[3]*feature_z[i]
+        origin_y[i] = travel_path_y[1]*feature_x[i] + travel_path_y[2]*feature_y[i] + travel_path_y[3]*feature_z[i]
+        origin_z[i] = travel_path_z[1]*feature_x[i] + travel_path_z[2]*feature_y[i] + travel_path_z[3]*feature_z[i]
+    end
+    print( 'vectors_start', origin_ref[1], origin_ref[2], origin_ref[3], origin_y[1], origin_y[2], origin_y[3], origin_z[1], origin_z[2], origin_z[3] )
+	end_ref[1] = origin_ref[1]+math.cos( travel_path_angle*180/math.pi )
+	end_ref[2] = origin_ref[2]+math.sin( travel_path_angle*180/math.pi )
+	end_ref[3] = origin_ref[3]
+	end_y[1] = -origin_y[1]+math.sin( travel_path_angle*180/math.pi )
+	end_y[2] = origin_y[2]+math.cos( travel_path_angle*180/math.pi )
+	end_y[3] = origin_y[3]
+	print( 'vectors_end', end_ref[1], end_ref[2], end_ref[3], end_y[1], end_y[2], end_y[3], end_z[1], end_z[2], end_z[3] )
+	center[1] = feature_placement[1] + ( travel_path_location[1]*feature_x[1] + travel_path_location[2]*feature_y[1] + travel_path_location[3]*feature_z[1] )
+	center[2] = feature_placement[2] + ( travel_path_location[1]*feature_x[2] + travel_path_location[2]*feature_y[2] + travel_path_location[3]*feature_z[2] )
+	center[3] = feature_placement[3] + ( travel_path_location[1]*feature_x[3] + travel_path_location[2]*feature_y[3] + travel_path_location[3]*feature_z[3] )
+end
+
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

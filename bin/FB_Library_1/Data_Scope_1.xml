@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="Data_Scope_1" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="03-07-12" />
+	<CompilerInfo IsLua="true" BaseFile="Data_Scope.lua" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="x1" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="output" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="x1" Type="ANY" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="USER" LeftInterface="Data_Scope_1" >
+		<ServiceSequence Name="seq1" >
+			<ServiceTransaction>
+				<InputPrimitive Interface="Data_Scope_1" Event="Init" />
+				<OutputPrimitive Interface="USER" Event="req" />
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="USER" Event="rsp" />
+				<OutputPrimitive Interface="Data_Scope_1" Event="output" />
+			</ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

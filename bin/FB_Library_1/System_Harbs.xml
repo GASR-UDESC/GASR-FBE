@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE RSystem SYSTEM "FBSystem.dtd">
+
+<System Name="ROUND_HOLE_STEP-NC" Comment="FRANK-II is the best machine">
+  <Identification Standard="61499-1" />
+  <VersionInfo Date="10/01/2012" Organization="UDESC" Author="LAPAS" Version="7.0" />
+  <Device Name="RTE_Lua" Type="PC">
+    <Resource Name="STEP-NC_DATA1" Type="STEP-NC_DATA" dx="50" dy="150" />
+    <Resource Name="SETUP_FRANK" Type="SETUP" dx="50" dy="50" />
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE1" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE1,Subl_105_DRILL HOLE1_WS DRILL HOLE1]" />
+      <Parameter Name="finish_drilling.ID" Value="[DRILL HOLE1_WS DRILL HOLE1,finish_drilling]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE1" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE2" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE2,Subl_105_DRILL HOLE1_WS DRILL HOLE2]" />
+      <Parameter Name="finish_drilling.ID" Value="[DRILL HOLE1_WS DRILL HOLE2,finish_drilling]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE2" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE3" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE3,Subl_105_DRILL HOLE1_WS DRILL HOLE3]" />
+      <Parameter Name="finish_drilling.ID" Value="[DRILL HOLE1_WS DRILL HOLE3,finish_drilling]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE3" />
+    </Resource>
+    <Resource Name="COMMUNICATION_FRANK" Type="COMMUNICATION" dx="50" dy="500" />
+  </Device>
+</System>
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE RSystem SYSTEM "FBSystem.dtd">
+<System Name="SystemSem" Comment="" >
+	<Identification Standard="61499-1" />
+	<VersionInfo Date="11/09/2013" Author="IECVM" Organization="UDESC" Version="1.0" />
+	<Device Name="DEV10" Type="EL1" x="50" y ="50" >
+		<Resource Name="RES0" Type="RES_SEMAPHORE" x="52" y ="60" >
+		</Resource>
+	</Device>
+	<Device Name="DEV20" Type="EL1" x="50" y ="50" >
+		<Resource Name="RES0" Type="RES_CONTROL" x="52" y ="60" >
+		</Resource>
+	</Device>
+</System>

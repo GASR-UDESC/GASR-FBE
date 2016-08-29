@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="SETUP" Comment="Initial machine setup" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="12-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="Subl_8_SETUP" Type="SUBL_8_SETUP" x="245" y="81" />
+		<FB Name="order_machine_home_position" Type="FILE_WRITER_1_STRING" x="572" y="82" >
+			<Parameter Name="P0" Value="-1" />
+			<Parameter Name="P1" Value="" />
+		<FB Name="order_moveto_workpiece_origin" Type="FILE_WRITER_7_LINEAR_MOVE" x="1400" y="78" />
+		<FB Name="moveto_workpiece_origin" Type="LINEAR_MOVE" x="920" y="78" >
+			<Parameter Name="speed" Value="0.04" />
+			<Parameter Name="pos" Value="[0,0,0]" />
+		</FB>
+		<FB Name="set_origin" Type="ZERO_POS" x="851" y="532" />
+		<FB Name="initial_tool_comp" Type="ADD_VALUE_TO_VECTOR" x="851" y="532" >
+			<Parameter Name="value" Value="32" />
+			<Parameter Name="direction" Value="z" />
+		</FB>
+		<FB Name="finish_setup" Type="PUBL_3_OK" x="1395" y="490" />
+		<EventConnections>
+			<Connection Source="Subl_8_SETUP.IND" Destination="order_machine_home_position.REQ" dx="1" dy="1" />
+			<Connection Source="order_machine_home_position.RSP" Destination="moveto_workpiece_origin.Init" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.Send" Destination="order_moveto_workpiece_origin.REQ" dx="1" dy="1" />
+			<Connection Source="order_moveto_workpiece_origin.RSP" Destination="moveto_workpiece_origin.Req" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.Cnf" Destination="set_origin.Init" dx="0" dy="0" />
+			<Connection Source="set_origin.Cnf" Destination="initial_tool_comp.Add" dx="0" dy="0" />
+			<Connection Source="initial_tool_comp.Res" Destination="finish_setup.REQ" dx="0" dy="0" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="Subl_8_SETUP.RD_3" Destination="moveto_workpiece_origin.destination" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.eq_id" Destination="order_moveto_workpiece_origin.P0" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.coef_a" Destination="order_moveto_workpiece_origin.P1" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.coef_b" Destination="order_moveto_workpiece_origin.P2" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.t0" Destination="order_moveto_workpiece_origin.P3" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.t" Destination="order_moveto_workpiece_origin.P4" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.final_pos" Destination="order_moveto_workpiece_origin.P5" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.out_speed" Destination="order_moveto_workpiece_origin.P6" dx="1" dy="1" />
+			<Connection Source="moveto_workpiece_origin.v_coef" Destination="order_moveto_workpiece_origin.P7" dx="1" dy="1" />
+			<Connection Source="set_origin.out_pos" Destination="initial_tool_comp.vector" dx="0" dy="0" />
+			<Connection Source="initial_tool_comp.result" Destination="finish_setup.SD_2" dx="0" dy="0" />
+			<Connection Source="Subl_8_SETUP.RD_8" Destination="finish_setup.SD_3" dx="0" dy="0" />
+		<DataConnections/>
+	</FBNetwork>
+</ResourceType>

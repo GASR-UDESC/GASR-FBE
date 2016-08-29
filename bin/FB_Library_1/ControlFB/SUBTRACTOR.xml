@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SUBTRACTOR" Comment= "does y equals x1 minus x2" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="X1" />
+				<With Var="X2" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Finish" >
+				<With Var="U" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="X1" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="X2" Type="REAL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="U" Type="REAL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="Exe" x="300" y="300"  >
+				<ECAction Algorithm="Sub" Output="Finish" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECTransition Source="START" Destination="Exe" Condition="Init" />
+			<ECTransition Source="Exe" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="Sub"  >
+			<Lua Text="U = X1 - X2	" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

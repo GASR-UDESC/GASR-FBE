@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PERCENT_AJUST" Comment="Sets a percentual value from a given input" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="Guilherme Jarentchuk" Date="09-01-12" />
+	<CompilerInfo  >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialize execution" >
+				<With Var="nominal" />
+				<With Var="percent_of_nominal" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Confirm execution" >
+				<With Var="result" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="nominal" Type="REAL" />
+			<VarDeclaration Name="percent_of_nominal" Type="REAL" InitialValue="100" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="result" Type="REAL" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="1" y="1" >
+			</ECState>
+			<ECState Name="EXE" x="2" y="2" >
+				<ECAction Algorithm="alg" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="1" />
+			<ECTransition Source="EXE" Destination="START" Condition="Init" />
+		</ECC>
+		<Algorithm Name="alg" >
+			<Lua Text = "
+result = nominal*(percent_of_nominal/100)
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

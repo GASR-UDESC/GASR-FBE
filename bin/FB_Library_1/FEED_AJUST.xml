@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="FEED_AJUST" Comment="Sets feed in m/s and can multiply it to a fraction of the original value" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="Guilherme Jarentchuk" Date="09-01-12" />
+	<CompilerInfo  >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialization event" >
+				<With Var="feed" />
+				<With Var="feedrate_per_tooth" />
+				<With Var="number_of_teeth" />
+				<With Var="spindle_speed" />
+				<With Var="percentage_of_feed" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Execution complete" >
+				<With Var="feed_in_m_per_s" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="feed" Type="REAL" InitialValue="0" Comment="Axes resultant speed in m/s" />
+			<VarDeclaration Name="feedrate_per_tooth" Type="REAL" InitialValue="0" Comment="In mm" />
+			<VarDeclaration Name="number_of_teeth" Type="REAL" InitialValue="0" />
+			<VarDeclaration Name="spindle_speed" Type="REAL" InitialValue="0" Comment="In rotations/s" />
+			<VarDeclaration Name="percentage_of_feed" Type="REAL" InitialValue="100" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="feed_in_m_per_s" Type="REAL" Comment="Resultant axes linear speed in m/s" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial state" x="1" y="1" >
+			</ECState>
+			<ECState Name="NO_CONV" Comment="Without unit convertion" x="10" y="1" >
+                <ECAction Algorithm="no_conv" Output="Cnf" />
+			</ECState>
+			<ECState Name="CONV" Comment="With unit convertion" x="1" y="10" >
+                <ECAction Algorithm="conv" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="NO_CONV" Condition="Init&#38;feed>0" />
+			<ECTransition Source="NO_CONV" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="CONV" Condition="Init&#38;feedrate_per_tooth>0&#38;number_of_teeth>0" />
+			<ECTransition Source="CONV" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="conv" Comment="Convert feed unit and apply percentage" >
+			<Lua Text = "
+feed_in_m_per_s = feedrate_per_tooth*number_of_teeth*spindle_speed
+feed_in_m_per_s = (percentage_of_feed/100)*feed_in_m_per_s
+			"/>
+		</Algorithm>
+		<Algorithm Name="no_conv" Comment="Just apply percentage" >
+			<Lua Text = "
+feed_in_m_per_s = (percentage_of_feed/100)*feed
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

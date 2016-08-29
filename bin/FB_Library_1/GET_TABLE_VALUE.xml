@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="GET_TABLE_VALUE" Comment="Gets a value from a table" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="27-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="table" />
+				<With Var="position" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="value" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="table" Type="ANY" ArraySize="32" />
+			<VarDeclaration Name="position" Type="REAL" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="value" Type="ANY" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="exe" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="exe" >
+			<Lua Text = "
+value = table[ position ]
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

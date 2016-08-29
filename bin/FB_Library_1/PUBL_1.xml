@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PUBL_1" Comment="2-variable data publisher" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="21-03-12" />
+	<CompilerInfo BaseFile="SIFB_Publ.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Comment="Service initiaization" >
+				<With Var="ID" />
+			</Event>
+			<Event Name="REQ" >
+				<With Var="SD_1" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Comment="Initialization Confirm" />
+			<Event Name="CNF" Comment="Service confirmation" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="ID" Type="STRING" ArraySize="2" Comment="Default id is the FB instance name" />
+			<VarDeclaration Name="SD_1" Type="ANY" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="SUBL_105" LeftInterface="PUBL_105" Comment="Data publication service" >
+        <ServiceSequence Name="normal_establishment" >
+            <ServiceTransaction >
+                <InputPrimitive Interface="PUBL_105" Event="INIT" Parameters="ID" />
+                <OutputPrimitive Interface="PUBL_105" Event="INITO" Parameters="" />
+            </ServiceTransaction>
+            <ServiceTransaction >
+                <InputPrimitive Interface="SUBL_105" Event="INIT" Parameters="ID" />
+                <OutputPrimitive Interface="SUBL_105" Event="INITO" Parameters="" />
+            </ServiceTransaction>
+        </ServiceSequence>
+        <ServiceSequence Name="normal_data_transfer" >
+            <ServiceTransaction >
+                <InputPrimitive Interface="PUBL_105" Event="REQ" Parameters="SD_1" />
+                <OutputPrimitive Interface="Subl_105" Event="IND" Parameters="RD_1" />
+            </ServiceTransaction>
+        </ServiceSequence>
+    </Service>
+</FBType>

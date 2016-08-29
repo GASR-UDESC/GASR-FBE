@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PUB_2" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="slimrte" Date="10-09-13" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="ID" />
+			</Event>
+			<Event Name="REQ" >
+				<With Var="RD_1" />
+				<With Var="RD_2" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INIT0" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="ID" Type="INT" ArraySize="" />
+			<VarDeclaration Name="RD_1" Type="INT" ArraySize="" />
+			<VarDeclaration Name="RD_2" Type="BOOL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="SEND" x="320" y="270"  >
+				<ECAction Algorithm="ALG_SND" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECState Name="INIT" x="440" y="200"  >
+				<ECAction Algorithm="ALG_INIT" Output="INIT0" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="INIT" />
+			<ECTransition Source="START" Destination="SEND" Condition="REQ" />
+			<ECTransition Source="SEND" Destination="START" Condition="1" />
+			<ECTransition Source="INIT" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="ALG_SND"  >
+			<Lua Text="IF (NOT(RD_1_ = RD_1)) OR (NOT(RD_2_ = RD_2)) THEN
+      ASM    
+	    LOAD RD_1     
+	    LOAD RD_2     
+	    CONST 2   
+	    LOAD ID  
+	    NISND     
+	  END_ASM
+	  RD_1_ := RD_1;
+	  RD_2_ := RD_2;
+	END_IF;" />
+		</Algorithm>
+		<Algorithm Name="ALG_INIT"  >
+			<Lua Text="" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

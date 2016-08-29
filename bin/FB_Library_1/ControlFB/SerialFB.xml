@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SerialFB" Comment= "rs232_usb" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="Gabriel" Date="2013_12_09" />
+	<CompilerInfo IsLua="true" BaseFile="SerialFB.lua" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="input" />
+			</Event>
+			<Event Name="close" >
+			</Event>	
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="output" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="T" Type="INT" ArraySize="" />
+			<VarDeclaration Name="input" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="port_name" Type="STRING" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="output" Type="REAL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="Serial_Device" LeftInterface="SerialFB" >
+		<ServiceSequence Name="normal" >
+			<ServiceTransaction>
+				<InputPrimitive Interface="SerialFB" Event="Init" />
+				<OutputPrimitive Interface="Serial_Device" Event="init" />
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="Serial_Device" Event="ok" />
+				<OutputPrimitive Interface="SerialFB" Event="Cnf" />
+			</ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

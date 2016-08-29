@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SPINDLE_ON_OFF" Comment= "Activates machine spindle" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="Guilherme Jarentchuk" Date="09-01-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialize execution" >
+				<With Var="action" />
+			</Event>
+			<Event Name="Req" Comment="Request to finish" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Confirm execution" >
+			</Event>
+			<Event Name="call" Comment="Call execution device" >
+				<With Var="spindle_state" />
+				<With Var="process_id" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="action" Type="STRING" Comment="Can be only 'on' or 'off'" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="process_id" Type="INT" />
+			<VarDeclaration Name="spindle_state" Type="STRING" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="FINISH" x="642" y="189"  >
+				<ECAction Output="Cnf" />
+			</ECState>
+			<ECState Name="START" x="474" y="263"  >
+			</ECState>
+			<ECState Name="EXE" x="340" y="141"  >
+				<ECAction Algorithm="switch" Output="call" />
+			</ECState>
+			<ECTransition Source="FINISH" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="EXE" Condition="Init" />
+			<ECTransition Source="START" Destination="FINISH" Condition="Req" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="switch"  >
+			<Lua Text=" spindle_state = action process_id = -3    " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

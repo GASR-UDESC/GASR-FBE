@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SUB_2" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="slimrte" Date="10-09-13" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="ID" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INIT0" >
+			</Event>
+			<Event Name="RSP" >
+				<With Var="SD_1" />
+				<With Var="SD_2" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="ID" Type="INT" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="SD_1" Type="INT" ArraySize="" />
+			<VarDeclaration Name="SD_2" Type="BOOL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECState Name="RCV" x="319" y="295"  >
+				<ECAction Algorithm="ALG_RCV" Output="RSP" />
+			</ECState>
+			<ECState Name="INIT" x="467" y="200"  >
+				<ECAction Algorithm="ALG_INIT" Output="INIT0" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="INIT" />
+			<ECTransition Source="INIT" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="RCV" Condition="1" />
+			<ECTransition Source="RCV" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="ALG_RCV"  >
+			<Lua Text="
+ASM       CONST 2  LOAD ID  NIRCV   IF GOTO process     GOTO out  process:    STORE SD_1    STORE SD_2  out:   END_ASM" />
+		</Algorithm>
+		<Algorithm Name="ALG_INIT"  >
+			<Lua Text="" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE RSystem SYSTEM "FBSystem.dtd">
+
+<System Name="System.xml" Comment="FRANK-II is the best machine">
+  <Identification Standard="61499-1" />
+  <VersionInfo Date="10/01/2012" Organization="UDESC" Author="LAPAS" Version="7.0" />
+  <Device Name="RTE_Lua" Type="PC" dx="50" dy="50">
+    <Resource Name="STEP-NC_DATA1" Type="STEP-NC_DATA" dx="50" dy="150" />
+    <Resource Name="SETUP_FRANK" Type="SETUP" dx="50" dy="50">
+      <Parameter Name="Subl_8_SETUP.ID" Value="[SETUP_FRANK,Subl_8_SETUP]" />
+      <Parameter Name="finish_setup.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_setup.SD_1" Value="SETUP_FRANK" />
+    </Resource>
+    <Resource Name="FINISH_PLANAR_PLANAR_FACE" Type="BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_132_BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE.ID" Value="[FINISH_PLANAR_PLANAR_FACE,Subl_132_BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE]" />
+      <Parameter Name="finish_milling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_milling.SD_1" Value="FINISH_PLANAR_PLANAR_FACE" />
+    </Resource>
+    <Resource Name="COMMUNICATION_FRANK" Type="COMMUNICATION" dx="50" dy="500">
+      <Parameter Name="Subl_1_COMM_MACHINE_COMM.ID" Value="[COMMUNICATION_FRANK,Subl_1_COMM_MACHINE_COMM]" />
+      <Parameter Name="finish_machining.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+    </Resource>
+  </Device>
+</System>
+

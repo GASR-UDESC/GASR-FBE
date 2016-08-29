@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="teste_lamp" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="" Date="" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="red" Type="RED_LIGHT" x="473" y="139" >
+		</FB>
+		<FB Name="Yellow" Type="YELLOW_LIGHT" x="435" y="325" >
+		</FB>
+		<FB Name="blue" Type="BLUE_LIGHT" x="441" y="487" >
+		</FB>
+		<FB Name="starter_on" Type="STARTER" x="71" y="644" >
+		</FB>
+		<FB Name="starter_off" Type="STARTER" x="68" y="764" >
+		</FB>
+		<FB Name="on_off" Type="RED_LIGHT_ON_OFF" x="451" y="658" >
+		</FB>
+		<FB Name="st1" Type="STARTER_BUTTON" x="53" y="136" >
+		</FB>
+		<EventConnections>
+			<Connection Source="on_off.output" Destination="blue.Init" />
+			<Connection Source="st1.start" Destination="red.Init" />
+			<Connection Source="starter_off.start" Destination="on_off.Off" />
+			<Connection Source="red.output" Destination="Yellow.Init" />
+			<Connection Source="Yellow.output" Destination="blue.Init" />
+			<Connection Source="starter_on.start" Destination="on_off.On" />
+		</EventConnections>
+		<DataConnections>
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

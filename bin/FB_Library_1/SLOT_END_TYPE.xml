@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SLOT_END_TYPE" Comment="Main loop for simple slot" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="27-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="iteration" />
+				<With Var="end_type" />
+				<With Var="pos" />
+				<With Var="origin_y" />
+				<With Var="offset" />
+				<With Var="z" />
+				<With Var="width" />
+			</Event>
+			<Event Name="Req" >
+				<With Var="pos" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Radiused" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="Other" >
+				<With Var="out_pos" />
+				<With Var="dest" />
+			</Event>
+			<Event Name="Continue" >
+				<With Var="out_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="iteration" Type="INT" />
+			<VarDeclaration Name="end_type" Type="STRING" />
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="origin_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="z" Type="REAL" />
+			<VarDeclaration Name="offset" Type="REAL" />
+			<VarDeclaration Name="width" Type="REAL" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="dest" Type="REAL" ArraySize="3" />
+		</OutputVars>
+		<InternalVars>
+			<VarDeclaration Name="go" Type="STRING" />
+		</InternalVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="GO_OR_MILL" x="0" y="0" >
+				<ECAction Algorithm="go_or_mill" />
+			</ECState>
+			<ECState Name="GO" x="0" y="0" >
+				<ECAction Output="Continue" />
+			</ECState>
+			<ECState Name="RAD" x="0" y="0" >
+				<ECAction Output="Radiused" />
+			</ECState>
+			<ECState Name="OTHER" x="0" y="0" >
+				<ECAction Output="Other" />
+			</ECState>
+			<ECTransition Source="START" Destination="GO_OR_MILL" Condition="Init" x="0" y="0" />
+			<ECTransition Source="GO_OR_MILL" Destination="GO" Condition="go==true" x="0" y="0" />
+			<ECTransition Source="GO_OR_MILL" Destination="RAD" Condition="go=='Rad'" x="0" y="0" />
+			<ECTransition Source="GO_OR_MILL" Destination="OTHER" Condition="go=='Other'" x="0" y="0" />
+			<ECTransition Source="START" Destination="GO" Condition="Req" x="0" y="0" />
+			<ECTransition Source="GO" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="RAD" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="OTHER" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="go_or_mill" >
+			<Lua Text = "
+if( iteration == 1 ) and ( end_type == 'radiused_slot_end_type' ) then
+	go = 'Rad'
+else
+    for i = 1, 2 do
+        dest[i] = pos[i] + origin_y[i]*offset*width/2
+    end
+    dest[3] = z
+	go = 'Other'
+end
+out_pos[1] = pos[1]
+out_pos[2] = pos[2]
+out_pos[3] = pos[3]
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

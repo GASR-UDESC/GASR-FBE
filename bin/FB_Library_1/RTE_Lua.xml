@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DeviceType SYSTEM "FBSystem.dtd">
+<DeviceType Name="RTE_Lua" >
+	<VersionInfo />
+	<Resource Name="STEP-NC_DATA1" Type="STEP-NC_DATA" dx="50" dy ="50" >
+	</Resource>
+	<Resource Name="DRILL HOLE1_WS DRILL HOLE1" Type="DRILLING-ROUND_HOLE_RES" dx="50" dy ="50" >
+	</Resource>
+</DeviceType>

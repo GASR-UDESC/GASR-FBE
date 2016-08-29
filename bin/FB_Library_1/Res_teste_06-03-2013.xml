@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="Res_teste_06-03-2013" Comment= "Teste" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="Gabriel" Date="06-03-2013" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="Source" Type="Data_Source_Real_1" x="28" y="132" >
+		</FB>
+		<FB Name="Switch" Type="LIMIT_SWITCH_3" x="223" y="252" >
+			<Parameter Name="limits" Value="[5, 20]" />
+		</FB>
+		<FB Name="HIGH" Type="RED_LIGHT" x="598" y="170" >
+		</FB>
+		<FB Name="LOW" Type="BLUE_LIGHT" x="602" y="291" >
+		</FB>
+		<FB Name="THIRD_STATE" Type="YELLOW_LIGHT" x="580" y="426" >
+		</FB>
+		<EventConnections>
+			<Connection Source="Switch.low" Destination="LOW.Init" />
+			<Connection Source="Switch.high" Destination="HIGH.Init" />
+			<Connection Source="Switch.out_limit" Destination="THIRD_STATE.Init" />
+			<Connection Source="Source.output" Destination="Switch.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="Source.x1" Destination="Switch.x" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

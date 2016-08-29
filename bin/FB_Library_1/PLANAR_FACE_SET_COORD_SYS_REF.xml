@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PLANAR_FACE_SET_COORD_SYS_REF" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="06-06-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="feature_placement_ref" />
+				<With Var="feature_placement_z" />
+				<With Var="course_of_travel_ref" />
+				<With Var="course_of_travel_z" />
+				<With Var="removal_boundary_ref" />
+				<With Var="removal_boundary_z" />
+				<With Var="face_boundary_ref" />
+				<With Var="face_boundary_z" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="feature_x" />
+				<With Var="feature_y" />
+				<With Var="feature_z" />
+				<With Var="course_x" />
+				<With Var="course_y" />
+				<With Var="course_z" />
+				<With Var="removal_x" />
+				<With Var="removal_y" />
+				<With Var="removal_z" />
+				<With Var="face_x" />
+				<With Var="face_y" />
+				<With Var="face_z" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="feature_placement_ref" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="feature_placement_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="course_of_travel_ref" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="course_of_travel_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="removal_boundary_ref" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="removal_boundary_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="face_boundary_ref" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="face_boundary_z" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="feature_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="feature_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="feature_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="course_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="course_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="course_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="removal_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="removal_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="removal_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="face_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="face_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="face_z" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="get_feature_x" Type="PRIOR_IF_NOT_000_2" x="1" y="1" >
+			<Parameter Name="V2" Value="[1,0,0]" />
+		</FB>
+		<FB Name="get_feature_z" Type="PRIOR_IF_NOT_000_2" x="1" y="1" >
+			<Parameter Name="V2" Value="[0,0,1]" />
+		</FB>
+		<FB Name="set_feature_x" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_feature_z" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_feature_y" Type="VECTOR_CROSS_AND_NORMALIZE" x="1" y="1" />
+		<FB Name="get_course_x" Type="PRIOR_IF_NOT_000_2" x="1" y="1" />
+		<FB Name="get_course_z" Type="PRIOR_IF_NOT_000_2" x="1" y="1" />
+		<FB Name="set_course_x" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_course_z" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_course_y" Type="VECTOR_CROSS_AND_NORMALIZE" x="1" y="1" />
+		<FB Name="get_removal_x" Type="PRIOR_IF_NOT_000_2" x="1" y="1" />
+		<FB Name="get_removal_z" Type="PRIOR_IF_NOT_000_2" x="1" y="1" />
+		<FB Name="set_removal_x" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_removal_z" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_removal_y" Type="VECTOR_CROSS_AND_NORMALIZE" x="1" y="1" />
+		<FB Name="get_face_x" Type="PRIOR_IF_NOT_000_2" x="1" y="1" />
+		<FB Name="get_face_z" Type="PRIOR_IF_NOT_000_2" x="1" y="1" />
+		<FB Name="set_face_x" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_face_z" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_face_y" Type="VECTOR_CROSS_AND_NORMALIZE" x="1" y="1" />
+		<EventConnections>
+			<Connection Source="Init" Destination="get_feature_x.Init" dx="1" dy="1" />
+			<Connection Source="get_feature_x.Cnf" Destination="get_feature_z.Init" dx="1" dy="1" />
+			<Connection Source="get_feature_z.Cnf" Destination="set_feature_x.Init" dx="1" dy="1" />
+			<Connection Source="set_feature_x.Cnf" Destination="set_feature_z.Init" dx="1" dy="1" />
+			<Connection Source="set_feature_z.Cnf" Destination="set_feature_y.Init" dx="1" dy="1" />
+			<Connection Source="set_feature_y.Cnf" Destination="get_course_x.Init" dx="1" dy="1" />
+			<Connection Source="get_course_x.Cnf" Destination="get_course_z.Init" dx="1" dy="1" />
+			<Connection Source="get_course_z.Cnf" Destination="set_course_x.Init" dx="1" dy="1" />
+			<Connection Source="set_course_x.Cnf" Destination="set_course_z.Init" dx="1" dy="1" />
+			<Connection Source="set_course_z.Cnf" Destination="set_course_y.Init" dx="1" dy="1" />
+			<Connection Source="set_course_y.Cnf" Destination="get_removal_x.Init" dx="1" dy="1" />
+			<Connection Source="get_removal_x.Cnf" Destination="get_removal_z.Init" dx="1" dy="1" />
+			<Connection Source="get_removal_z.Cnf" Destination="set_removal_x.Init" dx="1" dy="1" />
+			<Connection Source="set_removal_x.Cnf" Destination="set_removal_z.Init" dx="1" dy="1" />
+			<Connection Source="set_removal_z.Cnf" Destination="set_removal_y.Init" dx="1" dy="1" />
+			<Connection Source="set_removal_y.Cnf" Destination="get_face_x.Init" dx="1" dy="1" />
+			<Connection Source="get_face_x.Cnf" Destination="get_face_z.Init" dx="1" dy="1" />
+			<Connection Source="get_face_z.Cnf" Destination="set_face_x.Init" dx="1" dy="1" />
+			<Connection Source="set_face_x.Cnf" Destination="set_face_z.Init" dx="1" dy="1" />
+			<Connection Source="set_face_z.Cnf" Destination="set_face_y.Init" dx="1" dy="1" />
+			<Connection Source="set_face_y.Cnf" Destination="Cnf" dx="0" dy="0" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="feature_placement_ref" Destination="get_feature_x.V1" dx="1" dy="1" />
+			<Connection Source="feature_placement_z" Destination="get_feature_z.V1" dx="1" dy="1" />
+			<Connection Source="get_feature_x.VOUT" Destination="set_feature_x.v" dx="1" dy="1" />
+			<Connection Source="get_feature_z.VOUT" Destination="set_feature_z.v" dx="1" dy="1" />
+			<Connection Source="set_feature_x.v_unit" Destination="set_feature_y.V2" dx="1" dy="1" />
+			<Connection Source="set_feature_z.v_unit" Destination="set_feature_y.V1" dx="1" dy="1" />
+			<Connection Source="course_of_travel_ref" Destination="get_course_x.V1" dx="1" dy="1" />
+			<Connection Source="set_feature_x.v_unit" Destination="get_course_x.V2" dx="1" dy="1" />
+			<Connection Source="course_of_travel_z" Destination="get_course_z.V1" dx="1" dy="1" />
+			<Connection Source="set_feature_z.v_unit" Destination="get_course_z.V2" dx="1" dy="1" />
+			<Connection Source="get_course_x.VOUT" Destination="set_course_x.v" dx="1" dy="1" />
+			<Connection Source="get_course_z.VOUT" Destination="set_course_z.v" dx="1" dy="1" />
+			<Connection Source="set_course_x.v_unit" Destination="set_course_y.V2" dx="1" dy="1" />
+			<Connection Source="set_course_z.v_unit" Destination="set_course_y.V1" dx="1" dy="1" />
+			<Connection Source="removal_boundary_ref" Destination="get_removal_x.V1" dx="1" dy="1" />
+			<Connection Source="set_feature_x.v_unit" Destination="get_removal_x.V2" dx="1" dy="1" />
+			<Connection Source="removal_boundary_z" Destination="get_removal_z.V1" dx="1" dy="1" />
+			<Connection Source="set_feature_z.v_unit" Destination="get_removal_z.V2" dx="1" dy="1" />
+			<Connection Source="get_removal_x.VOUT" Destination="set_removal_x.v" dx="1" dy="1" />
+			<Connection Source="get_removal_z.VOUT" Destination="set_removal_z.v" dx="1" dy="1" />
+			<Connection Source="set_removal_x.v_unit" Destination="set_removal_y.V2" dx="1" dy="1" />
+			<Connection Source="set_removal_z.v_unit" Destination="set_removal_y.V1" dx="1" dy="1" />
+			<Connection Source="face_boundary_ref" Destination="get_face_x.V1" dx="1" dy="1" />
+			<Connection Source="set_feature_x.v_unit" Destination="get_face_x.V2" dx="1" dy="1" />
+			<Connection Source="face_boundary_z" Destination="get_face_z.V1" dx="1" dy="1" />
+			<Connection Source="set_feature_z.v_unit" Destination="get_face_z.V2" dx="1" dy="1" />
+			<Connection Source="get_face_x.VOUT" Destination="set_face_x.v" dx="1" dy="1" />
+			<Connection Source="get_face_z.VOUT" Destination="set_face_z.v" dx="1" dy="1" />
+			<Connection Source="set_face_x.v_unit" Destination="set_face_y.V2" dx="1" dy="1" />
+			<Connection Source="set_face_z.v_unit" Destination="set_face_y.V1" dx="1" dy="1" />
+			<Connection Source="set_feature_x.v_unit" Destination="feature_x" dx="0" dy="0" />
+			<Connection Source="set_feature_y.RES" Destination="feature_y" dx="0" dy="0" />
+			<Connection Source="set_feature_z.v_unit" Destination="feature_z" dx="0" dy="0" />
+			<Connection Source="set_course_x.v_unit" Destination="course_x" dx="0" dy="0" />
+			<Connection Source="set_course_y.RES" Destination="course_y" dx="0" dy="0" />
+			<Connection Source="set_course_z.v_unit" Destination="course_z" dx="0" dy="0" />
+			<Connection Source="set_removal_x.v_unit" Destination="removal_x" dx="0" dy="0" />
+			<Connection Source="set_removal_y.RES" Destination="removal_y" dx="0" dy="0" />
+			<Connection Source="set_removal_z.v_unit" Destination="removal_z" dx="0" dy="0" />
+			<Connection Source="set_face_x.v_unit" Destination="face_x" dx="0" dy="0" />
+			<Connection Source="set_face_y.RES" Destination="face_y" dx="0" dy="0" />
+			<Connection Source="set_face_z.v_unit" Destination="face_z" dx="0" dy="0" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

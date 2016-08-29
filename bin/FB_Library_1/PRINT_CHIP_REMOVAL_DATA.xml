@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PRINT_CHIP_REMOVAL_DATA" Comment="Prints on the terminal the chip removal" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="18-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="S1" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="S1" Type="STRING" Comment="String 1" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="PRINT_DATA" x="0" y="0" >
+				<ECAction Algorithm="print_data" Output="CNF" />
+			</ECState>
+			<ECTransition Source="START" Destination="PRINT_DATA" Condition="INIT" x="0" y="0" />
+			<ECTransition Source="PRINT_DATA" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="print_data" >
+			<Lua Text = "
+print( &#34;Chip removal state:&#34;..S1 )
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

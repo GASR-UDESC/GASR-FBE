@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/org/gnome/gnotravex/" id="org.gnome.gnotravex" gettext-domain="gnome-games">
+    <key type="i" name="grid-size">
+      <default>3</default>
+      <range min="2" max="6"/>
+      <summary>The size of the playing grid</summary>
+      <description>The value of this key is used to decide the size of the playing grid.</description>
+    </key>
+    <key type="b" name="click-to-move">
+      <default>false</default>
+      <summary>Select the style of control</summary>
+      <description>Select whether to drag the tiles or to click on the source then the destination.</description>
+    </key>
+  </schema>
+</schemalist>

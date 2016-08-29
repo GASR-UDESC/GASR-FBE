@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="LOOP_PLANAR_FACE" >
+	<Identification Standard="61499-2" />
+	<VersionInfo />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="width" />
+				<With Var="length" />
+				<With Var="tool_diam" />
+				<With Var="overlap" />
+				<With Var="pos" />
+				<With Var="plane" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="pos_out" />
+				<With Var="Point_list" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="width" Type="REAL" />
+			<VarDeclaration Name="length" Type="REAL" />
+			<VarDeclaration Name="tool_diam" Type="REAL" />
+			<VarDeclaration Name="overlap" Type="REAL" />
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="plane" Type="REAL" ArraySize="4" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="pos_out" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Point_list" Type="REAL" ArraySize="60" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="calc_n" Type="CALC_ITERATIONS" x="1" y="1" />
+		<FB Name="control" Type="CONTROL_ITER" x="1" y="1" />
+		<FB Name="offset" Type="PLANE_OFFSET" x="1" y="1" />
+		<FB Name="point_list" Type="POINT_LIST" x="1" y="1" />
+		<FB Name="Line" Type="Calc_Spiral_Linear_Move" x="1" y="1" />
+		<FB Name="var_merge" Type="VAR_MERGE_6" x="1" y="1" />
+		<FB Name="Control_Line" Type="CONTROL_SPIRAL_MOVE" x="300" y = "500"/>
+		<EventConnections>
+			<Connection Source="Init" Destination="calc_n.Init" dx="1" dy="1" />
+			<Connection Source="calc_n.cnf" Destination="control.Start" dx="1" dy="1" />
+			<Connection Source="control.move" Destination="offset.Init" dx="1" dy="1" />
+			<Connection Source="offset.Cnf" Destination="var_merge.Ev1" dx="1" dy="1" />
+			<Connection Source="var_merge.Cnf" Destination="point_list.Init" dx="1" dy="1" />
+			<Connection Source="point_list.Cnf" Destination="Control_Line.Init" dx="1" dy="1" />
+			<Connection Source="Control_Line.move" Destination="Line.Init" dx="1" dy="1" />
+			<Connection Source="Line.Cnf" Destination="var_merge.Ev2" dx="1" dy="1" />
+			<Connection Source="Control_Line.finish" Destination="control.move_done" dx="1" dy="1" />
+			<Connection Source="control.finish" Destination="Cnf" dx="1" dy="1" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="width" Destination="calc_n.width" dx="1" dy="1" />
+			<Connection Source="width" Destination="control.width" dx="1" dy="1" />
+			<Connection Source="width" Destination="offset.width" dx="1" dy="1" />
+			<Connection Source="length" Destination="calc_n.length" dx="1" dy="1" />
+			<Connection Source="length" Destination="control.length" dx="1" dy="1" />
+			<Connection Source="length" Destination="offset.length" dx="1" dy="1" />
+			<Connection Source="pos" Destination="control.start_pos" dx="1" dy="1" />
+			<Connection Source="tool_diam" Destination="calc_n.tool_diam" dx="1" dy="1" />
+			<Connection Source="tool_diam" Destination="control.tool_diam" dx="1" dy="1" />
+			<Connection Source="tool_diam" Destination="offset.tool_diam" dx="1" dy="1" />
+			<Connection Source="overlap" Destination="calc_n.overlap" dx="1" dy="1" />
+			<Connection Source="overlap" Destination="offset.overlap" dx="1" dy="1" />
+			<Connection Source="plane" Destination="offset.plane" dx="1" dy="1" />
+			<Connection Source="plane" Destination="Line.Plane" dx="1" dy="1" />
+			<Connection Source="point_list.Point_List" Destination="Point_list" dx="1" dy="1" />
+			<Connection Source="control.pos_out" Destination="pos_out" dx="1" dy="1" />
+			<Connection Source="calc_n.N" Destination="control.Nin" dx="1" dy="1" />
+			<Connection Source="control.width_n" Destination="Control_Line.width_in" dx="1" dy="1" />
+			<Connection Source="control.length_n" Destination="Control_Line.length_in" dx="1" dy="1" />
+			<Connection Source="var_merge.Out_Var" Destination="Control_Line.pos_in" dx="1" dy="1" />
+			<Connection Source="var_merge.Out_Var" Destination="point_list.Next_Point" dx="1" dy="1" />
+			<Connection Source="control.Nout" Destination="offset.N" dx="1" dy="1" />
+			<Connection Source="control.Iout" Destination="offset.i" dx="1" dy="1" />
+			<Connection Source="control.pos_out" Destination="offset.pos" dx="1" dy="1" />
+			<Connection Source="offset.pos_b" Destination="var_merge.Var1" dx="1" dy="1" />
+			<Connection Source="Control_Line.width_out" Destination="Line.Width" dx="1" dy="1" />
+			<Connection Source="Control_Line.length_out" Destination="Line.Length" dx="1" dy="1" />
+			<Connection Source="Control_Line.pos_out" Destination="Line.Pos_in" dx="1" dy="1" />
+			<Connection Source="Control_Line.pos_out" Destination="control.pos_in" dx="1" dy="1" />
+			<Connection Source="Line.Next_Pos" Destination="var_merge.Var2" dx="1" dy="1" />
+			
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

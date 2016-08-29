@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="quarta_ordem_MA_11_11_13" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="" Date="" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="STARTER" x="7" y="99" >
+		</FB>
+		<FB Name="step" Type="STEP_SOURCE" x="350.266125" y="118.059375" >
+			<Parameter Name="K" Value="1" />
+			<Parameter Name="t_end" Value="20" />
+			<Parameter Name="dt" Value="0.01" />
+			<Parameter Name="delay" Value="2" />
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="496.047" y="499.8945" >
+			<Parameter Name="dt" Value="0.01" />
+		</FB>
+		<FB Name="plant" Type="FOURTH_ORDER_SYSTEM" x="745" y="118" >
+			<Parameter Name="x1_0" Value="0" />
+			<Parameter Name="x2_0" Value="0" />
+			<Parameter Name="x3_0" Value="0" />
+			<Parameter Name="x4_0" Value="0" />
+			<Parameter Name="dt" Value="0.01" />
+			<Parameter Name="den" Value="[1, 6, 15, 18, 10]" />
+			<Parameter Name="delay" Value="0" />
+			<Parameter Name="num" Value="[0, 1, 2, 3, 10]" />
+		</FB>
+		<EventConnections>
+			<Connection Source="start.start" Destination="step.Start" />
+			<Connection Source="scope.Cnf" Destination="step.Init" />
+			<Connection Source="step.Finish" Destination="plant.Init" />
+			<Connection Source="plant.Finish" Destination="scope.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="step.U" Destination="plant.u" />
+			<Connection Source="plant.y" Destination="scope.DataIn" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

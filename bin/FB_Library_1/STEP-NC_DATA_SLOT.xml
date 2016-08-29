@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType SYSTEM "ResourceType.dtd">
+
+<Resource Name="STEP-NC_DATA" Comment="Resource with all information of the STEP-NC file">
+  <Identification Standard="61499-1" />
+  <VersionInfo Date="10/01/2012" Organization="UDESC" Author="LAPAS" Version="7.0" />
+  <FBNetwork>
+    <FB Name="EXECUTABLE_SWITCH" Type="SWITCH" dx="100" dy="100" />
+    <FB Name="START_WORK" Type="STARTER" dx="50" dy="50" />
+    <FB Name="Subl_3_OK_STEP-NC_DATA" Type="SUBL_3_OK" dx="50" dy="150" />
+    <FB Name="Publ_1_COMM1" Type="PUBL_1_COMM" dx="50" dy="150">
+      <Parameter Name="ID" Value="[COMMUNICATION_FRANK,Subl_1_COMM_MACHINE_COMM]" />
+      <Parameter Name="SD_1" Value="COEF_FILE" />
+    </FB>
+    <FB Name="Publ_8_SETUP1" Type="PUBL_8_SETUP" dx="50" dy="300">
+      <Parameter Name="ID" Value="[SETUP_FRANK,Subl_8_SETUP]" Comment="Default id is the FB instance name" />
+      <Parameter Name="SD_1" Value="SETUP1" Comment="workplan.its_setup.its_origin.name" />
+      <Parameter Name="SD_2" Value="SETUP1: LOCATION" Comment="workplan.its_setup.its_origin.location.name" />
+      <Parameter Name="SD_3" Value="[0.0, 150.0, -50.0]" Comment="workplan.its_setup.its_origin.location.coordinates" />
+      <Parameter Name="SD_4" Value=" AXIS" Comment="workplan.its_setup.its_origin.axis.its_id" />
+      <Parameter Name="SD_5" Value="[0.0, 0.0, 1.0]" Comment="workplan.its_setup.its_origin.axis.direction_ratios" />
+      <Parameter Name="SD_6" Value=" REF_DIRECTION" Comment="workplan.its_setup.its_origin.ref_direction.its_id" />
+      <Parameter Name="SD_7" Value="[1.0, 0.0, 0.0]" Comment="workplan.its_setup.its_origin.ref_direction_ratios" />
+    </FB>
+    <FB Name="Publ_119_ROUGHING SLOT1_ROUGHING SLOT1 " Type="PUBL_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE" dx="50" dy="300">
+      <Parameter Name="ID" Value="[ROUGHING SLOT1_ROUGHING SLOT1 ,Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE]" Comment="Default id is the FB instance name" />
+      <Parameter Name="SD_3" Value="[0.0, 0.0, 30.0]" Comment="setup.Its_secplane.position.location.coordinates" />
+      <Parameter Name="SD_4" Value="SLOT1" Comment="slot.its_id" />
+      <Parameter Name="SD_5" Value="FOAM PIECE" Comment="its_workpiece.its_id" />
+      <Parameter Name="SD_6" Value="nullROUGHING SLOT1" Comment="its_operations.its_id LIST - the list is concatenated in one string" />
+      <Parameter Name="SD_7" Value="SLOT1" Comment="feature_placement.name" />
+      <Parameter Name="SD_8" Value="" Comment="feature_placement.location.name" />
+      <Parameter Name="SD_9" Value="[0.0, 50.0, 0.0]" Comment="feature_placement.location.coordinates" />
+      <Parameter Name="SD_10" Value="" Comment="feature_placement.axis.its_id" />
+      <Parameter Name="SD_11" Value="[0.0, 0.0, 1.0]" Comment="feature_placement.axis.direction_ratios" />
+      <Parameter Name="SD_12" Value="" Comment="feature_placement.ref_direction.its_id" />
+      <Parameter Name="SD_13" Value="[0.0, 1.0, 0.0]" Comment="feature_placement.ref_direction_ratios" />
+      <Parameter Name="SD_14" Value="SLOT1:DEPTH" Comment="depth.name" />
+      <Parameter Name="SD_15" Value="SLOT1:DEPTH" Comment="depth.position.name" />
+      <Parameter Name="SD_16" Value="SLOT1:DEPTH" Comment="depth.position.location.name" />
+      <Parameter Name="SD_17" Value="[0.0, 0.0, -25.0]" Comment="depth.position.location.coordinates" />
+      <Parameter Name="SD_18" Value="$" Comment="depth.position.axis.its_id" />
+      <Parameter Name="SD_19" Value="$" Comment="depth.position.axis.direction_ratios" />
+      <Parameter Name="SD_20" Value="$" Comment="depth.position.ref_direction.its_id" />
+      <Parameter Name="SD_21" Value="$" Comment="depth.position.ref_direction_ratios" />
+      <Parameter Name="SD_22" Value="LINEAR_PATH" Comment="course_of_travel" />
+      <Parameter Name="SD_23" Value="50.0" Comment="course_of_travel.var1.theoretical_size" />
+      <Parameter Name="SD_24" Value="PLUS_MINUS_VALUE" Comment="course_of_travel.var1.implicit_tolerance" />
+      <Parameter Name="SD_25" Value="[0.1,0.1,3]" Comment="course_of_travel.var1.{vector}, vector = {upper_limit, lower_limit, significant_digits} or {deviation,grade,its_fitting_type}" />
+      <Parameter Name="SD_26" Value="" Comment="course_of_travel.direction.its_id" />
+      <Parameter Name="SD_27" Value="[1.0, 0.0, 0.0]" Comment="course_of_travel.direction.direction_ratios" />
+      <Parameter Name="SD_28" Value="$" Comment="course_of_travel.sweep_angle" />
+      <Parameter Name="SD_29" Value="SQUARE_U_PROFILE" Comment="swept_shape" />
+      <Parameter Name="SD_30" Value="$" Comment="swept_shape.variable list" />
+      <Parameter Name="SD_31" Value="$" Comment="swept_shape.profile_length.its_parameter_value" />
+      <Parameter Name="SD_32" Value="$" Comment="swept_shape.profile_length.its_parameter_unit" />
+      <Parameter Name="SD_33" Value="OPEN_SLOT_END_TYPE" Comment="end_condition[1]" />
+      <Parameter Name="SD_34" Value="$" Comment="end_condition[1].var1.theoretical_size" />
+      <Parameter Name="SD_35" Value="$" Comment="end_condition[1].var1.implicit_tolerance" />
+      <Parameter Name="SD_36" Value="$" Comment="end_condition[1].var1.{vector}, vector = {upper_limit, lower_limit, significant_digits} or {deviation,grade,its_fitting_type}" />
+      <Parameter Name="SD_37" Value="OPEN_SLOT_END_TYPE" Comment="end_condition[2]" />
+      <Parameter Name="SD_38" Value="$" Comment="end_condition[2].var1.theoretical_size" />
+      <Parameter Name="SD_39" Value="$" Comment="end_condition[2].var1.implicit_tolerance" />
+      <Parameter Name="SD_40" Value="$" Comment="end_condition[2].var1.{vector}, vector = {upper_limit, lower_limit, significant_digits} or {deviation,grade,its_fitting_type}" />
+      <Parameter Name="SD_41" Value="ROUGHING SLOT1" Comment="bottom_and_side_rough_milling.its_id" />
+      <Parameter Name="SD_42" Value="$" Comment="its_toolpath.its_list" />
+      <Parameter Name="SD_43" Value="$" Comment="its_tool_direction" />
+      <Parameter Name="SD_44" Value="10.0" Comment="retract_plane" />
+      <Parameter Name="SD_45" Value="$" Comment="start_point.name" />
+      <Parameter Name="SD_46" Value="$" Comment="start_point.coordinates" />
+      <Parameter Name="SD_47" Value="ENDMILL 6" Comment="its_tool.its_id" />
+      <Parameter Name="SD_48" Value="6.0" Comment="its_tool.its_tool_body.dimension.diameter" />
+      <Parameter Name="SD_49" Value="$" Comment="its_tool.its_tool_body.dimension.tool_tip_half_angle" />
+      <Parameter Name="SD_50" Value="$" Comment="its_tool.its_tool_body.dimension.tool_circumference_angle" />
+      <Parameter Name="SD_51" Value="$" Comment="its_tool.its_tool_body.dimension.cutting_edge_lenght" />
+      <Parameter Name="SD_52" Value="$" Comment="its_tool.its_tool_body.dimension.edge_radius" />
+      <Parameter Name="SD_53" Value="$" Comment="its_tool.its_tool_body.dimension.edge_center_vertical" />
+      <Parameter Name="SD_54" Value="$" Comment="its_tool.its_tool_body.dimension.edge_center_horizontal" />
+      <Parameter Name="SD_55" Value="4" Comment="its_tool.its_tool_body.number_of_teeth" />
+      <Parameter Name="SD_56" Value=".RIGHT." Comment="its_tool.its_tool_body.hand_of_cut" />
+      <Parameter Name="SD_57" Value=".F." Comment="its_tool.its_tool_body.coolant_through" />
+      <Parameter Name="SD_58" Value="$" Comment="its_tool.its_tool_body.pilot_length" />
+      <Parameter Name="SD_59" Value="other_tool_body_parameter" Comment="its_tool.its_tool_body.{other_tool_body_parameter}" />
+      <Parameter Name="SD_60" Value="15.0" Comment="its_tool.its_cutting_edge.tool_offset_length" />
+      <Parameter Name="SD_61" Value="$" Comment="its_tool.its_cutting_edge.its_material.standaSD_identifier" />
+      <Parameter Name="SD_62" Value="$" Comment="its_tool.its_cutting_edge.its_material.material_identifier" />
+      <Parameter Name="SD_63" Value="$" Comment="its_tool.its_cutting_edge.its_material.material_property.{list_of_parameters}" />
+      <Parameter Name="SD_64" Value="$" Comment="its_tool.its_cutting_edge.its_technological_data.cutting_angle" />
+      <Parameter Name="SD_65" Value="$" Comment="its_tool.its_cutting_edge.its_technological_data.free_angle" />
+      <Parameter Name="SD_66" Value="$" Comment="its_tool.its_cutting_edge.its_technological_data.aux_angle" />
+      <Parameter Name="SD_67" Value="$" Comment="its_tool.its_cutting_edge.expected_tool_life" />
+      <Parameter Name="SD_68" Value="$" Comment="its_tool.its_cutting_edge.its_technology.feedrate" />
+      <Parameter Name="SD_69" Value="$" Comment="its_tool.its_cutting_edge.its_technology.feedrate_reference" />
+      <Parameter Name="SD_70" Value="$" Comment="its_tool.its_cutting_edge.its_technology.cutspeed" />
+      <Parameter Name="SD_71" Value="$" Comment="its_tool.its_cutting_edge.its_technology.spindle" />
+      <Parameter Name="SD_72" Value="$" Comment="its_tool.its_cutting_edge.its_technology.feedrate_per_tooth" />
+      <Parameter Name="SD_73" Value="$" Comment="its_tool.its_cutting_edge.its_technology.sincronize_spindle_with_feed" />
+      <Parameter Name="SD_74" Value="$" Comment="its_tool.its_cutting_edge.its_technology.inhibit_feedrate_override" />
+      <Parameter Name="SD_75" Value="$" Comment="its_tool.its_cutting_edge.its_technology.inhibit_spindle_override" />
+      <Parameter Name="SD_76" Value="$" Comment="its_tool.its_cutting_edge.its_technology.its_adaptive_control" />
+      <Parameter Name="SD_77" Value="32.0" Comment="its_tool.overall_assembly_length" />
+      <Parameter Name="SD_78" Value="$" Comment="its_tool.direction_for_spindle_orientation.its_id" />
+      <Parameter Name="SD_79" Value="$" Comment="its_tool.direction_for_spindle_orientation.direction_ratios" />
+      <Parameter Name="SD_80" Value="$" Comment="its_tool.tool_holder_diameter_for_spindle_orientation" />
+      <Parameter Name="SD_81" Value="0.1" Comment="its_technology.feedrate" />
+      <Parameter Name="SD_82" Value=".TCP." Comment="its_technology.feedrate_reference" />
+      <Parameter Name="SD_83" Value="$" Comment="its_technology.cutspeed" />
+      <Parameter Name="SD_84" Value="$" Comment="its_technology.spindle" />
+      <Parameter Name="SD_85" Value="$" Comment="its_technology.feedrate_per_tooth" />
+      <Parameter Name="SD_86" Value=".F." Comment="its_technology.sincronize_spindle_with_feed" />
+      <Parameter Name="SD_87" Value=".F." Comment="its_technology.inhibit_feedrate_override" />
+      <Parameter Name="SD_88" Value=".F." Comment="its_technology.inhibit_spindle_override" />
+      <Parameter Name="SD_89" Value="$" Comment="its_technology.its_adaptive_control" />
+      <Parameter Name="SD_90" Value=".F." Comment="its_machine_functions.coolant" />
+      <Parameter Name="SD_91" Value="$" Comment="its_machine_functions.coolant_pressure" />
+      <Parameter Name="SD_92" Value="$" Comment="its_machine_functions.mist" />
+      <Parameter Name="SD_93" Value=".F." Comment="its_machine_functions.through_spindle_coolant" />
+      <Parameter Name="SD_94" Value="$" Comment="its_machine_functions.through_pressure" />
+      <Parameter Name="SD_95" Value="[]" Comment="its_machine_functions.axis_clamping" />
+      <Parameter Name="SD_96" Value=".T." Comment="its_machine_functions.chip_removal" />
+      <Parameter Name="SD_97" Value="$" Comment="its_machine_functions.oriented_spindle_stop.its_id" />
+      <Parameter Name="SD_98" Value="$" Comment="its_machine_functions.oriented_spindle_stop.direction_ratios" />
+      <Parameter Name="SD_99" Value="$" Comment="its_machine_functions.its_process_model.ini_data_file" />
+      <Parameter Name="SD_100" Value="$" Comment="its_machine_functions.its_process_model.its_type" />
+      <Parameter Name="SD_101" Value="Other functions" Comment="its_machine_functions.other_functions" />
+      <Parameter Name="SD_102" Value="$" Comment="overcut_length" />
+      <Parameter Name="SD_103" Value="$" Comment="approach.tool_orientation.its_id" />
+      <Parameter Name="SD_104" Value="$" Comment="approach.tool_orientation.direction_ratios" />
+      <Parameter Name="SD_105" Value="PLUNGE_TOOLAXIS" Comment="approach.approach_retract_strategy (name of it)" />
+      <Parameter Name="SD_106" Value="$" Comment="approach.approach_retract_strategy.list of parameters" />
+      <Parameter Name="SD_107" Value="$" Comment="retract.tool_orientation.its_id" />
+      <Parameter Name="SD_108" Value="$" Comment="retract.tool_orientation.direction_ratios" />
+      <Parameter Name="SD_109" Value="PLUNGE_TOOLAXIS" Comment="retract.approach_retract_strategy (name of it)" />
+      <Parameter Name="SD_110" Value="$" Comment="retract.approach_retract_strategy.list of parameters" />
+      <Parameter Name="SD_111" Value="CENTER_MILLING" Comment="its_machining_strategy" />
+      <Parameter Name="SD_112" Value="$" Comment="its_machining_strategy.overlap" />
+      <Parameter Name="SD_113" Value="$" Comment="its_machining_strategy.allow_multiple_passes" />
+      <Parameter Name="SD_114" Value="$" Comment="its_machining_strategy.list of parameters" />
+      <Parameter Name="SD_115" Value="$" Comment="axial_cutting_depth" />
+      <Parameter Name="SD_116" Value="$" Comment="radial_cutting_depth" />
+      <Parameter Name="SD_117" Value="0.0" Comment="allowance_side" />
+      <Parameter Name="SD_118" Value="2.0" Comment="allowance_bottom" />
+      <Parameter Name="SD_119" Value="$" Comment="slot.course_of_travel.placement.location.coordinates" />
+    </FB>
+    <FB Name="Publ_119_ROUGHING SLOT2_ROUGHING SLOT2 " Type="PUBL_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE" dx="50" dy="300">
+      <Parameter Name="ID" Value="[ROUGHING SLOT2_ROUGHING SLOT2 ,Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE]" Comment="Default id is the FB instance name" />
+      <Parameter Name="SD_3" Value="[0.0, 0.0, 30.0]" Comment="setup.Its_secplane.position.location.coordinates" />
+      <Parameter Name="SD_4" Value="SLOT2" Comment="slot.its_id" />
+      <Parameter Name="SD_5" Value="FOAM PIECE" Comment="its_workpiece.its_id" />
+      <Parameter Name="SD_6" Value="nullROUGHING SLOT2" Comment="its_operations.its_id LIST - the list is concatenated in one string" />
+      <Parameter Name="SD_7" Value="SLOT2" Comment="feature_placement.name" />
+      <Parameter Name="SD_8" Value="" Comment="feature_placement.location.name" />
+      <Parameter Name="SD_9" Value="[50.0, 0.0, 0.0]" Comment="feature_placement.location.coordinates" />
+      <Parameter Name="SD_10" Value="" Comment="feature_placement.axis.its_id" />
+      <Parameter Name="SD_11" Value="[0.0, 0.0, 1.0]" Comment="feature_placement.axis.direction_ratios" />
+      <Parameter Name="SD_12" Value="" Comment="feature_placement.ref_direction.its_id" />
+      <Parameter Name="SD_13" Value="[1.0, 0.0, 0.0]" Comment="feature_placement.ref_direction_ratios" />
+      <Parameter Name="SD_14" Value="SLOT2:DEPTH" Comment="depth.name" />
+      <Parameter Name="SD_15" Value="SLOT2:DEPTH" Comment="depth.position.name" />
+      <Parameter Name="SD_16" Value="SLOT2:DEPTH" Comment="depth.position.location.name" />
+      <Parameter Name="SD_17" Value="[0.0, 0.0, -10.0]" Comment="depth.position.location.coordinates" />
+      <Parameter Name="SD_18" Value="$" Comment="depth.position.axis.its_id" />
+      <Parameter Name="SD_19" Value="$" Comment="depth.position.axis.direction_ratios" />
+      <Parameter Name="SD_20" Value="$" Comment="depth.position.ref_direction.its_id" />
+      <Parameter Name="SD_21" Value="$" Comment="depth.position.ref_direction_ratios" />
+      <Parameter Name="SD_22" Value="LINEAR_PATH" Comment="course_of_travel" />
+      <Parameter Name="SD_23" Value="100.0" Comment="course_of_travel.var1.theoretical_size" />
+      <Parameter Name="SD_24" Value="PLUS_MINUS_VALUE" Comment="course_of_travel.var1.implicit_tolerance" />
+      <Parameter Name="SD_25" Value="[0.1,0.1,3]" Comment="course_of_travel.var1.{vector}, vector = {upper_limit, lower_limit, significant_digits} or {deviation,grade,its_fitting_type}" />
+      <Parameter Name="SD_26" Value="" Comment="course_of_travel.direction.its_id" />
+      <Parameter Name="SD_27" Value="[1.0, 0.0, 0.0]" Comment="course_of_travel.direction.direction_ratios" />
+      <Parameter Name="SD_28" Value="$" Comment="course_of_travel.sweep_angle" />
+      <Parameter Name="SD_29" Value="SQUARE_U_PROFILE" Comment="swept_shape" />
+      <Parameter Name="SD_30" Value="$" Comment="swept_shape.variable list" />
+      <Parameter Name="SD_31" Value="$" Comment="swept_shape.profile_length.its_parameter_value" />
+      <Parameter Name="SD_32" Value="$" Comment="swept_shape.profile_length.its_parameter_unit" />
+      <Parameter Name="SD_33" Value="RADIUSED_SLOT_END_TYPE" Comment="end_condition[1]" />
+      <Parameter Name="SD_34" Value="$" Comment="end_condition[1].var1.theoretical_size" />
+      <Parameter Name="SD_35" Value="$" Comment="end_condition[1].var1.implicit_tolerance" />
+      <Parameter Name="SD_36" Value="$" Comment="end_condition[1].var1.{vector}, vector = {upper_limit, lower_limit, significant_digits} or {deviation,grade,its_fitting_type}" />
+      <Parameter Name="SD_37" Value="RADIUSED_SLOT_END_TYPE" Comment="end_condition[2]" />
+      <Parameter Name="SD_38" Value="$" Comment="end_condition[2].var1.theoretical_size" />
+      <Parameter Name="SD_39" Value="$" Comment="end_condition[2].var1.implicit_tolerance" />
+      <Parameter Name="SD_40" Value="$" Comment="end_condition[2].var1.{vector}, vector = {upper_limit, lower_limit, significant_digits} or {deviation,grade,its_fitting_type}" />
+      <Parameter Name="SD_41" Value="ROUGHING SLOT2" Comment="bottom_and_side_rough_milling.its_id" />
+      <Parameter Name="SD_42" Value="$" Comment="its_toolpath.its_list" />
+      <Parameter Name="SD_43" Value="$" Comment="its_tool_direction" />
+      <Parameter Name="SD_44" Value="10.0" Comment="retract_plane" />
+      <Parameter Name="SD_45" Value="$" Comment="start_point.name" />
+      <Parameter Name="SD_46" Value="$" Comment="start_point.coordinates" />
+      <Parameter Name="SD_47" Value="ENDMILL 6" Comment="its_tool.its_id" />
+      <Parameter Name="SD_48" Value="6.0" Comment="its_tool.its_tool_body.dimension.diameter" />
+      <Parameter Name="SD_49" Value="$" Comment="its_tool.its_tool_body.dimension.tool_tip_half_angle" />
+      <Parameter Name="SD_50" Value="$" Comment="its_tool.its_tool_body.dimension.tool_circumference_angle" />
+      <Parameter Name="SD_51" Value="$" Comment="its_tool.its_tool_body.dimension.cutting_edge_lenght" />
+      <Parameter Name="SD_52" Value="$" Comment="its_tool.its_tool_body.dimension.edge_radius" />
+      <Parameter Name="SD_53" Value="$" Comment="its_tool.its_tool_body.dimension.edge_center_vertical" />
+      <Parameter Name="SD_54" Value="$" Comment="its_tool.its_tool_body.dimension.edge_center_horizontal" />
+      <Parameter Name="SD_55" Value="4" Comment="its_tool.its_tool_body.number_of_teeth" />
+      <Parameter Name="SD_56" Value=".RIGHT." Comment="its_tool.its_tool_body.hand_of_cut" />
+      <Parameter Name="SD_57" Value=".F." Comment="its_tool.its_tool_body.coolant_through" />
+      <Parameter Name="SD_58" Value="$" Comment="its_tool.its_tool_body.pilot_length" />
+      <Parameter Name="SD_59" Value="other_tool_body_parameter" Comment="its_tool.its_tool_body.{other_tool_body_parameter}" />
+      <Parameter Name="SD_60" Value="15.0" Comment="its_tool.its_cutting_edge.tool_offset_length" />
+      <Parameter Name="SD_61" Value="$" Comment="its_tool.its_cutting_edge.its_material.standaSD_identifier" />
+      <Parameter Name="SD_62" Value="$" Comment="its_tool.its_cutting_edge.its_material.material_identifier" />
+      <Parameter Name="SD_63" Value="$" Comment="its_tool.its_cutting_edge.its_material.material_property.{list_of_parameters}" />
+      <Parameter Name="SD_64" Value="$" Comment="its_tool.its_cutting_edge.its_technological_data.cutting_angle" />
+      <Parameter Name="SD_65" Value="$" Comment="its_tool.its_cutting_edge.its_technological_data.free_angle" />
+      <Parameter Name="SD_66" Value="$" Comment="its_tool.its_cutting_edge.its_technological_data.aux_angle" />
+      <Parameter Name="SD_67" Value="$" Comment="its_tool.its_cutting_edge.expected_tool_life" />
+      <Parameter Name="SD_68" Value="$" Comment="its_tool.its_cutting_edge.its_technology.feedrate" />
+      <Parameter Name="SD_69" Value="$" Comment="its_tool.its_cutting_edge.its_technology.feedrate_reference" />
+      <Parameter Name="SD_70" Value="$" Comment="its_tool.its_cutting_edge.its_technology.cutspeed" />
+      <Parameter Name="SD_71" Value="$" Comment="its_tool.its_cutting_edge.its_technology.spindle" />
+      <Parameter Name="SD_72" Value="$" Comment="its_tool.its_cutting_edge.its_technology.feedrate_per_tooth" />
+      <Parameter Name="SD_73" Value="$" Comment="its_tool.its_cutting_edge.its_technology.sincronize_spindle_with_feed" />
+      <Parameter Name="SD_74" Value="$" Comment="its_tool.its_cutting_edge.its_technology.inhibit_feedrate_override" />
+      <Parameter Name="SD_75" Value="$" Comment="its_tool.its_cutting_edge.its_technology.inhibit_spindle_override" />
+      <Parameter Name="SD_76" Value="$" Comment="its_tool.its_cutting_edge.its_technology.its_adaptive_control" />
+      <Parameter Name="SD_77" Value="32.0" Comment="its_tool.overall_assembly_length" />
+      <Parameter Name="SD_78" Value="$" Comment="its_tool.direction_for_spindle_orientation.its_id" />
+      <Parameter Name="SD_79" Value="$" Comment="its_tool.direction_for_spindle_orientation.direction_ratios" />
+      <Parameter Name="SD_80" Value="$" Comment="its_tool.tool_holder_diameter_for_spindle_orientation" />
+      <Parameter Name="SD_81" Value="0.1" Comment="its_technology.feedrate" />
+      <Parameter Name="SD_82" Value=".TCP." Comment="its_technology.feedrate_reference" />
+      <Parameter Name="SD_83" Value="$" Comment="its_technology.cutspeed" />
+      <Parameter Name="SD_84" Value="$" Comment="its_technology.spindle" />
+      <Parameter Name="SD_85" Value="$" Comment="its_technology.feedrate_per_tooth" />
+      <Parameter Name="SD_86" Value=".F." Comment="its_technology.sincronize_spindle_with_feed" />
+      <Parameter Name="SD_87" Value=".F." Comment="its_technology.inhibit_feedrate_override" />
+      <Parameter Name="SD_88" Value=".F." Comment="its_technology.inhibit_spindle_override" />
+      <Parameter Name="SD_89" Value="$" Comment="its_technology.its_adaptive_control" />
+      <Parameter Name="SD_90" Value=".F." Comment="its_machine_functions.coolant" />
+      <Parameter Name="SD_91" Value="$" Comment="its_machine_functions.coolant_pressure" />
+      <Parameter Name="SD_92" Value="$" Comment="its_machine_functions.mist" />
+      <Parameter Name="SD_93" Value=".F." Comment="its_machine_functions.through_spindle_coolant" />
+      <Parameter Name="SD_94" Value="$" Comment="its_machine_functions.through_pressure" />
+      <Parameter Name="SD_95" Value="[]" Comment="its_machine_functions.axis_clamping" />
+      <Parameter Name="SD_96" Value=".T." Comment="its_machine_functions.chip_removal" />
+      <Parameter Name="SD_97" Value="$" Comment="its_machine_functions.oriented_spindle_stop.its_id" />
+      <Parameter Name="SD_98" Value="$" Comment="its_machine_functions.oriented_spindle_stop.direction_ratios" />
+      <Parameter Name="SD_99" Value="$" Comment="its_machine_functions.its_process_model.ini_data_file" />
+      <Parameter Name="SD_100" Value="$" Comment="its_machine_functions.its_process_model.its_type" />
+      <Parameter Name="SD_101" Value="Other functions" Comment="its_machine_functions.other_functions" />
+      <Parameter Name="SD_102" Value="$" Comment="overcut_length" />
+      <Parameter Name="SD_103" Value="$" Comment="approach.tool_orientation.its_id" />
+      <Parameter Name="SD_104" Value="$" Comment="approach.tool_orientation.direction_ratios" />
+      <Parameter Name="SD_105" Value="PLUNGE_TOOLAXIS" Comment="approach.approach_retract_strategy (name of it)" />
+      <Parameter Name="SD_106" Value="$" Comment="approach.approach_retract_strategy.list of parameters" />
+      <Parameter Name="SD_107" Value="$" Comment="retract.tool_orientation.its_id" />
+      <Parameter Name="SD_108" Value="$" Comment="retract.tool_orientation.direction_ratios" />
+      <Parameter Name="SD_109" Value="PLUNGE_TOOLAXIS" Comment="retract.approach_retract_strategy (name of it)" />
+      <Parameter Name="SD_110" Value="$" Comment="retract.approach_retract_strategy.list of parameters" />
+      <Parameter Name="SD_111" Value="CENTER_MILLING" Comment="its_machining_strategy" />
+      <Parameter Name="SD_112" Value="$" Comment="its_machining_strategy.overlap" />
+      <Parameter Name="SD_113" Value="$" Comment="its_machining_strategy.allow_multiple_passes" />
+      <Parameter Name="SD_114" Value="$" Comment="its_machining_strategy.list of parameters" />
+      <Parameter Name="SD_115" Value="$" Comment="axial_cutting_depth" />
+      <Parameter Name="SD_116" Value="$" Comment="radial_cutting_depth" />
+      <Parameter Name="SD_117" Value="0.0" Comment="allowance_side" />
+      <Parameter Name="SD_118" Value="2.0" Comment="allowance_bottom" />
+      <Parameter Name="SD_119" Value="$" Comment="slot.course_of_travel.placement.location.coordinates" />
+    </FB>
+    <EventConnections>
+      <Connection Source="EXECUTABLE_SWITCH.SETUP" Destination="Publ_8_SETUP1.REQ" />
+      <Connection Source="EXECUTABLE_SWITCH.EX_1" Destination="Publ_119_ROUGHING SLOT1_ROUGHING SLOT1 .REQ" />
+      <Connection Source="EXECUTABLE_SWITCH.EX_2" Destination="Publ_119_ROUGHING SLOT2_ROUGHING SLOT2 .REQ" />
+      <Connection Source="EXECUTABLE_SWITCH.COMMUNICATION" Destination="Publ_1_COMM1.REQ" />
+      <Connection Source="START_WORK.start" Destination="EXECUTABLE_SWITCH.START" />
+      <Connection Source="Subl_3_OK_STEP-NC_DATA.IND" Destination="EXECUTABLE_SWITCH.NEXT" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="Subl_3_OK_STEP-NC_DATA.RD_1" Destination="EXECUTABLE_SWITCH.OK_WORK" />
+      <Connection Source="Subl_3_OK_STEP-NC_DATA.RD_2" Destination="EXECUTABLE_SWITCH.M_POS" />
+      <Connection Source="Subl_3_OK_STEP-NC_DATA.RD_3" Destination="EXECUTABLE_SWITCH.TOOL" />
+      <Connection Source="EXECUTABLE_SWITCH.M_POS_OUT" Destination="Publ_119_ROUGHING SLOT1_ROUGHING SLOT1 .SD_1" />
+      <Connection Source="EXECUTABLE_SWITCH.TOOL_OUT" Destination="Publ_119_ROUGHING SLOT1_ROUGHING SLOT1 .SD_2" />
+      <Connection Source="EXECUTABLE_SWITCH.M_POS_OUT" Destination="Publ_119_ROUGHING SLOT2_ROUGHING SLOT2 .SD_1" />
+      <Connection Source="EXECUTABLE_SWITCH.TOOL_OUT" Destination="Publ_119_ROUGHING SLOT2_ROUGHING SLOT2 .SD_2" />
+    </DataConnections>
+  </FBNetwork>
+</Resource>
+

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="DATA_MANAGER" Comment="Reads the file with machine commands and sends it to the proper locations" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="16-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Comment="Initialization request" >
+				<With Var="FILENAME" />
+			</Event>
+			<Event Name="REQ" Comment="Requistion to continue" />
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="ID_1" Comment="Linear movement" >
+				<With Var="C1" />
+				<With Var="C2" />
+				<With Var="C3" />
+				<With Var="C4" />
+				<With Var="C5" />
+				<With Var="C6" />
+				<With Var="C7" />
+				<With Var="C8" />
+				<With Var="C9" />
+				<With Var="C10" />
+				<With Var="C11" />
+				<With Var="C12" />
+				<With Var="C13" />
+				<With Var="C14" />
+				<With Var="C15" />
+				<With Var="C16" />
+			</Event>
+			<Event Name="ID_0" Comment="Idle" />
+			<Event Name="ID_M1" Comment="Home position" >
+				<With Var="C1" />
+			</Event>
+			<Event Name="ID_M2" Comment="Tool change" >
+				<With Var="S1" />
+			</Event>
+			<Event Name="ID_M3" Comment="Spindle activation" >
+				<With Var="C1" />
+				<With Var="S1" />
+			</Event>
+			<Event Name="ID_M4" Comment="Chip removal" >
+				<With Var="S1" />
+			</Event>
+			<Event Name="ID_M5" Comment="Spindle speed" >
+				<With Var="C1" />
+			</Event>
+			<Event Name="ID_M6" Comment="Timer in seconds" >
+				<With Var="C1" />
+			</Event>
+			<Event Name="CNF" Comment="Execution confirmed" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="FILENAME" Type="STRING" Comment="File to read machine commands" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="C1" Type="REAL" Comment="Coeficient 1" />
+			<VarDeclaration Name="C2" Type="REAL" Comment="Coeficient 2" />
+			<VarDeclaration Name="C3" Type="REAL" Comment="Coeficient 3" />
+			<VarDeclaration Name="C4" Type="REAL" Comment="Coeficient 4" />
+			<VarDeclaration Name="C5" Type="REAL" Comment="Coeficient 5" />
+			<VarDeclaration Name="C6" Type="REAL" Comment="Coeficient 6" />
+			<VarDeclaration Name="C7" Type="REAL" Comment="Coeficient 7" />
+			<VarDeclaration Name="C8" Type="REAL" Comment="Coeficient 8" />
+			<VarDeclaration Name="C9" Type="REAL" Comment="Coeficient 9" />
+			<VarDeclaration Name="C10" Type="REAL" Comment="Coeficient 10" />
+			<VarDeclaration Name="C11" Type="REAL" Comment="Coeficient 11" />
+			<VarDeclaration Name="C12" Type="REAL" Comment="Coeficient 12" />
+			<VarDeclaration Name="C13" Type="REAL" Comment="Coeficient 13" />
+			<VarDeclaration Name="C14" Type="REAL" Comment="Coeficient 14" />
+			<VarDeclaration Name="C15" Type="REAL" Comment="Coeficient 15" />
+			<VarDeclaration Name="C16" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="S1" Type="STRING" Comment="String 1" />
+		</OutputVars>
+		<InternalVars>
+			<VarDeclaration Name="n_commands" Type="INT" />
+			<VarDeclaration Name="stream" Type="STRING" ArraySize="16" />
+			<VarDeclaration Name="iterator" Type="INT" />
+			<VarDeclaration Name="file" Type="FILE" />
+		</InternalVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="INIT" x="0" y="0" >
+				<ECAction Algorithm="load_file" />
+			</ECState>
+			<ECState Name="READ" x="0" y="0" >
+				<ECAction Algorithm="read_line" />
+			</ECState>
+			<ECState Name="FINISH" x="0" y="0" >
+				<ECAction Output="CNF" />
+			</ECState>
+			<ECState Name="ID_1" x="0" y="0" >
+				<ECAction Output="ID_1" />
+			</ECState>
+			<ECState Name="ID_0" x="0" y="0" >
+				<ECAction Output="ID_0" />
+			</ECState>
+			<ECState Name="ID_M1" x="0" y="0" >
+				<ECAction Output="ID_M1" />
+			</ECState>
+			<ECState Name="ID_M2" x="0" y="0" >
+				<ECAction Output="ID_M2" />
+			</ECState>
+			<ECState Name="ID_M3" x="0" y="0" >
+				<ECAction Output="ID_M3" />
+			</ECState>
+			<ECState Name="ID_M4" x="0" y="0" >
+				<ECAction Output="ID_M4" />
+			</ECState>
+			<ECState Name="ID_M5" x="0" y="0" >
+				<ECAction Output="ID_M5" />
+			</ECState>
+			<ECState Name="ID_M6" x="0" y="0" >
+				<ECAction Output="ID_M6" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT" Condition="INIT" />
+			<ECTransition Source="START" Destination="READ" Condition="REQ" />
+			<ECTransition Source="INIT" Destination="READ" Condition="1" />
+			<ECTransition Source="READ" Destination="FINISH" Condition="stream==''" />
+			<ECTransition Source="FINISH" Destination="START" Condition="1" />
+			<ECTransition Source="READ" Destination="ID_1" Condition="stream[1]=='1'" />
+			<ECTransition Source="READ" Destination="ID_0" Condition="stream[1]=='0'" />
+			<ECTransition Source="READ" Destination="ID_M1" Condition="stream[1]=='-1'" />
+			<ECTransition Source="READ" Destination="ID_M2" Condition="stream[1]=='-2'" />
+			<ECTransition Source="READ" Destination="ID_M3" Condition="stream[1]=='-3'" />
+			<ECTransition Source="READ" Destination="ID_M4" Condition="stream[1]=='-4'" />
+			<ECTransition Source="READ" Destination="ID_M5" Condition="stream[1]=='-5'" />
+			<ECTransition Source="READ" Destination="ID_M6" Condition="stream[1]=='-6'" />
+			<ECTransition Source="ID_1" Destination="START" Condition="1" />
+			<ECTransition Source="ID_0" Destination="START" Condition="1" />
+			<ECTransition Source="ID_M1" Destination="START" Condition="1" />
+			<ECTransition Source="ID_M2" Destination="START" Condition="1" />
+			<ECTransition Source="ID_M3" Destination="START" Condition="1" />
+			<ECTransition Source="ID_M4" Destination="START" Condition="1" />
+			<ECTransition Source="ID_M5" Destination="START" Condition="1" />
+			<ECTransition Source="ID_M6" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="load_file" >
+			<Lua Text = "
+print( 'file = '..FILENAME )
+if( io.type( _G[ FILENAME ] ) == 'file' ) then
+    _G[ FILENAME ]:flush()
+end
+file = io.open( FILENAME, 'r' )
+
+			"/>
+		</Algorithm>
+	</BasicFB>
+		<Algorithm Name="read_line" >
+			<Lua Text = "
+function pick_a_line()
+    local l
+    print('oi')
+	for l in file:lines() do
+        return l
+	end
+end
+
+function line_to_stream( line )
+	if( line == '' ) then
+		return line
+	else
+		local stream = {}
+		local i = 1
+		for text in string.gmatch( line, '(%S+)' ) do
+			stream[ i ] = tostring(text)
+			i = i + 1
+		end
+		return stream
+	end
+end
+line = pick_a_line()
+if( line ~= nil ) then print( 'line = '..line ) end
+if( line == nil ) then
+    line = ''
+end
+stream = line_to_stream( line )
+if( type( stream ) == 'table' ) then
+    print( 'stream[1]', stream[1] )
+else
+    print( 'stream', stream )
+end
+if( tonumber(stream[1]) == 1 ) then
+    C1 = stream[1]
+    C2 = stream[2]
+    C3 = stream[3]
+    C4 = stream[4]
+    C5 = stream[5]
+    C6 = stream[6]
+    C7 = stream[7]
+    C8 = stream[8]
+    C9 = stream[9]
+    C10 = stream[10]
+    C11 = stream[11]
+    C12 = stream[12]
+    C13 = stream[13]
+    C14 = stream[14]
+    C15 = stream[15]
+    C16 = stream[16]
+elseif( io.type( stream[2] ) == 'string' ) then
+    C1 = stream[1]
+    S1 = stream[2]
+elseif( tonumber(stream[1]) == -1 ) then
+    C1 = tonumber(stream[1])
+elseif( tonumber(stream[1]) == -3 ) then
+    C1 = tonumber(stream[1])
+    S1 = stream[2]
+    print( S2 )
+else
+    C1 = stream[1]
+    C2 = stream[2]
+end
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

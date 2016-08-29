@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "harbs.dtd">
+
+<FBType Name="SWITCH" Comment="Switch(demultiplex)an event">
+  <Identification Function="Event Switch" Classification="Event Processing" Standard="61499-1" />
+  <VersionInfo Date="01/12/2011" Organization="UDESC" Author="LAPAS" Version="7.0" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INI" Comment="Inicializa o bloco" />
+      <Event Name="START" Comment="Inicia o primeiro evento de saida" />
+      <Event Name="NEXT" Comment="Gera o proximo evento de saida">
+        <With Var="OK_WORK" />
+        <With Var="M_POS" />
+        <With Var="TOOL" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="SETUP" Comment="Setup da maquina" />
+      <Event Name="EX_1" Comment="Executable 1">
+        <With Var="M_POS_OUT" />
+        <With Var="TOOL_OUT" />
+      </Event>
+      <Event Name="EX_2" Comment="Executable 2">
+        <With Var="M_POS_OUT" />
+        <With Var="TOOL_OUT" />
+      </Event>
+      <Event Name="EX_3" Comment="Executable 3">
+        <With Var="M_POS_OUT" />
+        <With Var="TOOL_OUT" />
+      </Event>
+      <Event Name="COMMUNICATION" Comment="comunicacao" />
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="OK_WORK" Type="STRING" />
+      <VarDeclaration Name="M_POS" Type="REAL" ArraySize="3" />
+      <VarDeclaration Name="TOOL" Type="STRING" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="M_POS_OUT" Type="REAL" ArraySize="3" />
+      <VarDeclaration Name="TOOL_OUT" Type="STRING" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Name="START" dx="50" dy="50" />
+      <ECState Name="SETUP" dx="50" dy="50">
+        <ECAction Output="SETUP" Algorithm="alg" />
+      </ECState>
+      <ECState Name="EXECUTABLE_1" dx="60" dy="60">
+        <ECAction Output="EX_1" Algorithm="alg" />
+      </ECState>
+      <ECState Name="EXECUTABLE_2" dx="60" dy="60">
+        <ECAction Output="EX_2" Algorithm="alg" />
+      </ECState>
+      <ECState Name="EXECUTABLE_3" dx="60" dy="60">
+        <ECAction Output="EX_3" Algorithm="alg" />
+      </ECState>
+      <ECState Name="COMMUNICATION" dx="50" dy="50">
+        <ECAction Output="COMMUNICATION" />
+      </ECState>
+      <ECTransition Source="START" Destination="SETUP" Condition="START" />
+      <ECTransition Source="START" Destination="EXECUTABLE_1" Condition="NEXT&amp;OK_WORK == 'SETUP_FRANK'" />
+      <ECTransition Source="START" Destination="EXECUTABLE_2" Condition="NEXT&amp;OK_WORK == 'DRILL HOLE1_WS DRILL HOLE1'" />
+      <ECTransition Source="START" Destination="EXECUTABLE_3" Condition="NEXT&amp;OK_WORK == 'DRILL HOLE1_WS DRILL HOLE2'" />
+      <ECTransition Source="START" Destination="COMMUNICATION" Condition="NEXT&amp;OK_WORK == 'DRILL HOLE1_WS DRILL HOLE24'" />
+      <ECTransition Source="SETUP" Destination="START" Condition="1" />
+      <ECTransition Source="EXECUTABLE_1" Destination="START" Condition="1" />
+      <ECTransition Source="EXECUTABLE_2" Destination="START" Condition="1" />
+      <ECTransition Source="EXECUTABLE_3" Destination="START" Condition="1" />
+      <ECTransition Source="COMMUNICATION" Destination="START" Condition="1" />
+    </ECC>
+  </BasicFB>
+  <Algorithm Name="alg">
+    <Lua Text="M_POS_OUT[1] = M_POS[1] M_POS_OUT[2] = M_POS[2] M_POS_OUT[3] = M_POS[3]" />
+  </Algorithm>
+</FBType>
+

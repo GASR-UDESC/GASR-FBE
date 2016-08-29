@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="TEMPLATE_RESOURCE" Comment= "template" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="UDESC" Version="1.0" Author="GASR" Date="05-06-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<EventConnections>
+		</EventConnections>
+		<DataConnections>
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

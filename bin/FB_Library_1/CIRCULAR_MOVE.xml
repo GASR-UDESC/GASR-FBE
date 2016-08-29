@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="CIRCULAR_MOVE" Comment="Circular movement" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="02-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialization Request" >
+				<With Var="pos" />
+				<With Var="dest_pos" />
+				<With Var="dest_angle" />
+				<With Var="radius" />
+				<With Var="center" />
+				<With Var="N" />
+				<With Var="speed" />
+			</Event>
+			<Event Name="Req" Comment="Requisition to finish" />
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Execution confirmed" />
+			<Event Name="Send" Comment="Send data to output" >
+				<With Var="eq_id" />
+				<With Var="C" />
+				<With Var="U" />
+				<With Var="V" />
+				<With Var="angle" />
+				<With Var="R" />
+				<With Var="t0" />
+				<With Var="t" />
+				<With Var="out_pos" />
+				<With Var="out_speed" />
+				<With Var="V_U" />
+				<With Var="V_V" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="dest_pos" Type="REAL" ArraySize="3" Comment="Destination point" />
+			<VarDeclaration Name="dest_angle" Type="REAL" Comment="Explicit travel angle. Overrides dest_pos" />
+			<VarDeclaration Name="radius" Type="REAL" Comment="Circle radius" />
+			<VarDeclaration Name="center" Type="REAL" ArraySize="3" Comment="Circle center point" />
+			<VarDeclaration Name="N" Type="REAL" ArraySize="3" Comment="Normal circle plane axis" />
+			<VarDeclaration Name="speed" Type="REAL" Comment="Nominal feed in m/s" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="eq_id" Type="INT" Comment="Equation id" />
+			<VarDeclaration Name="C" Type="REAL" ArraySize="3" Comment="Center" />
+			<VarDeclaration Name="U" Type="REAL" ArraySize="3" Comment="U unit vector" />
+			<VarDeclaration Name="V" Type="REAL" ArraySize="3" Comment="V unit vector" />
+			<VarDeclaration Name="angle" Type="REAL" Comment="Angle of travel" />
+			<VarDeclaration Name="R" Type="REAL" Comment="Radius" />
+			<VarDeclaration Name="t0" Type="REAL" Comment="Initial parameter" />
+			<VarDeclaration Name="t" Type="REAL" Comment="Final parameter" />
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="out_speed" Type="REAL" />
+			<VarDeclaration Name="V_U" Type="REAL" ArraySize="3" Comment="Velocity U" />
+			<VarDeclaration Name="V_V" Type="REAL" ArraySize="3" Comment="Velocity V" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="get_u_1" Type="VECTOR_ADDITION" x="1" y="1" />
+		<FB Name="get_u_2" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="get_n" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="get_v_1" Type="VECTOR_CROSS_P" x="1" y="1" />
+		<FB Name="get_v_2" Type="VECTOR_NORMALIZE" x="1" y="1" />
+		<FB Name="set_secondary_data" Type="CIRCLE_SET_CURVE_DATA" x="1" y="1" />
+		<FB Name="circular_velocity" Type="CIRCULAR_VELOCITY" x="1" y="1" />
+		<EventConnections>
+			<Connection Source="Init" Destination="get_u_1.Sub" dx="1" dy="1" />
+			<Connection Source="get_u_1.Cnf" Destination="get_u_2.Init" dx="1" dy="1" />
+			<Connection Source="get_u_2.Cnf" Destination="get_n.Init" dx="1" dy="1" />
+			<Connection Source="get_n.Cnf" Destination="get_v_1.Init" dx="1" dy="1" />
+			<Connection Source="get_v_1.Cnf" Destination="get_v_2.Init" dx="1" dy="1" />
+			<Connection Source="get_v_2.Cnf" Destination="set_secondary_data.Init" dx="1" dy="1" />
+			<Connection Source="set_secondary_data.Cnf" Destination="circular_velocity.Init" dx="0" dy="0" />
+			<Connection Source="Req" Destination="Cnf" dx="0" dy="0" />
+			<Connection Source="circular_velocity.Cnf" Destination="Send" dx="0" dy="0" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="pos" Destination="get_u_1.v1" dx="1" dy="1" />
+			<Connection Source="center" Destination="get_u_1.v2" dx="1" dy="1" />
+			<Connection Source="get_u_1.vout" Destination="get_u_2.v" dx="1" dy="1" />
+			<Connection Source="N" Destination="get_n.v" dx="1" dy="1" />
+			<Connection Source="get_n.v_unit" Destination="get_v_1.v1" dx="1" dy="1" />
+			<Connection Source="get_u_2.v_unit" Destination="get_v_1.v2" dx="1" dy="1" />
+			<Connection Source="get_v_1.v" Destination="get_v_2.v" dx="1" dy="1" />
+			<Connection Source="radius" Destination="R" dx="1" dy="1" />
+			<Connection Source="center" Destination="C" dx="1" dy="1" />
+			<Connection Source="get_u_2.v_unit" Destination="U" dx="1" dy="1" />
+			<Connection Source="get_v_2.v_unit" Destination="V" dx="1" dy="1" />
+			<Connection Source="speed" Destination="out_speed" dx="1" dy="1" />
+			<Connection Source="center" Destination="set_secondary_data.C" dx="1" dy="1" />
+			<Connection Source="radius" Destination="set_secondary_data.R" dx="1" dy="1" />
+			<Connection Source="dest_angle" Destination="set_secondary_data.dest_angle" dx="1" dy="1" />
+			<Connection Source="get_v_2.v_unit" Destination="set_secondary_data.V" dx="1" dy="1" />
+			<Connection Source="get_u_2.v_unit" Destination="set_secondary_data.U" dx="1" dy="1" />
+			<Connection Source="pos" Destination="set_secondary_data.pos" dx="1" dy="1" />
+			<Connection Source="set_secondary_data.eq_id" Destination="eq_id" dx="1" dy="1" />
+			<Connection Source="set_secondary_data.angle" Destination="angle" dx="1" dy="1" />
+			<Connection Source="set_secondary_data.t0" Destination="t0" dx="1" dy="1" />
+			<Connection Source="set_secondary_data.t" Destination="t" dx="1" dy="1" />
+			<Connection Source="set_secondary_data.out_pos" Destination="out_pos" dx="1" dy="1" />
+			<Connection Source="set_secondary_data.angle" Destination="circular_velocity.angle" dx="0" dy="0" />
+			<Connection Source="get_v_2.v_unit" Destination="circular_velocity.V" dx="0" dy="0" />
+			<Connection Source="get_u_2.v_unit" Destination="circular_velocity.U" dx="0" dy="0" />
+			<Connection Source="circular_velocity.V_V" Destination="V_V" dx="0" dy="0" />
+			<Connection Source="circular_velocity.V_U" Destination="V_U" dx="0" dy="0" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="res_test_xor" Comment= "name says it all" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="" Date="" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="Source" Type="Data_Source_Real_2" x="4" y="84" >
+		</FB>
+		<FB Name="XOR" Type="XOR_neural" x="250.744125" y="203.015375" >
+		</FB>
+		<FB Name="Scope" Type="Data_Scope_1" x="605.1965" y="203.472875" >
+		</FB>
+		<EventConnections>
+			<Connection Source="Source.output" Destination="XOR.Init" />
+			<Connection Source="XOR.output" Destination="Scope.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="Source.x2" Destination="XOR.x2" />
+			<Connection Source="Source.x1" Destination="XOR.x1" />
+			<Connection Source="XOR.y1" Destination="Scope.x1" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SLOT_PATH_SET" Comment="Sets data for circle or line" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="27-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="pos" />
+				<With Var="offset" />
+				<With Var="z" />
+				<With Var="origin_x" />
+				<With Var="origin_y" />
+				<With Var="end_x" />
+				<With Var="end_y" />
+				<With Var="iteration" />
+				<With Var="distance" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Line" >
+				<With Var="out_pos" />
+				<With Var="line_dest" />
+			</Event>
+			<Event Name="Circle" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="offset" Type="REAL" />
+			<VarDeclaration Name="z" Type="REAL" />
+			<VarDeclaration Name="origin_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="origin_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="iteration" Type="INT" />
+			<VarDeclaration Name="distance" Type="REAL" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="line_dest" Type="REAL" ArraySize="3" />
+		</OutputVars>
+		<InternalVars>
+			<VarDeclaration Name="path_type" Type="STRING" />
+		</InternalVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="LINE" x="0" y="0" >
+				<ECAction Output="Line" />
+			</ECState>
+			<ECState Name="CIRCLE" x="0" y="0" >
+				<ECAction Output="Circle" />
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="exe" />
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="LINE" Condition="path_type==&#34;Line&#34;" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="CIRCLE" Condition="path_type==&#34;Circle&#34;" x="0" y="0" />
+			<ECTransition Source="LINE" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="CIRCLE" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="exe" >
+			<Lua Text = "
+for i = 1, 3 do
+	out_pos[i] = pos[i]
+	line_dest[i] = pos[i] + origin_x[i]*distance
+end
+
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

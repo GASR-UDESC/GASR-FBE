@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PUBL_94" Comment="94-variable local group publisher" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="21-03-12" />
+	<CompilerInfo BaseFile="SIFB_Publ.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Comment="Service Initialization" >
+				<With Var="ID" />
+			</Event>
+			<Event Name="REQ" Comment="Service Request" >
+				<With Var="SD_1" />
+				<With Var="SD_2" />
+				<With Var="SD_3" />
+				<With Var="SD_4" />
+				<With Var="SD_5" />
+				<With Var="SD_6" />
+				<With Var="SD_7" />
+				<With Var="SD_8" />
+				<With Var="SD_9" />
+				<With Var="SD_10" />
+				<With Var="SD_11" />
+				<With Var="SD_12" />
+				<With Var="SD_13" />
+				<With Var="SD_14" />
+				<With Var="SD_15" />
+				<With Var="SD_16" />
+				<With Var="SD_17" />
+				<With Var="SD_18" />
+				<With Var="SD_19" />
+				<With Var="SD_20" />
+				<With Var="SD_21" />
+				<With Var="SD_22" />
+				<With Var="SD_23" />
+				<With Var="SD_24" />
+				<With Var="SD_25" />
+				<With Var="SD_26" />
+				<With Var="SD_27" />
+				<With Var="SD_28" />
+				<With Var="SD_29" />
+				<With Var="SD_30" />
+				<With Var="SD_31" />
+				<With Var="SD_32" />
+				<With Var="SD_33" />
+				<With Var="SD_34" />
+				<With Var="SD_35" />
+				<With Var="SD_36" />
+				<With Var="SD_37" />
+				<With Var="SD_38" />
+				<With Var="SD_39" />
+				<With Var="SD_40" />
+				<With Var="SD_41" />
+				<With Var="SD_42" />
+				<With Var="SD_43" />
+				<With Var="SD_44" />
+				<With Var="SD_45" />
+				<With Var="SD_46" />
+				<With Var="SD_47" />
+				<With Var="SD_48" />
+				<With Var="SD_49" />
+				<With Var="SD_50" />
+				<With Var="SD_51" />
+				<With Var="SD_52" />
+				<With Var="SD_53" />
+				<With Var="SD_54" />
+				<With Var="SD_55" />
+				<With Var="SD_56" />
+				<With Var="SD_57" />
+				<With Var="SD_58" />
+				<With Var="SD_59" />
+				<With Var="SD_60" />
+				<With Var="SD_61" />
+				<With Var="SD_62" />
+				<With Var="SD_63" />
+				<With Var="SD_64" />
+				<With Var="SD_65" />
+				<With Var="SD_66" />
+				<With Var="SD_67" />
+				<With Var="SD_68" />
+				<With Var="SD_69" />
+				<With Var="SD_70" />
+				<With Var="SD_71" />
+				<With Var="SD_72" />
+				<With Var="SD_73" />
+				<With Var="SD_74" />
+				<With Var="SD_75" />
+				<With Var="SD_76" />
+				<With Var="SD_77" />
+				<With Var="SD_78" />
+				<With Var="SD_79" />
+				<With Var="SD_80" />
+				<With Var="SD_81" />
+				<With Var="SD_82" />
+				<With Var="SD_83" />
+				<With Var="SD_84" />
+				<With Var="SD_85" />
+				<With Var="SD_86" />
+				<With Var="SD_87" />
+				<With Var="SD_88" />
+				<With Var="SD_89" />
+				<With Var="SD_90" />
+				<With Var="SD_91" />
+				<With Var="SD_92" />
+				<With Var="SD_93" />
+				<With Var="SD_94" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Comment="Initialization Confirm" />
+			<Event Name="CNF" Comment="Service Confirmation" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="ID" Type="WSTRING" Comment="Default id is the FB instance name" />
+			<VarDeclaration Name="SD_1" Type="ANY" Comment="pos" />
+			<VarDeclaration Name="SD_2" Type="ANY" Comment="current_tool" />
+			<VarDeclaration Name="SD_3" Type="ANY" Comment="setup.Its_secplane.position.location.coordinates" />
+			<VarDeclaration Name="SD_4" Type="ANY" Comment="round_hole.its_id" />
+			<VarDeclaration Name="SD_5" Type="ANY" Comment="its_workpiece.its_id" />
+			<VarDeclaration Name="SD_6" Type="ANY" Comment="its_operations.its_id LIST - the list is concatenated in one string" />
+			<VarDeclaration Name="SD_7" Type="ANY" Comment="feature_placement.name" />
+			<VarDeclaration Name="SD_8" Type="ANY" Comment="feature_placement.location.name" />
+			<VarDeclaration Name="SD_9" Type="ANY" Comment="feature_placement.location.coordinates" />
+			<VarDeclaration Name="SD_10" Type="ANY" Comment="feature_placement.axis.its_id" />
+			<VarDeclaration Name="SD_11" Type="ANY" Comment="feature_placement.axis.direction_ratios" />
+			<VarDeclaration Name="SD_12" Type="ANY" Comment="feature_placement.ref_direction.its_id" />
+			<VarDeclaration Name="SD_13" Type="ANY" Comment="feature_placement.ref_direction_ratios" />
+			<VarDeclaration Name="SD_14" Type="ANY" Comment="depth.name" />
+			<VarDeclaration Name="SD_15" Type="ANY" Comment="depth.postion.name" />
+			<VarDeclaration Name="SD_16" Type="ANY" Comment="depth.position.location.name" />
+			<VarDeclaration Name="SD_17" Type="ANY" Comment="depth.position.location.coordinates" />
+			<VarDeclaration Name="SD_18" Type="ANY" Comment="depth.position.axis.its_id" />
+			<VarDeclaration Name="SD_19" Type="ANY" Comment="depth.position.axis.direction_ratios" />
+			<VarDeclaration Name="SD_20" Type="ANY" Comment="depth.position.ref_direction.its_id" />
+			<VarDeclaration Name="SD_21" Type="ANY" Comment="depth.position.ref_direction_ratios" />
+			<VarDeclaration Name="SD_22" Type="ANY" Comment="diameter" />
+			<VarDeclaration Name="SD_23" Type="ANY" Comment="diameter.theoretical_size" />
+			<VarDeclaration Name="SD_24" Type="ANY" Comment="diameter.implicit_tolerance" />
+			<VarDeclaration Name="SD_25" Type="ANY" Comment="diameter.{vector}, vector = {upper_limit, lower_limit, significant_digits} or {deviation,grade,its_fitting_type}" />
+			<VarDeclaration Name="SD_26" Type="ANY" Comment="change_in_diameter, &#34;diameter_taper&#34; or &#34;angle_taper&#34;" />
+			<VarDeclaration Name="SD_27" Type="ANY" Comment="change_in_diameter.theoretical_size" />
+			<VarDeclaration Name="SD_28" Type="ANY" Comment="change_in_diameter.implicit_tolerance" />
+			<VarDeclaration Name="SD_29" Type="ANY" Comment="change_in_diameter.{vector}, vector = {upper_limit, lower_limit, significant_digits} or {deviation,grade,its_fitting_type}" />
+			<VarDeclaration Name="SD_30" Type="ANY" Comment="bottom_condition, &#34;through_bottom_condition&#34; or ..." />
+			<VarDeclaration Name="SD_31" Type="ANY" Comment="bottom_condition.theoretical_size" />
+			<VarDeclaration Name="SD_32" Type="ANY" Comment="bottom_condition.implicit_tolerance" />
+			<VarDeclaration Name="SD_33" Type="ANY" Comment="bottom_condition.{vector}, vector = {upper_limit, lower_limit, significant_digits} or {deviation,grade,its_fitting_type}" />
+			<VarDeclaration Name="SD_34" Type="ANY" Comment="drilling.its_id" />
+			<VarDeclaration Name="SD_35" Type="ANY" Comment="its_toolpath.its_list" />
+			<VarDeclaration Name="SD_36" Type="ANY" Comment="its_tool_direction" />
+			<VarDeclaration Name="SD_37" Type="ANY" Comment="retract_plane" />
+			<VarDeclaration Name="SD_38" Type="ANY" Comment="start_point.name" />
+			<VarDeclaration Name="SD_39" Type="ANY" Comment="start_point.coordinates" />
+			<VarDeclaration Name="SD_40" Type="ANY" Comment="its_tool.its_id" />
+			<VarDeclaration Name="SD_41" Type="ANY" Comment="its_tool.its_tool_body.dimension.diameter" />
+			<VarDeclaration Name="SD_42" Type="ANY" Comment="its_tool.its_tool_body.dimension.tool_tip_half_angle" />
+			<VarDeclaration Name="SD_43" Type="ANY" Comment="its_tool.its_tool_body.dimension.tool_circumference_angle" />
+			<VarDeclaration Name="SD_44" Type="ANY" Comment="its_tool.its_tool_body.dimension.cutting_edge_lenght" />
+			<VarDeclaration Name="SD_45" Type="ANY" Comment="its_tool.its_tool_body.dimension.edge_radius" />
+			<VarDeclaration Name="SD_46" Type="ANY" Comment="its_tool.its_tool_body.dimension.edge_center_vertical" />
+			<VarDeclaration Name="SD_47" Type="ANY" Comment="its_tool.its_tool_body.dimension.edge_center_horizontal" />
+			<VarDeclaration Name="SD_48" Type="ANY" Comment="its_tool.its_tool_body.number_of_teeth" />
+			<VarDeclaration Name="SD_49" Type="ANY" Comment="its_tool.its_tool_body.hand_of_cut" />
+			<VarDeclaration Name="SD_50" Type="ANY" Comment="its_tool.its_tool_body.coolant_through" />
+			<VarDeclaration Name="SD_51" Type="ANY" Comment="its_tool.its_tool_body.pilot_length" />
+			<VarDeclaration Name="SD_52" Type="ANY" Comment="its_tool.its_tool_body.{other_tool_body_parameter}" />
+			<VarDeclaration Name="SD_53" Type="ANY" Comment="its_tool.its_cutting_edge.tool_offset_length" />
+			<VarDeclaration Name="SD_54" Type="ANY" Comment="its_tool.its_cutting_edge.its_material.standard_identifier" />
+			<VarDeclaration Name="SD_55" Type="ANY" Comment="its_tool.its_cutting_edge.its_material.material_identifier" />
+			<VarDeclaration Name="SD_56" Type="ANY" Comment="its_tool.its_cutting_edge.its_material.material_property.{list_of_parameters}" />
+			<VarDeclaration Name="SD_57" Type="ANY" Comment="its_tool.its_cutting_edge.its_technological_data.cutting_angle" />
+			<VarDeclaration Name="SD_58" Type="ANY" Comment="its_tool.its_cutting_edge.its_technological_data.free_angle" />
+			<VarDeclaration Name="SD_59" Type="ANY" Comment="its_tool.its_cutting_edge.its_technological_data.aux_angle" />
+			<VarDeclaration Name="SD_60" Type="ANY" Comment="its_tool.its_cutting_edge.expected_tool_life" />
+			<VarDeclaration Name="SD_61" Type="ANY" Comment="its_tool.its_cutting_edge.its_technology.feedrate" />
+			<VarDeclaration Name="SD_62" Type="ANY" Comment="its_tool.its_cutting_edge.its_technology.feedrate_reference" />
+			<VarDeclaration Name="SD_63" Type="ANY" Comment="its_tool.its_cutting_edge.its_technology.cutspeed" />
+			<VarDeclaration Name="SD_64" Type="ANY" Comment="its_tool.its_cutting_edge.its_technology.spindle" />
+			<VarDeclaration Name="SD_65" Type="ANY" Comment="its_tool.its_cutting_edge.its_technology.feedrate_per_tooth" />
+			<VarDeclaration Name="SD_66" Type="ANY" Comment="its_tool.its_cutting_edge.its_technology.sincronize_spindle_with_feed" />
+			<VarDeclaration Name="SD_67" Type="ANY" Comment="its_tool.its_cutting_edge.its_technology.inhibit_feedrate_override" />
+			<VarDeclaration Name="SD_68" Type="ANY" Comment="its_tool.its_cutting_edge.its_technology.inhibit_spindle_override" />
+			<VarDeclaration Name="SD_69" Type="ANY" Comment="its_tool.its_cutting_edge.its_technology.its_adaptive_control" />
+			<VarDeclaration Name="SD_70" Type="ANY" Comment="its_tool.overall_assembly_length" />
+			<VarDeclaration Name="SD_71" Type="ANY" Comment="its_tool.direction_for_spindle_orientation.its_id" />
+			<VarDeclaration Name="SD_72" Type="ANY" Comment="its_tool.direction_for_spindle_orientation.direction_ratios" />
+			<VarDeclaration Name="SD_73" Type="ANY" Comment="its_tool.tool_holder_diameter_for_spindle_orientation" />
+			<VarDeclaration Name="SD_74" Type="ANY" Comment="its_technology.feedrate" />
+			<VarDeclaration Name="SD_75" Type="ANY" Comment="its_technology.feedrate_reference" />
+			<VarDeclaration Name="SD_76" Type="ANY" Comment="its_technology.cutspeed" />
+			<VarDeclaration Name="SD_77" Type="ANY" Comment="its_technology.spindle" />
+			<VarDeclaration Name="SD_78" Type="ANY" Comment="its_technology.feedrate_per_tooth" />
+			<VarDeclaration Name="SD_79" Type="ANY" Comment="its_technology.sincronize_spindle_with_feed" />
+			<VarDeclaration Name="SD_80" Type="ANY" Comment="its_technology.inhibit_feedrate_override" />
+			<VarDeclaration Name="SD_81" Type="ANY" Comment="its_technology.inhibit_spindle_override" />
+			<VarDeclaration Name="SD_82" Type="ANY" Comment="its_technology.its_adaptive_control" />
+			<VarDeclaration Name="SD_83" Type="ANY" Comment="its_machine_functions.coolant" />
+			<VarDeclaration Name="SD_84" Type="ANY" Comment="its_machine_functions.coolant_pressure" />
+			<VarDeclaration Name="SD_85" Type="ANY" Comment="its_machine_functions.mist" />
+			<VarDeclaration Name="SD_86" Type="ANY" Comment="its_machine_functions.through_spindle_coolant" />
+			<VarDeclaration Name="SD_87" Type="ANY" Comment="its_machine_functions.through_pressure" />
+			<VarDeclaration Name="SD_88" Type="ANY" Comment="its_machine_functions.axis_clamping" />
+			<VarDeclaration Name="SD_89" Type="ANY" Comment="its_machine_functions.chip_removal" />
+			<VarDeclaration Name="SD_90" Type="ANY" Comment="its_machine_functions.oriented_spindle_stop.its_id" />
+			<VarDeclaration Name="SD_91" Type="ANY" Comment="its_machine_functions.oriented_spindle_stop.direction_ratios" />
+			<VarDeclaration Name="SD_92" Type="ANY" Comment="its_machine_functions.its_process_model.ini_data_file" />
+			<VarDeclaration Name="SD_93" Type="ANY" Comment="its_machine_functions.its_process_model.its_type" />
+			<VarDeclaration Name="SD_94" Type="ANY" Comment="its_machine_functions.other_functions" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="SUBL_93" LeftInterface="PUBL_93" Comment="Data publication service" >
+		<ServiceSequence Name="normal_establishment" >
+			<ServiceTransaction >
+				<InputPrimitive Interface="PUBL_93" Event="INIT" Parameters="ID" />
+				<OutputPrimitive Interface="PUBL_93" Event="INITO" Parameters="" />
+			</ServiceTransaction>
+			<ServiceTransaction >
+				<InputPrimitive Interface="SUBL_93" Event="INIT" Parameters="ID" />
+				<OutputPrimitive Interface="SUBL_93" Event="INITO" Parameters="" />
+			</ServiceTransaction>
+		</ServiceSequence>
+		<ServiceSequence Name="normal_data_transfer" >
+			<ServiceTransaction >
+				<InputPrimitive Interface="PUBL_93" Event="REQ" Parameters="SD_1,SD_2,SD_3,SD_4,SD_5,SD_6,SD_7,SD_8,SD_9,SD_10,SD_11,SD_12,SD_13,SD_14,SD_15,SD_16,SD_17,SD_18,SD_19,SD_20,SD_21,SD_22,SD_23,SD_24,SD_25,SD_26,SD_27,SD_28,SD_29,SD_30,SD_31,SD_32,SD_33,SD_34,SD_35,SD_36,SD_37,SD_38,SD_39,SD_40,SD_41,SD_42,SD_43,SD_44,SD_45,SD_46,SD_47,SD_48,SD_49,SD_50,SD_51,SD_52,SD_53,SD_54,SD_55,SD_56,SD_57,SD_58,SD_59,SD_60,SD_61,SD_62,SD_63,SD_64,SD_65,SD_66,SD_67,SD_68,SD_69,SD_70,SD_71,SD_72,SD_73,SD_74,SD_75,SD_76,SD_77,SD_78,SD_79,SD_80,SD_81,SD_82,SD_83,SD_84,SD_85,SD_86,SD_87,SD_88,SD_89,SD_90,SD_91,SD_92,SD_93" />
+				<OutputPrimitive Interface="SUBL_93" Event="IND" Parameters="RD_1,RD_2,RD_3,RD_4,RD_5,RD_6,RD_7,RD_8,RD_9,RD_10,RD_11,RD_12,RD_13,RD_14,RD_15,RD_16,RD_17,RD_18,RD_19,RD_20,RD_21,RD_22,RD_23,RD_24,RD_25,RD_26,RD_27,RD_28,RD_29,RD_30,RD_31,RD_32,RD_33,RD_34,RD_35,RD_36,RD_37,RD_38,RD_39,RD_40,RD_41,RD_42,RD_43,RD_44,RD_45,RD_46,RD_47,RD_48,RD_49,RD_50,RD_51,RD_52,RD_53,RD_54,RD_55,RD_56,RD_57,RD_58,RD_59,RD_60,RD_61,RD_62,RD_63,RD_64,RD_65,RD_66,RD_67,RD_68,RD_69,RD_70,RD_71,RD_72,RD_73,RD_74,RD_75,RD_76,RD_77,RD_78,RD_79,RD_80,RD_81,RD_82,RD_83,RD_84,RD_85,RD_86,RD_87,RD_88,RD_89,RD_90,RD_91,RD_92,RD_93" />
+				<OutputPrimitive Interface="PUBL_93" Event="CNF" />
+            </ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

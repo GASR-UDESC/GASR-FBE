@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType SYSTEM "ResourceType.dtd">
+
+<Resource Name="STEP-NC_DATA" Comment="Resource with all information of the STEP-NC file">
+  <Identification Standard="61499-1" />
+  <VersionInfo Date="10/01/2012" Organization="UDESC" Author="LAPAS" Version="7.0" />
+  <FBNetwork>
+    <FB Name="EXECUTABLE_SWITCH" Type="SWITCH - Arcos" dx="100" dy="100" />
+    <FB Name="START_WORK" Type="STARTER" dx="50" dy="50" />
+    <FB Name="Subl_3_OK_STEP-NC_DATA" Type="SUBL_3_OK" dx="50" dy="150" />
+    <FB Name="Publ_1_COMM1" Type="PUBL_1_COMM" dx="50" dy="150">
+      <Parameter Name="ID" Value="[COMMUNICATION_FRANK,Subl_1_COMM_MACHINE_COMM]" />
+      <Parameter Name="SD_1" Value="COEF_FILE" />
+    </FB>
+    <FB Name="Publ_8_SETUP1" Type="PUBL_8_SETUP" dx="50" dy="300">
+      <Parameter Name="ID" Value="[SETUP_FRANK,Subl_8_SETUP]" Comment="Default id is the FB instance name" />
+      <Parameter Name="SD_1" Value="SETUP1" Comment="workplan.its_setup.its_origin.name" />
+      <Parameter Name="SD_2" Value="SETUP1:    LOCATION       " Comment="workplan.its_setup.its_origin.location.name" />
+      <Parameter Name="SD_3" Value="[0.0, 150.0, -30.0]" Comment="workplan.its_setup.its_origin.location.coordinates" />
+      <Parameter Name="SD_4" Value="                 AXIS           " Comment="workplan.its_setup.its_origin.axis.its_id" />
+      <Parameter Name="SD_5" Value="[0.0, 0.0, 1.0]" Comment="workplan.its_setup.its_origin.axis.direction_ratios" />
+      <Parameter Name="SD_6" Value="                 REF_DIRECTION  " Comment="workplan.its_setup.its_origin.ref_direction.its_id" />
+      <Parameter Name="SD_7" Value="[1.0, 0.0, 0.0]" Comment="workplan.its_setup.its_origin.ref_direction_ratios" />
+    </FB>
+    <FB Name="Compensate_tool" Type="ADD_VALUE_TO_VECTOR" dx="50" dy="500">
+        <Parameter Name="value" Value="32" />
+        <Parameter Name="direction" Value="'z'" />
+    </FB>
+    <FB Name="Arc_1" Type="CIRCULAR_MOVE" dx="50" dy="500">
+        <Parameter Name="dest_angle" Value="90" />
+        <Parameter Name="radius" Value="20" />
+        <Parameter Name="center" Value="[20,0,0]" />
+        <Parameter Name="N" Value="[0,0,1]" />
+        <Parameter Name="speed" Value="0.05" />
+    </FB>
+    <FB Name="order_Arc_1" Type="FILE_WRITER_11_CIRCULAR_MOVE" dx="50" dy="700">
+    </FB>
+    <EventConnections>
+      <Connection Source="EXECUTABLE_SWITCH.SETUP" Destination="Publ_8_SETUP1.REQ" />
+      <Connection Source="EXECUTABLE_SWITCH.EX_1" Destination="Compensate_tool.Sub" />
+      <Connection Source="Compensate_tool.Res" Destination="Arc_1.Init" />
+      <Connection Source="Arc_1.Send" Destination="order_Arc_1.REQ" />
+      <Connection Source="order_Arc_1.RSP" Destination="Arc_1.Req" />
+      <Connection Source="Arc_1.Cnf" Destination="Publ_1_COMM1.REQ" />
+      <Connection Source="START_WORK.start" Destination="EXECUTABLE_SWITCH.START" />
+      <Connection Source="Subl_3_OK_STEP-NC_DATA.IND" Destination="EXECUTABLE_SWITCH.NEXT" />
+    </EventConnections>
+    <DataConnections>
+        <Connection Source="Subl_3_OK_STEP-NC_DATA.RD_1" Destination="EXECUTABLE_SWITCH.OK_WORK" />
+        <Connection Source="Subl_3_OK_STEP-NC_DATA.RD_2" Destination="EXECUTABLE_SWITCH.M_POS" />
+        <Connection Source="Subl_3_OK_STEP-NC_DATA.RD_3" Destination="EXECUTABLE_SWITCH.TOOL" />
+        <Connection Source="EXECUTABLE_SWITCH.M_POS_OUT" Destination="Compensate_tool.vector" />
+        <Connection Source="Compensate_tool.result" Destination="Arc_1.pos" />
+        <Connection Source="Arc_1.eq_id" Destination="order_Arc_1.P0" dx="1" dy="1" />
+        <Connection Source="Arc_1.C" Destination="order_Arc_1.P1" dx="1" dy="1" />
+        <Connection Source="Arc_1.U" Destination="order_Arc_1.P2" dx="1" dy="1" />
+        <Connection Source="Arc_1.V" Destination="order_Arc_1.P3" dx="1" dy="1" />
+        <Connection Source="Arc_1.angle" Destination="order_Arc_1.P4" dx="1" dy="1" />
+        <Connection Source="Arc_1.R" Destination="order_Arc_1.P5" dx="1" dy="1" />
+        <Connection Source="Arc_1.t0" Destination="order_Arc_1.P6" dx="1" dy="1" />
+        <Connection Source="Arc_1.t" Destination="order_Arc_1.P7" dx="1" dy="1" />
+        <Connection Source="Arc_1.out_pos" Destination="order_Arc_1.P8" dx="1" dy="1" />
+        <Connection Source="Arc_1.out_speed" Destination="order_Arc_1.P9" dx="1" dy="1" />
+        <Connection Source="Arc_1.V_U" Destination="order_Arc_1.P10" dx="1" dy="1" />
+        <Connection Source="Arc_1.V_V" Destination="order_Arc_1.P11" dx="1" dy="1" />
+    </DataConnections>
+  </FBNetwork>
+</Resource>
+

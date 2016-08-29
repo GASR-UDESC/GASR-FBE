@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="1D_MOVETO_PARALLEL_PLANE" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="22-03-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialization request" >
+				<With Var="pos" />
+				<With Var="plane_distance" />
+				<With Var="move_in_axis" />
+				<With Var="speed" />
+			</Event>
+			<Event Name="Req" Comment="Requisition to finish" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Execution Confirmed" >
+				<With Var="final_pos" />
+			</Event>
+			<Event Name="Send" Comment="Send data" >
+				<With Var="eq_id" />
+				<With Var="coef_a" />
+				<With Var="coef_b" />
+				<With Var="t0" />
+				<With Var="t" />
+				<With Var="final_pos" />
+				<With Var="out_speed" />
+				<With Var="v_coef" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="plane_distance" Type="REAL" ArraySize="3" Comment="Security plane position" />
+			<VarDeclaration Name="move_in_axis" Type="STRING" Comment="'x', 'y' or 'z'" />
+			<VarDeclaration Name="speed" Type="REAL" InitialValue="0" Comment="Feedrate in m/s" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="eq_id" Type="REAL" Comment="Curve equation id" />
+			<VarDeclaration Name="coef_a" Type="REAL" ArraySize="3" Comment="Line angular coeficient" />
+			<VarDeclaration Name="coef_b" Type="REAL" ArraySize="3" Comment="Line linear coeficient" />
+			<VarDeclaration Name="t0" Type="REAL" Comment="Initial parameter" />
+			<VarDeclaration Name="t" Type="REAL" Comment="Final parameter" />
+			<VarDeclaration Name="final_pos" Type="REAL" ArraySize="3" Comment="Final position" />
+			<VarDeclaration Name="v_coef" Type="REAL" ArraySize="3" Comment="Velocity coeficient" />
+			<VarDeclaration Name="out_speed" Type="REAL" Comment="Speed in m/s" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="set_plane_coord" Type="GET_1D_COORD" x="48" y="148" />
+		<FB Name="moveto_plane" Type="LINEAR_MOVE" x="505" y="114" />
+		<EventConnections>
+			<Connection Source="Req" Destination="moveto_plane.Req" />
+			<Connection Source="Init" Destination="set_plane_coord.Init" />
+			<Connection Source="set_plane_coord.Cnf" Destination="moveto_plane.Init" />
+			<Connection Source="moveto_plane.Send" Destination="Send" />
+			<Connection Source="moveto_plane.Cnf" Destination="Cnf" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="moveto_plane.v_coef" Destination="v_coef" />
+			<Connection Source="moveto_plane.coef_b" Destination="coef_b" />
+			<Connection Source="moveto_plane.t0" Destination="t0" />
+			<Connection Source="moveto_plane.out_speed" Destination="out_speed" />
+			<Connection Source="moveto_plane.eq_id" Destination="eq_id" />
+			<Connection Source="moveto_plane.t" Destination="t" />
+			<Connection Source="moveto_plane.final_pos" Destination="final_pos" />
+			<Connection Source="moveto_plane.coef_a" Destination="coef_a" />
+			<Connection Source="plane_distance" Destination="set_plane_coord.distance" />
+			<Connection Source="move_in_axis" Destination="set_plane_coord.move_in_axis" />
+			<Connection Source="pos" Destination="set_plane_coord.pos" />
+			<Connection Source="speed" Destination="moveto_plane.speed" />
+			<Connection Source="set_plane_coord.destination" Destination="moveto_plane.destination" />
+			<Connection Source="set_plane_coord.out_pos" Destination="moveto_plane.pos" />
+		</DataConnections>
+	</FBNetwork>
+</FBType>

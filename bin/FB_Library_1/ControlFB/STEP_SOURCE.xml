@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="STEP_SOURCE" Comment= "step function source" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+			</Event>
+			<Event Name="Start" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Finish" >
+				<With Var="U" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="K" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="delay" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="dt" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="t_end" Type="REAL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="U" Type="REAL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="Exe" x="473" y="207"  >
+				<ECAction Algorithm="step" Output="Finish" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECTransition Source="Exe" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="Exe" Condition="Start or (Init and (t_end > 0 + 1e-12))" />
+		</ECC>
+		<Algorithm Name="step"  >
+			<Lua Text="if delay > 0 +1e-12 then  U = 0  delay = delay - dt else  U = K end t_end = t_end - dt  U=K" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

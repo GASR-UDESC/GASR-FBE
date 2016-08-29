@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="CONTROL_PLANES" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="Point_In" />
+				<With Var="Cut_Length" />
+				<With Var="Vector_Axis" />
+				<With Var="Pos_In" />
+			</Event>
+			<Event Name="Loop" >
+				<With Var="Point_In" />
+				<With Var="Cut_Length" />
+				<With Var="Vector_Axis" />
+				<With Var="Pos_In" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Move" >
+				<With Var="Point_Out" />
+				<With Var="Iout" />
+				<With Var="Pos_Out" />
+			</Event>
+			<Event Name="Finish" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Point_In" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Cut_Length" Type="REAL" />
+			<VarDeclaration Name="Vector_Axis" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Pos_In" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="Point_Out" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Iout" Type="INT" />
+			<VarDeclaration Name="N" Type="INT" />
+			<VarDeclaration Name="Pos_Out" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="INITIAL" x="0" y="0"  >
+				<ECAction Algorithm="Initial" Output="Move" />
+			</ECState>
+			<ECState Name="START" x="0" y="0"  >
+			</ECState>
+			<ECState Name="FINISH" x="0" y="0"  >
+				<ECAction Output="Finish" />
+			</ECState>
+			<ECState Name="CONTINUE" x="0" y="0"  >
+				<ECAction Algorithm="Continue" Output="Move" />
+			</ECState>
+			<ECTransition Source="START" Destination="INITIAL" Condition="Init" />
+			<ECTransition Source="START" Destination="CONTINUE" Condition="Loop &#38; Iout ~=N" />
+			<ECTransition Source="START" Destination="FINISH" Condition="Loop &#38; Iout == N" />
+			<ECTransition Source="FINISH" Destination="START" Condition="1" />
+			<ECTransition Source="INITIAL" Destination="START" Condition="1" />
+			<ECTransition Source="CONTINUE" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="Initial"  >
+			<Lua Text=" N = -Point_In[3]/Cut_Length N = ceil(N) print( '\nN', N, Point_In[3], Cut_Length, '\n' ) if N==0 then N=1 end if Vector_Axis == '$' or not Vector_Axis or (Vector_Axis[1] == 0 and Vector_Axis[2] == 0 and Vector_Axis[3] ==0 ) then  Vector_Axis = {0, 0, 1} end   local an       = {0,0,1} Iout     = 1 Point_Out[3] = Point_In[3]/N local deltaz = (-1 + 1/N)*Point_In[3] local r      = deltaz/an[3] Point_Out[1] = Point_In[1] + r*an[1] Point_Out[2] = Point_In[2] + r*an[2]   local dz = Point_Out[3] local r2 = dz/an[3] local dx = r2*an[1] local dy = r2*an[2]   Pos_Out = {Pos_In[1] , Pos_In[2] , Pos_In[3] + deltaz} print('CONTROL PLANES Pos_Out', Pos_In[1] , Pos_In[2] , Pos_In[3] + deltaz) --local an = Vector_Axis local m  = sqrt(an[1]^2 + an[2]^2 + an[3]^2)    " />
+		</Algorithm>
+		<Algorithm Name="Continue"  >
+			<Lua Text=" local an  = {0, 0, 1} Iout = Iout+1 Point_Out[3] = Point_In[3]*Iout/N local deltaz = (-1 + Iout/(N) )*Point_In[3] local r = deltaz/an[3] Point_Out[1] = Point_In[1] Point_Out[2] = Point_In[2]  local dz = Point_Out[3] - Point_In[3] local r2 = dz/an[3] local dx = r2*an[1] local dy = r2*an[2]  Pos_Out = {Pos_In[1] , Pos_In[2] , Pos_In[3] + dz} print('CONTROL PLANES Pos Out', Pos_In[1] + dx, Pos_In[2] + dy, Pos_In[3] + dz)      " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

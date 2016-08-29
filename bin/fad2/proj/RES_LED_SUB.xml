@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="RES_LED_SUB" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="slimrte" Date="11-09-2013" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="START" x="73" y="136" >
+		</FB>
+		<FB Name="sub1" Type="SUB_2" x="401" y="136" >
+			<Parameter Name="ID" Value="30" />
+		</FB>
+		<FB Name="led1" Type="IO_WRITER" x="105" y="332" >
+			<Parameter Name="SD_1" Value="1" />
+		</FB>
+		<FB Name="led2" Type="IO_WRITER" x="450" y="332" >
+			<Parameter Name="SD_1" Value="2" />
+		</FB>
+		<EventConnections>
+			<Connection Source="start.COLD" Destination="sub1.INIT" />
+			<Connection Source="led1.CNF" Destination="led2.REQ" />
+			<Connection Source="led1.INIT0" Destination="led2.INIT" />
+			<Connection Source="sub1.RSP" Destination="led1.REQ" />
+			<Connection Source="sub1.INIT0" Destination="led1.INIT" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="sub1.SD_1" Destination="led2.SD_2" />
+			<Connection Source="sub1.SD_1" Destination="led1.SD_2" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

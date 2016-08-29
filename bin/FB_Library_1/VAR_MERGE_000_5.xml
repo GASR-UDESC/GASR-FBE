@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="VAR_MERGE_000_5" Comment="Merge 4 3D vector variables" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="16-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="EI1" Comment="Input event 1" >
+				<With Var="V1" />
+			</Event>
+			<Event Name="EI2" Comment="Input event 2" >
+				<With Var="V2" />
+			</Event>
+			<Event Name="EI3" Comment="Input event 3" >
+				<With Var="V3" />
+			</Event>
+			<Event Name="EI4" Comment="Input event 4" >
+				<With Var="V4" />
+			</Event>
+			<Event Name="EI5" Comment="Input event 5" >
+				<With Var="V5" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="E1" Comment="" >
+				<With Var="VO" />
+			</Event>
+			<Event Name="E2" Comment="" >
+				<With Var="VO" />
+			</Event>
+			<Event Name="E3" Comment="" >
+				<With Var="VO" />
+			</Event>
+			<Event Name="E4" Comment="" >
+				<With Var="VO" />
+			</Event>
+			<Event Name="E5" Comment="" >
+				<With Var="VO" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+            <VarDeclaration Name="V1" Type="REAL" ArraySize="3"/>
+            <VarDeclaration Name="V2" Type="REAL" ArraySize="3"/>
+            <VarDeclaration Name="V3" Type="REAL" ArraySize="3"/>
+            <VarDeclaration Name="V4" Type="REAL" ArraySize="3"/>
+            <VarDeclaration Name="V5" Type="REAL" ArraySize="3"/>
+		</InputVars>
+		<OutputVars>
+            <VarDeclaration Name="VO" Type="REAL" ArraySize="3"/>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="E1" x="0" y="0" >
+				<ECAction Algorithm="v1" Output="E1" />
+			</ECState>
+			<ECState Name="E2" x="0" y="0" >
+				<ECAction Algorithm="v2" Output="E2" />
+			</ECState>
+			<ECState Name="E3" x="0" y="0" >
+				<ECAction Algorithm="v3" Output="E3" />
+			</ECState>
+			<ECState Name="E4" x="0" y="0" >
+				<ECAction Algorithm="v4" Output="E4" />
+			</ECState>
+			<ECState Name="E5" x="0" y="0" >
+				<ECAction Algorithm="v5" Output="E5" />
+			</ECState>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECTransition Source="E1" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="E2" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="E3" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="E4" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="E5" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="START" Destination="E1" Condition="EI1" x="0" y="0" />
+			<ECTransition Source="START" Destination="E2" Condition="EI2" x="0" y="0" />
+			<ECTransition Source="START" Destination="E3" Condition="EI3" x="0" y="0" />
+			<ECTransition Source="START" Destination="E4" Condition="EI4" x="0" y="0" />
+			<ECTransition Source="START" Destination="E5" Condition="EI5" x="0" y="0" />
+		</ECC>
+<Algorithm Name="v1" >
+			<Lua Text = "
+VO = V1
+			"/>
+		</Algorithm>
+<Algorithm Name="v2" >
+			<Lua Text = "
+VO = V2
+			"/>
+		</Algorithm>
+<Algorithm Name="v3" >
+			<Lua Text = "
+VO = V3
+			"/>
+		</Algorithm>
+<Algorithm Name="v4" >
+			<Lua Text = "
+VO = V4
+			"/>
+		</Algorithm>
+<Algorithm Name="v5" >
+			<Lua Text = "
+VO = V5
+			"/>
+		</Algorithm>
+</FBType>

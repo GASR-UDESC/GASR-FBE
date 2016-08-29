@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PRINT" Comment= "Prints a value or vector on the screen" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="01-06-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Vector" >
+				<With Var="V" />
+			</Event>
+			<Event Name="Any" >
+				<With Var="N" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="N" Type="ANY" />
+			<VarDeclaration Name="V" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="VEC" x="728" y="154"  >
+				<ECAction Algorithm="vec" Output="Cnf" />
+			</ECState>
+			<ECState Name="START" x="549" y="153"  >
+			</ECState>
+			<ECState Name="ANY" x="467" y="281"  >
+				<ECAction Algorithm="any" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="VEC" Condition="Vector" />
+			<ECTransition Source="START" Destination="ANY" Condition="Any" />
+			<ECTransition Source="VEC" Destination="START" Condition="1" />
+			<ECTransition Source="ANY" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="vec"  >
+			<Lua Text=" print( 'Print FB', V[1], V[2], V[3] )    " />
+		</Algorithm>
+		<Algorithm Name="any"  >
+			<Lua Text=" print( 'Print FB', N )    " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

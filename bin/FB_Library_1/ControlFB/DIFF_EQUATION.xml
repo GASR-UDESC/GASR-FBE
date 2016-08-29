@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="DIFF_EQUATION" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="Gabriel" Date="2013_12_10" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="u_input" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="y_out" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="y_coef" Type="REAL" ArraySize="2" />
+			<VarDeclaration Name="u_coef" Type="REAL" ArraySize="2" />
+			<VarDeclaration Name="u_input" Type="REAL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="y_out" Type="REAL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="exe" x="300" y="300"  >
+				<ECAction Algorithm="step" Output="Cnf" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECTransition Source="START" Destination="exe" Condition="Init" />
+			<ECTransition Source="exe" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="step"  >
+			<Lua Text="if type(u_q ~= 'table') then
+	u_q = {0, 0}
+	y_out=0
+end
+
+u_q[2] = u_q[1]
+u_q[1] = u_input
+
+y_out = (-y_coef[2]*y_out + u_coef[2]*u_q[2] + u_coef[1]*u_q[1])/y_coef[1]
+print(y_out)
+" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

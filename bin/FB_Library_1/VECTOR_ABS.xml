@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="VECTOR_ABS" Comment= "Vector module" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="02-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="v" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="abs" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="v" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="abs" Type="REAL" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="EXE" x="477" y="202"  >
+				<ECAction Algorithm="absolute" Output="Cnf" />
+			</ECState>
+			<ECState Name="START" x="290" y="207"  >
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="absolute"  >
+			<Lua Text=" abs = ( ( v[ 1 ]^2 ) + ( v[ 2 ]^2 ) + ( v[ 3 ]^2 ) )^0.5    " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

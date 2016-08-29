@@ -1,0 +1,38 @@
+      COMMANDS
+========================================================
+1. Criar instancia 'bt1' de 'IO_READER' em D20 R0
+2. Criar conexao (dados) de -001.0 para bt1.SD_1 em D20 R0
+3. Criar instancia 'start' de 'START' em D20 R0
+4. Criar instancia 'pub2' de 'PUB_2' em D20 R0
+5. Criar conexao (dados) de -002.0 para pub2.ID em D20 R0
+6. Criar instancia 'split2' de 'E_SPLIT' em D20 R0
+7. Criar conexao (evento) de start.COLD para bt1.INIT em D20 R0
+8. Criar conexao (evento) de pub2.INIT0 para split2.EI1 em D20 R0
+9. Criar conexao (evento) de bt1.INIT0 para pub2.INIT em D20 R0
+10. Criar conexao (evento) de bt1.IND para split2.EI1 em D20 R0
+11. Criar conexao (evento) de split2.EO1 para bt1.RSP em D20 R0
+12. Criar conexao (evento) de split2.EO2 para pub2.REQ em D20 R0
+13. Criar conexao (dados) de bt1.RD_1 para pub2.RD_1 em D20 R0
+14. Alterar estado do bloco 'bt1' para 1 em D20 R0
+15. Alterar estado do bloco 'pub2' para 1 em D20 R0
+16. Alterar estado do bloco 'split2' para 1 em D20 R0
+17. Alterar estado do bloco 'start' para 1 em D20 R0
+18. Criar instancia 'start' de 'START' em D10 R0
+19. Criar instancia 'sub1' de 'SUB_2' em D10 R0
+20. Criar conexao (dados) de -003.0 para sub1.ID em D10 R0
+21. Criar instancia 'led1' de 'IO_WRITER' em D10 R0
+22. Criar conexao (dados) de -004.0 para led1.SD_1 em D10 R0
+23. Criar instancia 'led2' de 'IO_WRITER' em D10 R0
+24. Criar conexao (dados) de -005.0 para led2.SD_1 em D10 R0
+25. Criar conexao (evento) de start.COLD para sub1.INIT em D10 R0
+26. Criar conexao (evento) de led1.CNF para led2.REQ em D10 R0
+27. Criar conexao (evento) de led1.INIT0 para led2.INIT em D10 R0
+28. Criar conexao (evento) de sub1.RSP para led1.REQ em D10 R0
+29. Criar conexao (evento) de sub1.INIT0 para led1.INIT em D10 R0
+30. Criar conexao (dados) de sub1.SD_1 para led2.SD_2 em D10 R0
+31. Criar conexao (dados) de sub1.SD_1 para led1.SD_2 em D10 R0
+32. Alterar estado do bloco 'sub1' para 1 em D10 R0
+33. Alterar estado do bloco 'led1' para 1 em D10 R0
+34. Alterar estado do bloco 'led2' para 1 em D10 R0
+35. Alterar estado do bloco 'start' para 1 em D10 R0
+========================================================

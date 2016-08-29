@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="COMPLETE_LOOP" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo/>
+ 	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="Point_In" />
+				<With Var="Cut_Length" />
+				<With Var="Vector_Axis" />
+				<With Var="Vector_Ref" />
+				<With Var="width" />
+				<With Var="length" />
+				<With Var="tool_diam" />
+				<With Var="overlap" />
+				<With Var="pos" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="Out_List" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Point_In" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Cut_Length" Type="REAL" />
+			<VarDeclaration Name="Vector_Axis" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Vector_Ref" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="width" Type="REAL" />
+			<VarDeclaration Name="length" Type="REAL" />
+			<VarDeclaration Name="tool_diam" Type="REAL" />
+			<VarDeclaration Name="overlap" Type="REAL" />
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="Out_List" Type="REAL" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="control_planes" Type="CONTROL_PLANES" x="303" y="72" />
+		<FB Name="loop" Type="LOOP_PLANAR_FACE" x="709" y="291" />
+		<FB Name="get_plane" Type="GET_PLANE_EQUATION" x="239" y="355" />
+		<EventConnections>
+			<Connection Source="Init" Destination="control_planes.Init" />
+			<Connection Source="loop.Cnf" Destination="control_planes.Loop" />
+			<Connection Source="get_plane.Cnf" Destination="loop.Init" />
+			<Connection Source="control_planes.Move" Destination="get_plane.Init" />
+			<Connection Source="control_planes.Finish" Destination="Cnf" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="loop.Point_list" Destination="Out_List" />
+			<Connection Source="tool_diam" Destination="loop.tool_diam" />
+			<Connection Source="control_planes.Pos_Out" Destination="loop.pos" />
+			<Connection Source="overlap" Destination="loop.overlap" />
+			<Connection Source="length" Destination="loop.length" />
+			<Connection Source="get_plane.Plane" Destination="loop.plane" />
+			<Connection Source="width" Destination="loop.width" />
+			<Connection Source="Vector_Ref" Destination="get_plane.Vector_Ref" />
+			<Connection Source="Vector_Axis" Destination="get_plane.Vector_Axis" />
+			<Connection Source="control_planes.Point_Out" Destination="get_plane.Point" />
+			<Connection Source="Cut_Length" Destination="control_planes.Cut_Length" />
+			<Connection Source="Point_In" Destination="control_planes.Point_In" />
+			<Connection Source="Vector_Axis" Destination="control_planes.Vector_Axis" />
+			<Connection Source="pos" Destination="control_planes.Pos_In" />
+		</DataConnections>
+	</FBNetwork>
+</FBType>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="CHECK_TOOL" Comment= "Checks if correct tool is attached to the spindle" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="21-03-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Comment="Initialization request" >
+				<With Var="current_tool" />
+				<With Var="workingstep_tool" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="NO_TOOL" Comment="Incorrect tool" >
+				<With Var="process_id" />
+				<With Var="tool_id" />
+			</Event>
+			<Event Name="OK_TOOL" Comment="Correct tool" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="current_tool" Type="STRING" Comment="Current tool in spindle" />
+			<VarDeclaration Name="workingstep_tool" Type="STRING" Comment="Tool required" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="process_id" Type="INT" Comment="Process id" />
+			<VarDeclaration Name="tool_id" Type="STRING" Comment="Tool id" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="513" y="121"  >
+			</ECState>
+			<ECState Name="OK_TOOL" x="663" y="114"  >
+				<ECAction Output="OK_TOOL" />
+			</ECState>
+			<ECState Name="NO_TOOL" x="400" y="332"  >
+				<ECAction Algorithm="Tool_id" Output="NO_TOOL" />
+			</ECState>
+			<ECTransition Source="START" Destination="NO_TOOL" Condition="INIT&#38;workingstep_tool~=current_tool" />
+			<ECTransition Source="START" Destination="OK_TOOL" Condition="INIT&#38;current_tool==workingstep_tool" />
+			<ECTransition Source="OK_TOOL" Destination="START" Condition="1" />
+			<ECTransition Source="NO_TOOL" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="Tool_id"  >
+			<Lua Text="  process_id = -2  tool_id = workingstep_tool  print( process_id, tool_id )    " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

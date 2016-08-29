@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="DEV000RES000" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="" Date="" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="bt1" Type="IO_READER" x="711.70540435938" y="174.75744973437" >
+			<Parameter Name="SD_1" Value="21" />
+		</FB>
+		<FB Name="led1" Type="IO_WRITER" x="1138.5577944687" y="382.11847242187" >
+			<Parameter Name="SD_1" Value="1" />
+		</FB>
+		<FB Name="start" Type="START" x="736.78191103125" y="43.98975" >
+		</FB>
+		<FB Name="pub2" Type="PUB_2" x="1536.5805" y="67.2335" >
+			<Parameter Name="ID" Value="30" />
+		</FB>
+		<FB Name="split1" Type="E_SPLIT" x="1139.5735284687" y="42.09790348437" >
+		</FB>
+		<FB Name="split2" Type="E_SPLIT" x="1145.621125" y="190.96725" >
+		</FB>
+		<EventConnections>
+			<Connection Source="led1.INIT0" Destination="bt1.RSP" />
+			<Connection Source="led1.CNF" Destination="bt1.RSP" />
+			<Connection Source="start.COLD" Destination="split1.EI1" />
+			<Connection Source="split2.EO1" Destination="led1.REQ" />
+			<Connection Source="split2.EO2" Destination="pub2.REQ" />
+			<Connection Source="bt1.INIT0" Destination="led1.INIT" />
+			<Connection Source="bt1.IND" Destination="split2.EI1" />
+			<Connection Source="split1.EO1" Destination="bt1.INIT" />
+			<Connection Source="split1.EO2" Destination="pub2.INIT" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="bt1.RD_1" Destination="pub2.RD_1" />
+			<Connection Source="bt1.RD_1" Destination="led1.SD_2" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

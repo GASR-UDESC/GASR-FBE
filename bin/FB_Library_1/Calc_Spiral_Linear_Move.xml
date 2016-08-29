@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="Calc_Spiral_Linear_Move" >
+	<Identification Standard="61499-2" />
+	<VersionInfo />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="Plane" />
+				<With Var="Pos_in" />
+				<With Var="Length" />
+				<With Var="Width" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="Next_Pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Plane" Type="REAL" ArraySize="4" />
+			<VarDeclaration Name="Pos_in" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Length" Type="REAL" InitialValue="0" />
+			<VarDeclaration Name="Width" Type="REAL" InitialValue="0" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="Next_Pos" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="Calc" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="EXE" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="Calc" >
+			<Lua Text = "
+			
+			local zoff = (Plane[4] - Plane[2]*(Pos_in[2] + Width) - Plane[1]*(Pos_in[1] + Length))/Plane[3]
+			Next_Pos = {Pos_in[1] + Length, Pos_in[2] + Width, zoff}
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

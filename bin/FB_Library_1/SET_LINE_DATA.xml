@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SET_LINE_DATA" Comment="Sets line data to the proper format before sending to machine" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="C1" />
+				<With Var="C2" />
+				<With Var="C3" />
+				<With Var="C4" />
+				<With Var="C5" />
+				<With Var="C6" />
+				<With Var="C7" />
+				<With Var="C8" />
+				<With Var="C9" />
+				<With Var="C10" />
+				<With Var="C11" />
+				<With Var="C12" />
+				<With Var="C13" />
+				<With Var="C14" />
+				<With Var="C15" />
+				<With Var="C16" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" >
+				<With Var="id" />
+				<With Var="t0" />
+				<With Var="t" />
+				<With Var="speed_1" />
+				<With Var="speed_2" />
+				<With Var="ax_1" />
+				<With Var="ax_2" />
+				<With Var="bx_1" />
+				<With Var="bx_2" />
+				<With Var="Vx_1" />
+				<With Var="Vx_2" />
+				<With Var="ay_1" />
+				<With Var="ay_2" />
+				<With Var="by_1" />
+				<With Var="by_2" />
+				<With Var="Vy_1" />
+				<With Var="Vy_2" />
+				<With Var="az_1" />
+				<With Var="az_2" />
+				<With Var="bz_1" />
+				<With Var="bz_2" />
+				<With Var="Vz_1" />
+				<With Var="Vz_2" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="C1" Type="REAL" Comment="Coeficient 1" />
+			<VarDeclaration Name="C2" Type="REAL" Comment="Coeficient 2" />
+			<VarDeclaration Name="C3" Type="REAL" Comment="Coeficient 3" />
+			<VarDeclaration Name="C4" Type="REAL" Comment="Coeficient 4" />
+			<VarDeclaration Name="C5" Type="REAL" Comment="Coeficient 5" />
+			<VarDeclaration Name="C6" Type="REAL" Comment="Coeficient 6" />
+			<VarDeclaration Name="C7" Type="REAL" Comment="Coeficient 7" />
+			<VarDeclaration Name="C8" Type="REAL" Comment="Coeficient 8" />
+			<VarDeclaration Name="C9" Type="REAL" Comment="Coeficient 9" />
+			<VarDeclaration Name="C10" Type="REAL" Comment="Coeficient 10" />
+			<VarDeclaration Name="C11" Type="REAL" Comment="Coeficient 11" />
+			<VarDeclaration Name="C12" Type="REAL" Comment="Coeficient 12" />
+			<VarDeclaration Name="C13" Type="REAL" Comment="Coeficient 13" />
+			<VarDeclaration Name="C14" Type="REAL" Comment="Coeficient 14" />
+			<VarDeclaration Name="C15" Type="REAL" Comment="Coeficient 15" />
+			<VarDeclaration Name="C16" Type="REAL" Comment="Coeficient 16" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="id" Type="INT" />
+			<VarDeclaration Name="t0" Type="INT" />
+			<VarDeclaration Name="t" Type="INT" />
+			<VarDeclaration Name="speed_1" Type="INT" />
+			<VarDeclaration Name="speed_2" Type="INT" />
+			<VarDeclaration Name="ax_1" Type="INT" />
+			<VarDeclaration Name="ax_2" Type="INT" />
+			<VarDeclaration Name="bx_1" Type="INT" />
+			<VarDeclaration Name="bx_2" Type="INT" />
+			<VarDeclaration Name="Vx_1" Type="INT" />
+			<VarDeclaration Name="Vx_2" Type="INT" />
+			<VarDeclaration Name="ay_1" Type="INT" />
+			<VarDeclaration Name="ay_2" Type="INT" />
+			<VarDeclaration Name="by_1" Type="INT" />
+			<VarDeclaration Name="by_2" Type="INT" />
+			<VarDeclaration Name="Vy_1" Type="INT" />
+			<VarDeclaration Name="Vy_2" Type="INT" />
+			<VarDeclaration Name="az_1" Type="INT" />
+			<VarDeclaration Name="az_2" Type="INT" />
+			<VarDeclaration Name="bz_1" Type="INT" />
+			<VarDeclaration Name="bz_2" Type="INT" />
+			<VarDeclaration Name="Vz_1" Type="INT" />
+			<VarDeclaration Name="Vz_2" Type="INT" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="SET_DATA" x="0" y="0" >
+				<ECAction Algorithm="set_data" Output="CNF" />
+			</ECState>
+			<ECTransition Source="START" Destination="SET_DATA" Condition="INIT" x="0" y="0" />
+			<ECTransition Source="SET_DATA" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="set_data" >
+			<Lua Text = "
+function float_to_ints( n, precision )
+	local n_1, n_2
+	if( tonumber(n) >= 0 ) then
+		n_1 = math.floor( n )
+		n_2 = (n - n_1)*(10^precision)
+		n_2 = math.floor( n_2 )	
+	else
+		n_1 = math.ceil( n )
+		n_2 = (n - n_1)*(10^precision)
+		n_2 = math.ceil( n_2 )
+	end
+	return n_1, n_2
+end
+
+id = C1
+t0 = C8
+t = C9
+print( 'Feed = ', C13 )
+C13 = (C13/0.005)*60
+print( 'Feed = ', C13 )
+C14 = math.abs( C14 )
+C15 = math.abs( C15 )
+C16 = math.abs( C16 )
+speed_1, speed_2 = float_to_ints( C13, 3 )
+ax_1, ax_2 = float_to_ints( C2, 3 )
+bx_1, bx_2 = float_to_ints( C5, 3 )
+Vx_1, Vx_2 = float_to_ints( C14, 3 )
+ay_1, ay_2 = float_to_ints( C3, 3 )
+by_1, by_2 = float_to_ints( C6, 3 )
+Vy_1, Vy_2 = float_to_ints( C15, 3 )
+az_1, az_2 = float_to_ints( C4, 3 )
+bz_1, bz_2 = float_to_ints( C7, 3 )
+Vz_1, Vz_2 = float_to_ints( C16, 3 )
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

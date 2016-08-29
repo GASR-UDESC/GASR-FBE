@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PLUNGE_TOOLAXIS_STRATEGY" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="xy" />
+				<With Var="retract_plane" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="initial_point" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="xy" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="retract_plane" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="initial_point" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="EXE" x="442" y="170"  >
+				<ECAction Algorithm="exe" Output="Cnf" />
+			</ECState>
+			<ECState Name="START" x="313" y="160"  >
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="exe"  >
+			<Lua Text=" initial_point[1] = xy[1] initial_point[2] = xy[2] initial_point[3] = retract_plane[3]    " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

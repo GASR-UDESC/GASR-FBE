@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="RED_LIGHT_ON_OFF" Comment= "lamp" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="03-07-12" />
+	<CompilerInfo IsLua="true" BaseFile="Red_Light_SIFB_on_off.lua" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="On" >
+			</Event>
+			<Event Name="Off" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="output" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="LIGHT_SIM" LeftInterface="RED_LIGHT_ON_OFF" >
+		<ServiceSequence Name="seq1" >
+			<ServiceTransaction>
+				<InputPrimitive Interface="RED_LIGHT" Event="Init" />
+				<OutputPrimitive Interface="LIGHT_SIM" Event="on" />
+			</ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

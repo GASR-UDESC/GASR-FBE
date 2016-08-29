@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/org/gnome/login-screen/" id="org.gnome.login-screen">
+    <key type="b" name="enable-fingerprint-authentication">
+      <default>true</default>
+      <summary>Whether or not to allow fingerprint readers for login</summary>
+      <description>The login screen can optionally allow users who have enrolled their fingerprints to log in using those prints.</description>
+    </key>
+    <key type="b" name="enable-smartcard-authentication">
+      <default>false</default>
+      <summary>Whether or not to allow smartcard readers for login</summary>
+      <description>The login screen can optionally allow users who have smartcards to log in using those smartcards.</description>
+    </key>
+    <key type="s" name="logo">
+      <default>''</default>
+      <summary>Path to small image at top of user list</summary>
+      <description>The login screen can optionally show a small image at the top of its user list to provide site administrators and distributions a way to provide branding.</description>
+    </key>
+    <key type="b" name="disable-user-list">
+      <default>false</default>
+      <summary>Avoid showing user list</summary>
+      <description>The login screen normally shows a list of available users to log in as. This setting can be toggled to disable showing the user list.</description>
+    </key>
+  </schema>
+</schemalist>

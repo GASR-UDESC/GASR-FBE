@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PULSE_SOURCE" Comment= "IMpulse function source" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+			</Event>
+			<Event Name="Start" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Finish" >
+				<With Var="U" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="K" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="delay" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="dt" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="t_end" Type="REAL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="U" Type="REAL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="Exe" x="473" y="207"  >
+				<ECAction Algorithm="step" Output="Finish" />
+			</ECState>
+			<ECState Name="START" x="320" y="202"  >
+			</ECState>
+			<ECTransition Source="Exe" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="Exe" Condition="Start or (Init and (t_end > 0))" />
+		</ECC>
+		<Algorithm Name="step"  >
+			<Lua Text="if dt/2 >= delay and delay >= -dt/2 then  U = K end 
+t_end = t_end - dt
+delay = delay - dt" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

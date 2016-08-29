@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="RPG" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo IsNeural="true" NetFile="RPG.net">
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="x1" />
+				<With Var="x2" />
+				<With Var="x3" />
+				<With Var="x4" />
+				<With Var="x5" />
+				<With Var="x6" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Out" >
+				<With Var="y1" />
+				<With Var="y2" />
+				<With Var="y3" />
+				<With Var="y4" />
+				<With Var="y5" />
+				<With Var="y6" />
+				<With Var="y7" />
+				<With Var="y8" />
+				<With Var="y9" />
+			</Event>
+		</EventOutputs>
+		<InputVars>

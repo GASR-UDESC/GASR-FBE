@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="DRILL_SWITCH" Comment= "Drill event switcher" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="pos" />
+				<With Var="depth_of_start" />
+				<With Var="depth_of_end" />
+				<With Var="hole_location" />
+			</Event>
+			<Event Name="resp1" Comment="" >
+				<With Var="pos" />
+			</Event>
+			<Event Name="resp2" >
+				<With Var="pos" />
+			</Event>
+			<Event Name="resp3" >
+				<With Var="pos" />
+			</Event>
+			<Event Name="resp4" >
+				<With Var="pos" />
+			</Event>
+			<Event Name="resp5" >
+				<With Var="pos" />
+			</Event>
+			<Event Name="resp6" >
+				<With Var="pos" />
+			</Event>
+			<Event Name="resp7" >
+				<With Var="pos" />
+			</Event>
+			<Event Name="resp8" >
+				<With Var="pos" />
+			</Event>
+			<Event Name="resp9" >
+				<With Var="pos" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="ev1" >
+				<With Var="out_pos" />
+				<With Var="start_pos" />
+				<With Var="end_pos" />
+			</Event>
+			<Event Name="ev2" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="ev3" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="ev4" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="ev5" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="ev6" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="ev7" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="ev8" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="ev9" >
+				<With Var="out_pos" />
+			</Event>
+			<Event Name="Cnf" >
+				<With Var="out_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="depth_of_start" Type="REAL" InitialValue="0" Comment="Depth at which 'start' milling conditions are applyed" />
+			<VarDeclaration Name="depth_of_end" Type="REAL" InitialValue="0" Comment="Depth at which 'end' milling conditions are applyed" />
+			<VarDeclaration Name="hole_location" Type="REAL" ArraySize="3" Comment="Feature location coordinates" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="start_pos" Type="REAL" ArraySize="3" Comment="Position at which 'start' milling conditions are applyed" />
+			<VarDeclaration Name="end_pos" Type="REAL" ArraySize="3" Comment="Position at which 'end' milling conditions are applyed" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="EV8" x="804.11" y="486.59"  >
+				<ECAction Algorithm="pos" Output="ev8" />
+			</ECState>
+			<ECState Name="EV4" x="556.0475" y="102.92"  >
+				<ECAction Algorithm="pos" Output="ev4" />
+			</ECState>
+			<ECState Name="EV3" x="702.68" y="108.4325"  >
+				<ECAction Algorithm="pos" Output="ev3" />
+			</ECState>
+			<ECState Name="EV6" x="539.51" y="325.625"  >
+				<ECAction Algorithm="pos" Output="ev6" />
+			</ECState>
+			<ECState Name="EV9" x="908.8475" y="455.72"  >
+				<ECAction Algorithm="pos" Output="ev9" />
+			</ECState>
+			<ECState Name="Cnf" x="1024.12" y="379.1575"  >
+				<ECAction Algorithm="pos" Output="Cnf" />
+			</ECState>
+			<ECState Name="INIT-EV1" x="1038.9425" y="218.6825"  >
+				<ECAction Algorithm="setup" Output="ev1" />
+			</ECState>
+			<ECState Name="EV2" x="885.695" y="128.2775"  >
+				<ECAction Algorithm="pos" Output="ev2" />
+			</ECState>
+			<ECState Name="EV5" x="486.59" y="224.195"  >
+				<ECAction Algorithm="pos" Output="ev5" />
+			</ECState>
+			<ECState Name="START" x="738.5725" y="286.5475"  >
+			</ECState>
+			<ECState Name="EV7" x="634.325" y="440.285"  >
+				<ECAction Algorithm="pos" Output="ev7" />
+			</ECState>
+			<ECTransition Source="START" Destination="INIT-EV1" Condition="Init and depth_of_start~=0" />
+			<ECTransition Source="INIT-EV1" Destination="EV2" Condition="resp1 and depth_of_end~=0" />
+			<ECTransition Source="START" Destination="EV3" Condition="Init and depth_of_start==0 and depth_of_end==0" />
+			<ECTransition Source="EV2" Destination="EV3" Condition="resp2" />
+			<ECTransition Source="EV3" Destination="EV4" Condition="resp3" />
+			<ECTransition Source="EV4" Destination="EV5" Condition="resp4" />
+			<ECTransition Source="EV5" Destination="EV6" Condition="resp5" />
+			<ECTransition Source="EV6" Destination="EV7" Condition="resp6" />
+			<ECTransition Source="EV7" Destination="EV8" Condition="resp7" />
+			<ECTransition Source="EV8" Destination="EV9" Condition="resp8" />
+			<ECTransition Source="EV9" Destination="Cnf" Condition="resp9" />
+			<ECTransition Source="Cnf" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="pos"  >
+			<Lua Text=" print( pos[1], pos[2], pos[3] ) out_pos[ 1 ] = pos[ 1 ] out_pos[ 2 ] = pos[ 2 ] out_pos[ 3 ] = pos[ 3 ]    " />
+		</Algorithm>
+		<Algorithm Name="setup"  >
+			<Lua Text=" print( pos[1], pos[2], pos[3], 'depths', depth_of_start, depth_of_end ) out_pos[ 1 ] = pos[ 1 ] out_pos[ 2 ] = pos[ 2 ] out_pos[ 3 ] = pos[ 3 ] start_pos[ 1 ] = hole_location[ 1 ] start_pos[ 2 ] = hole_location[ 2 ] start_pos[ 3 ] = hole_location[ 3 ] start_pos[ 3 ] = hole_location[ 3 ] - depth_of_start end_pos[ 1 ] = hole_location[ 1 ] end_pos[ 2 ] = hole_location[ 2 ] end_pos[ 3 ] = hole_location[ 3 ] end_pos[ 3 ] = hole_location[ 3 ] - depth_of_end    " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

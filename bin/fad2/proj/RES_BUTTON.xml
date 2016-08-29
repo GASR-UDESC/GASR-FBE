@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="RES_BUTTON" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="slimrte" Date="11-09-2013" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="bt1" Type="IO_READER" x="461.70540435938" y="29.75744973437" >
+			<Parameter Name="SD_1" Value="21" />
+		</FB>
+		<FB Name="start" Type="START" x="108.78191103125" y="29.98975" >
+		</FB>
+		<FB Name="pub2" Type="PUB_2" x="486.5805" y="283.2335" >
+			<Parameter Name="ID" Value="30" />
+		</FB>
+		<FB Name="split2" Type="E_SPLIT" x="119" y="283" >
+		</FB>
+		<EventConnections>
+			<Connection Source="start.COLD" Destination="bt1.INIT" />
+			<Connection Source="pub2.INIT0" Destination="split2.EI1" />
+			<Connection Source="bt1.INIT0" Destination="pub2.INIT" />
+			<Connection Source="bt1.IND" Destination="split2.EI1" />
+			<Connection Source="split2.EO1" Destination="bt1.RSP" />
+			<Connection Source="split2.EO2" Destination="pub2.REQ" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="bt1.RD_1" Destination="pub2.RD_1" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

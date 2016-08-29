@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="primeira_ordem_MA_12_11_13" Comment= "primeiro teste com rk" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="gabriel" Date="12_11_2013" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="STARTER" x="0" y="133" >
+		</FB>
+		<FB Name="step" Type="STEP_SOURCE" x="303" y="116" >
+			<Parameter Name="K" Value="1" />
+			<Parameter Name="delay" Value="0" />
+			<Parameter Name="t_end" Value="10" />
+			<Parameter Name="dt" Value="0.01" />
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="393" y="482" >
+			<Parameter Name="dt" Value="0.01" />
+		</FB>
+		<FB Name="fb" Type="FIRST_ORDER_SYSTEM" x="660" y="99" >
+			<Parameter Name="dt" Value="0.01" />
+			<Parameter Name="num" Value="[0, 2]" />
+			<Parameter Name="den" Value="[1, 2]" />
+		</FB>
+		<EventConnections>
+			<Connection Source="start.start" Destination="step.Start" />
+			<Connection Source="step.Finish" Destination="fb.Init" />
+			<Connection Source="fb.Finish" Destination="scope.Init" />
+			<Connection Source="scope.Cnf" Destination="step.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="fb.y" Destination="scope.DataIn" />
+			<Connection Source="step.U" Destination="fb.u" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

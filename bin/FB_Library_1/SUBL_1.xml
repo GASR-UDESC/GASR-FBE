@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SUBL_1" Comment="2-variable data subscriber" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="21-03-12" />
+	<CompilerInfo BaseFile="" IsLua="false" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Comment="Service initiaization" >
+				<With Var="ID" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Comment="Initialization confirm" />
+			<Event Name="IND" Comment="Service indication" >
+				<With Var="RD_1" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="ID" Type="WSTRING" Comment="Default id is the FB instance name" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="RD_1" Type="ANY" />
+		</OutputVars>
+	</InterfaceList>
+	<Service>
+	</Service>
+</FBType>

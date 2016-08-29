@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DeviceType SYSTEM "FBSystem.dtd">
+<DeviceType Name="TEMPLATE_DEVICE" Comment="template">
+</DeviceType>

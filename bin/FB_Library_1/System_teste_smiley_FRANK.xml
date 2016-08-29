@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE RSystem SYSTEM "FBSystem.dtd">
+
+<System Name="System_teste_smiley_FRANK" Comment="FRANK-II is the best machine">
+  <Identification Standard="61499-1" />
+  <VersionInfo Date="10/01/2012" Organization="UDESC" Author="LAPAS" Version="7.0" />
+  <Device Name="RTE_Lua" Type="PC" dx="50" dy="50">
+    <Resource Name="STEP-NC_DATA1" Type="STEP-NC_DATA" dx="50" dy="150" />
+    <Resource Name="SETUP_FRANK" Type="SETUP" dx="50" dy="50">
+      <Parameter Name="Subl_8_SETUP.ID" Value="[SETUP_FRANK,Subl_8_SETUP]" />
+      <Parameter Name="finish_setup.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_setup.SD_1" Value="SETUP_FRANK" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE1" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE1,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE1" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE2" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE2,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE2" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE3" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE3,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE3" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE4" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE4,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE4" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE5" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE5,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE5" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE6" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE6,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE6" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE7" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE7,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE7" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE8" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE8,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE8" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE9" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE9,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE9" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE10" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE10,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE10" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE11" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE11,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE11" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE12" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE12,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE12" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE13" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE13,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE13" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE14" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE14,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE14" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE15" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE15,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE15" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE16" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE16,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE16" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE17" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE17,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE17" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE18" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE18,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE18" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE19" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE19,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE19" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE20" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE20,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE20" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE21" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE21,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE21" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE22" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE22,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE22" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE23" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE23,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE23" />
+    </Resource>
+    <Resource Name="DRILL HOLE1_WS DRILL HOLE24" Type="DRILLING-ROUND_HOLE_RES" dx="150" dy="50">
+      <Parameter Name="Subl_105_DRILLING-ROUND_HOLE_RES.ID" Value="[DRILL HOLE1_WS DRILL HOLE24,Subl_105_DRILLING-ROUND_HOLE_RES]" />
+      <Parameter Name="finish_drilling.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+      <Parameter Name="finish_drilling.SD_1" Value="DRILL HOLE1_WS DRILL HOLE24" />
+    </Resource>
+    <Resource Name="COMMUNICATION_FRANK" Type="COMMUNICATION" dx="50" dy="500">
+      <Parameter Name="Subl_1_COMM_MACHINE_COMM.ID" Value="[COMMUNICATION_FRANK,Subl_1_COMM_MACHINE_COMM]" />
+      <Parameter Name="finish_machining.ID" Value="[STEP-NC_DATA1,Subl_3_OK_STEP-NC_DATA]" />
+    </Resource>
+  </Device>
+</System>
+

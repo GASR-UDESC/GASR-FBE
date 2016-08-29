@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="ORDER_CIRCULAR_MOVE" Comment="Circular movement with FILE_WRITER inside" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="10-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="pos" />
+				<With Var="dest_pos" />
+				<With Var="dest_angle" />
+				<With Var="radius" />
+				<With Var="center" />
+				<With Var="N" />
+				<With Var="speed" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="out_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="dest_pos" Type="REAL" ArraySize="3" Comment="Destination point" />
+			<VarDeclaration Name="dest_angle" Type="REAL" Comment="Explicit travel angle. Overrides dest_pos" />
+			<VarDeclaration Name="radius" Type="REAL" Comment="Circle radius" />
+			<VarDeclaration Name="center" Type="REAL" ArraySize="3" Comment="Circle center point" />
+			<VarDeclaration Name="N" Type="REAL" ArraySize="3" Comment="Normal circle plane axis" />
+			<VarDeclaration Name="speed" Type="REAL" Comment="Nominal feed in m/s" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="circular_move" Type="CIRCULAR_MOVE" x="1" y="1" />
+		<FB Name="order_circular_move" Type="FILE_WRITER_11_CIRCULAR_MOVE" x="1" y="1" />
+		<EventConnections>
+			<Connection Source="Init" Destination="circular_move.Init" dx="0" dy="0" />
+			<Connection Source="circular_move.Cnf" Destination="Cnf" dx="0" dy="0" />
+			<Connection Source="circular_move.Send" Destination="order_circular_move.REQ" dx="0" dy="0" />
+			<Connection Source="order_circular_move.RSP" Destination="circular_move.Req" dx="0" dy="0" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="pos" Destination="circular_move.pos" dx="0" dy="0" />
+			<Connection Source="dest_pos" Destination="circular_move.dest_pos" dx="0" dy="0" />
+			<Connection Source="dest_angle" Destination="circular_move.dest_angle" dx="0" dy="0" />
+			<Connection Source="radius" Destination="circular_move.radius" dx="0" dy="0" />
+			<Connection Source="center" Destination="circular_move.center" dx="0" dy="0" />
+			<Connection Source="N" Destination="circular_move.N" dx="0" dy="0" />
+			<Connection Source="speed" Destination="circular_move.speed" dx="0" dy="0" />
+			<Connection Source="circular_move.out_pos" Destination="out_pos" dx="0" dy="0" />
+			<Connection Source="circular_move.eq_id" Destination="order_circular_move.P0" dx="0" dy="0" />
+			<Connection Source="circular_move.C" Destination="order_circular_move.P1" dx="0" dy="0" />
+			<Connection Source="circular_move.U" Destination="order_circular_move.P2" dx="0" dy="0" />
+			<Connection Source="circular_move.V" Destination="order_circular_move.P3" dx="0" dy="0" />
+			<Connection Source="circular_move.angle" Destination="order_circular_move.P4" dx="0" dy="0" />
+			<Connection Source="circular_move.R" Destination="order_circular_move.P5" dx="0" dy="0" />
+			<Connection Source="circular_move.t0" Destination="order_circular_move.P6" dx="0" dy="0" />
+			<Connection Source="circular_move.t" Destination="order_circular_move.P7" dx="0" dy="0" />
+			<Connection Source="circular_move.out_pos" Destination="order_circular_move.P8" dx="0" dy="0" />
+			<Connection Source="circular_move.out_speed" Destination="order_circular_move.P9" dx="0" dy="0" />
+			<Connection Source="circular_move.V_U" Destination="order_circular_move.P10" dx="0" dy="0" />
+			<Connection Source="circular_move.V_V" Destination="order_circular_move.P11" dx="0" dy="0" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

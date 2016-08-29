@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="primeira_ordem_MF_12_11_13" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="" Date="" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="STARTER" x="1" y="131" >
+		</FB>
+		<FB Name="step" Type="STEP_SOURCE" x="272" y="10" >
+			<Parameter Name="delay" Value="0" />
+			<Parameter Name="K" Value="1" />
+			<Parameter Name="dt" Value="0.02" />
+			<Parameter Name="t_end" Value="10" />
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="485" y="517" >
+			<Parameter Name="dt" Value="0.02" />
+		</FB>
+		<FB Name="plant" Type="FIRST_ORDER_SYSTEM" x="700" y="61" >
+			<Parameter Name="x1_0" Value="0.0" />
+			<Parameter Name="delay" Value="0" />
+			<Parameter Name="dt" Value="0.02" />
+			<Parameter Name="num" Value="[0, 1]" />
+			<Parameter Name="den" Value="[1, 1]" />
+		</FB>
+		<FB Name="sub" Type="SUBTRACTOR" x="640" y="351" >
+		</FB>
+		<FB Name="piii" Type="PID" x="174" y="264" >
+			<Parameter Name="Kd" Value="0" />
+			<Parameter Name="dt" Value="0.02" />
+			<Parameter Name="Ki" Value="1.5" />
+			<Parameter Name="Kp" Value="0.5" />
+		</FB>
+		<EventConnections>
+			<Connection Source="sub.Finish" Destination="piii.Init" />
+			<Connection Source="piii.Finish" Destination="plant.Init" />
+			<Connection Source="plant.Finish" Destination="scope.Init" />
+			<Connection Source="scope.Cnf" Destination="step.Init" />
+			<Connection Source="step.Finish" Destination="sub.Init" />
+			<Connection Source="start.start" Destination="step.Start" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="plant.x1" Destination="scope.DataIn" />
+			<Connection Source="sub.U" Destination="piii.Xin" />
+			<Connection Source="piii.Xout" Destination="plant.u" />
+			<Connection Source="scope.DataOut" Destination="sub.X2" />
+			<Connection Source="step.U" Destination="sub.X1" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

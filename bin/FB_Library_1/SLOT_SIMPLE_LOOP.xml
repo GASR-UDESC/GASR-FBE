@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SLOT_SIMPLE_LOOP" Comment="Main loop for simple slot" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="27-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="pos" />
+				<With Var="tool_length" />
+				<With Var="feature_placement" />
+				<With Var="offsets" />
+				<With Var="depth" />
+				<With Var="origin_type" />
+				<With Var="end_type" />
+				<With Var="origin_x" />
+				<With Var="origin_y" />
+				<With Var="origin_z" />
+				<With Var="end_x" />
+				<With Var="end_y" />
+				<With Var="end_z" />
+				<With Var="width" />
+				<With Var="travel_path" />
+				<With Var="feed" />
+				<With Var="distance" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="out_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="tool_length" Type="REAL" />
+			<VarDeclaration Name="feature_placement" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="offsets" Type="REAL" ArraySize="10" />
+			<VarDeclaration Name="depth" Type="REAL" />
+			<VarDeclaration Name="origin_type" Type="STRING" />
+			<VarDeclaration Name="end_type" Type="STRING" />
+			<VarDeclaration Name="origin_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="origin_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="origin_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_x" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_y" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="end_z" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="width" Type="REAL" />
+			<VarDeclaration Name="travel_path" Type="STRING" />
+			<VarDeclaration Name="feed" Type="REAL" />
+			<VarDeclaration Name="distance" Type="REAL" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="iterator" Type="SLOT_SIMPLE_ITERATOR" x="1" y="1" />
+		<FB Name="linear_path_line" Type="ORDER_LINEAR_MOVE" x="1" y="1" />
+		<FB Name="circular_path_line" Type="ORDER_CIRCULAR_MOVE" x="1" y="1" />
+		<FB Name="merge" Type="VAR_MERGE_000_4" x="1" y="1" />
+		<FB Name="e_merge" Type="E_MERGE_6" x="1" y="1" />
+		<FB Name="circle_path_split" Type="SLOT_SIMPLE_CIRCLE_SPLIT_DATA" x="1" y="1" />
+		<EventConnections>
+			<Connection Source="Init" Destination="iterator.Init" dx="1" dy="1" />
+			<Connection Source="iterator.End" Destination="Cnf" dx="1" dy="1" />
+			<Connection Source="iterator.Line" Destination="linear_path_line.Init" dx="1" dy="1" />
+			<Connection Source="circular_path_line.Cnf" Destination="merge.EI2" dx="1" dy="1" />
+			<Connection Source="linear_path_line.Cnf" Destination="merge.EI1" dx="1" dy="1" />
+			<Connection Source="merge.E1" Destination="e_merge.EI1" dx="1" dy="1" />
+			<Connection Source="merge.E2" Destination="e_merge.EI2" dx="1" dy="1" />
+			<Connection Source="e_merge.EO" Destination="iterator.Req" dx="1" dy="1" />
+			<Connection Source="iterator.Circle" Destination="circle_path_split.Init" dx="0" dy="0" />
+			<Connection Source="circle_path_split.Cnf" Destination="circular_path_line.Init" dx="0" dy="0" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="pos" Destination="iterator.ini_pos" dx="1" dy="1" />
+			<Connection Source="tool_length" Destination="iterator.tool_length" dx="1" dy="1" />
+			<Connection Source="feature_placement" Destination="iterator.feature_placement" dx="1" dy="1" />
+			<Connection Source="offsets" Destination="iterator.offsets" dx="1" dy="1" />
+			<Connection Source="depth" Destination="iterator.depth" dx="1" dy="1" />
+			<Connection Source="iterator.out_pos" Destination="out_pos" dx="1" dy="1" />
+			<Connection Source="feed" Destination="linear_path_line.speed" dx="1" dy="1" />
+			<Connection Source="travel_path" Destination="iterator.path_type" dx="1" dy="1" />
+			<Connection Source="iterator.offset_value" Destination="linear_path_line.destination" dx="1" dy="1" />
+			<Connection Source="iterator.out_pos" Destination="linear_path_line.pos" dx="1" dy="1" />
+			<Connection Source="linear_path_line.out_pos" Destination="merge.V1" dx="1" dy="1" />
+			<Connection Source="circular_path_line.out_pos" Destination="merge.V2" dx="1" dy="1" />
+			<Connection Source="merge.VO" Destination="iterator.pos" dx="1" dy="1" />
+			<Connection Source="feed" Destination="circular_path_line.speed" dx="1" dy="1" />
+			<Connection Source="iterator.offset_value" Destination="circle_path_split.table" dx="0" dy="0" />
+			<Connection Source="circle_path_split.radius" Destination="circular_path_line.radius" dx="0" dy="0" />
+			<Connection Source="circle_path_split.center" Destination="circular_path_line.center" dx="0" dy="0" />
+			<Connection Source="circle_path_split.angle" Destination="circular_path_line.dest_angle" dx="0" dy="0" />
+			<Connection Source="circle_path_split.N" Destination="circular_path_line.N" dx="0" dy="0" />
+			<Connection Source="iterator.out_pos" Destination="circular_path_line.pos" dx="0" dy="0" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="PID" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="Gabriel" Date="27-01-2014" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="Xin" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Finish" >
+				<With Var="Xout" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Xin" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="Ki" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="Kp" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="Kd" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="dt" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="X_acum" Type="REAL" ArraySize="" InitialValue="0"/>
+			<VarDeclaration Name="X_ant" Type="REAL" ArraySize="" InitialValue="0"/>
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="Xout" Type="REAL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECState Name="Exe" x="300" y="300"  >
+				<ECAction Algorithm="Integrate" Output="Finish" />
+			</ECState>
+			<ECTransition Source="Exe" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="Exe" Condition="Init" />
+		</ECC>
+		<Algorithm Name="Integrate"  >
+			<Lua Text="X_acum = X_acum + Xin*dt         Xout  = Ki*X_acum  + Kp*Xin         " />
+		</Algorithm>
+	</BasicFB>
+</FBType>

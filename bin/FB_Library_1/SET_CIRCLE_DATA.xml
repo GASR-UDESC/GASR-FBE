@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SET_CIRCLE_DATA" Comment="Sets circle data to the proper format before sending to machine" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="C1" />
+				<With Var="C2" />
+				<With Var="C3" />
+				<With Var="C4" />
+				<With Var="C5" />
+				<With Var="C6" />
+				<With Var="C7" />
+				<With Var="C8" />
+				<With Var="C9" />
+				<With Var="C10" />
+				<With Var="C11" />
+				<With Var="C12" />
+				<With Var="C13" />
+				<With Var="C14" />
+				<With Var="C15" />
+				<With Var="C16" />
+				<With Var="C17" />
+				<With Var="C18" />
+				<With Var="C19" />
+				<With Var="C20" />
+				<With Var="C21" />
+				<With Var="C22" />
+				<With Var="C23" />
+				<With Var="C24" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" >
+				<With Var="id" />
+				<With Var="angle_1" />
+				<With Var="angle_2" />
+				<With Var="R_1" />
+				<With Var="R_2" />
+				<With Var="t0" />
+				<With Var="t" />
+				<With Var="speed_1" />
+				<With Var="speed_2" />
+				<With Var="Cx_1" />
+				<With Var="Cx_2" />
+				<With Var="Ux_1" />
+				<With Var="Ux_2" />
+				<With Var="Vx_1" />
+				<With Var="Vx_2" />
+				<With Var="Cy_1" />
+				<With Var="Cy_2" />
+				<With Var="Uy_1" />
+				<With Var="Uy_2" />
+				<With Var="Vy_1" />
+				<With Var="Vy_2" />
+				<With Var="Cz_1" />
+				<With Var="Cz_2" />
+				<With Var="Uz_1" />
+				<With Var="Uz_2" />
+				<With Var="Vz_1" />
+				<With Var="Vz_2" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="C1" Type="REAL" Comment="Coeficient 1" />
+			<VarDeclaration Name="C2" Type="REAL" Comment="Coeficient 2" />
+			<VarDeclaration Name="C3" Type="REAL" Comment="Coeficient 3" />
+			<VarDeclaration Name="C4" Type="REAL" Comment="Coeficient 4" />
+			<VarDeclaration Name="C5" Type="REAL" Comment="Coeficient 5" />
+			<VarDeclaration Name="C6" Type="REAL" Comment="Coeficient 6" />
+			<VarDeclaration Name="C7" Type="REAL" Comment="Coeficient 7" />
+			<VarDeclaration Name="C8" Type="REAL" Comment="Coeficient 8" />
+			<VarDeclaration Name="C9" Type="REAL" Comment="Coeficient 9" />
+			<VarDeclaration Name="C10" Type="REAL" Comment="Coeficient 10" />
+			<VarDeclaration Name="C11" Type="REAL" Comment="Coeficient 11" />
+			<VarDeclaration Name="C12" Type="REAL" Comment="Coeficient 12" />
+			<VarDeclaration Name="C13" Type="REAL" Comment="Coeficient 13" />
+			<VarDeclaration Name="C14" Type="REAL" Comment="Coeficient 14" />
+			<VarDeclaration Name="C15" Type="REAL" Comment="Coeficient 15" />
+			<VarDeclaration Name="C16" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="C17" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="C18" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="C19" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="C20" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="C21" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="C22" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="C23" Type="REAL" Comment="Coeficient 16" />
+			<VarDeclaration Name="C24" Type="REAL" Comment="Coeficient 16" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="id" Type="INT" />
+			<VarDeclaration Name="angle_1" Type="INT" />
+			<VarDeclaration Name="angle_2" Type="INT" />
+			<VarDeclaration Name="R_1" Type="INT" />
+			<VarDeclaration Name="R_2" Type="INT" />
+			<VarDeclaration Name="t0" Type="INT" />
+			<VarDeclaration Name="t" Type="INT" />
+			<VarDeclaration Name="speed_1" Type="INT" />
+			<VarDeclaration Name="speed_2" Type="INT" />
+			<VarDeclaration Name="Cx_1" Type="INT" />
+			<VarDeclaration Name="Cx_2" Type="INT" />
+			<VarDeclaration Name="Ux_1" Type="INT" />
+			<VarDeclaration Name="Ux_2" Type="INT" />
+			<VarDeclaration Name="Vx_1" Type="INT" />
+			<VarDeclaration Name="Vx_2" Type="INT" />
+			<VarDeclaration Name="Cy_1" Type="INT" />
+			<VarDeclaration Name="Cy_2" Type="INT" />
+			<VarDeclaration Name="Uy_1" Type="INT" />
+			<VarDeclaration Name="Uy_2" Type="INT" />
+			<VarDeclaration Name="Vy_1" Type="INT" />
+			<VarDeclaration Name="Vy_2" Type="INT" />
+			<VarDeclaration Name="Cz_1" Type="INT" />
+			<VarDeclaration Name="Cz_2" Type="INT" />
+			<VarDeclaration Name="Uz_1" Type="INT" />
+			<VarDeclaration Name="Uz_2" Type="INT" />
+			<VarDeclaration Name="Vz_1" Type="INT" />
+			<VarDeclaration Name="Vz_2" Type="INT" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="SET_DATA" x="0" y="0" >
+				<ECAction Algorithm="set_data" Output="CNF" />
+			</ECState>
+			<ECTransition Source="START" Destination="SET_DATA" Condition="INIT" x="0" y="0" />
+			<ECTransition Source="SET_DATA" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="set_data" >
+			<Lua Text = "
+function float_to_ints( n, precision )
+	local n_1, n_2
+	if( tonumber(n) >= 0 ) then
+		n_1 = math.floor( n )
+		n_2 = (n - n_1)*(10^precision)
+		n_2 = math.floor( n_2 )
+	else
+		n_1 = math.ceil( n )
+		n_2 = (n - n_1)*(10^precision)
+		n_2 = math.ceil( n_2 )
+	end
+	return n_1, n_2
+end
+
+id = C1
+angle_1, angle_2 = float_to_ints( C11, 3 )
+R_1, R_2 = float_to_ints( C12, 3 )
+t0 = C13
+t = C14
+print( 'Feed = ', C18 )
+C18 = (C18/0.005)*60
+print( 'Feed = ', C18 )
+C18 = math.abs( C18 )
+speed_1, speed_2 = float_to_ints( C18, 3 )
+Cx_1, Cx_2 = float_to_ints( C2, 3 )
+Ux_1, Ux_2 = float_to_ints( C5, 3 )
+Vx_1, Vx_2 = float_to_ints( C8, 3 )
+Cy_1, Cy_2 = float_to_ints( C3, 3 )
+Uy_1, Uy_2 = float_to_ints( C6, 3 )
+Vy_1, Vy_2 = float_to_ints( C9, 3 )
+Cz_1, Cz_2 = float_to_ints( C4, 3 )
+Uz_1, Uz_2 = float_to_ints( C7, 3 )
+Vz_1, Vz_2 = float_to_ints( C10, 3 )
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

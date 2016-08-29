@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SECOND_ORDER_SYSTEM_SS" Comment= "2nd ordem system y'' + K2y' + K1y = K*Xin " >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="u1" />
+				<With Var="u2" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Finish" >
+				<With Var="x1" />
+				<With Var="x2" />
+				<With Var="y1" />
+				<With Var="y2" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="A1" 	 Type="REAL" ArraySize="2" Comment="First row of matrix A "/>
+			<VarDeclaration Name="A2"    Type="REAL" ArraySize="2" Comment="Second row of matrix A "/>
+			<VarDeclaration Name="B1"    Type="REAL" ArraySize="2" Comment="First row of matrix B "/>
+			<VarDeclaration Name="B2"    Type="REAL" ArraySize="2" Comment="Second row of matrix B "/>
+			<VarDeclaration Name="C1"    Type="REAL" ArraySize="2" Comment="First row of matrix C "/>
+			<VarDeclaration Name="C2"    Type="REAL" ArraySize="2" Comment="Second row of matrix C "/>
+			<VarDeclaration Name="dt" 	 Type="REAL" ArraySize="" />
+			<VarDeclaration Name="u1" 	 Type="REAL" ArraySize="" />
+			<VarDeclaration Name="u2" 	 Type="REAL" ArraySize="" />
+			<VarDeclaration Name="x1_0"  Type="REAL" ArraySize="" Comment="condicao inicial"/>
+			<VarDeclaration Name="x2_0"  Type="REAL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="x1" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="x2" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="y1" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="y2" Type="REAL" ArraySize="" />
+		</OutputVars>
+		<InternalVars>
+			<VarDeclaration Name="R11" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R12" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R21" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R22" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R31" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R32" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R41" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="R42" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="x1aux" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="x2aux" Type="REAL" ArraySize="" />
+		</InternalVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="Exe" x="300" y="300"  >
+				<ECAction Algorithm="EquationStep" Output="Finish" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECTransition Source="Exe" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="Exe" Condition="Init" />
+		</ECC>
+		<Algorithm Name="EquationStep"  Comment="den[1] = b0, den[2] = b1">
+			<Lua Text=" 
+						local function f1(X1, X2, U1, U2)
+							return A1[1]*X1 + A1[2]*X2 + B1[1]*U1 + B1[2]*U2
+						end
+						
+						local function f2(X1, X2, U1, U2)
+							return A2[1]*X1 + A2[2]*X2 + B2[1]*U1 + B2[2]*U2
+						end
+						
+						
+						R11 = dt*f1(x1_0, x2_0, u1, u2);
+						R12 = dt*f2(x1_0, x2_0, u1, u2);
+						
+						x1aux = x1_0 + 0.5*R11
+						x2aux = x2_0 + 0.5*R12
+						
+						
+						R21 = dt*f1(x1aux, x2aux, u1, u2);
+						R22 = dt*f2(x1aux, x2aux, u1, u2);
+						
+						
+						
+						x1aux = x1aux + 0.5*R21
+						x2aux = x2aux + 0.5*R22
+						
+						
+						R31 = dt*f1(x1aux, x2aux, u1, u2);
+						R32 = dt*f2(x1aux, x2aux, u1, u2);
+						
+						
+						x1aux = x1aux + 0.5*R31
+						x2aux = x2aux + 0.5*R32
+						
+						R41 = dt*f1(x1aux, x2aux, u1, u2);
+						R42 = dt*f2(x1aux, x2aux, u1, u2);
+						
+						
+						x1 = x1_0 + (1/6)*(R11 + 2*R21 + 2*R31 + R41)
+						x2 = x2_0 + (1/6)*(R12 + 2*R22 + 2*R32 + R42)
+						
+						
+						y1 = C1[1]*x1 + C1[2]*x2
+						y2 = C2[1]*x1 + C2[2]*x2
+						
+						x1_0 = x1
+						x2_0 = x2
+" 
+/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

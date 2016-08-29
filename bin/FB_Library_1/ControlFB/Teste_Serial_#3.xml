@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="Teste_Serial_#3" Comment= "PI Lim" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="Gabriel" Date="2013_12_10" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="STARTER" x="31" y="88.090880533321" >
+		</FB>
+		<FB Name="step" Type="STEP_SOURCE" x="79" y="225.95491088758" >
+			<Parameter Name="dt" Value="0.1" />
+			<Parameter Name="t_end" Value="15" />
+			<Parameter Name="delay" Value="1" />
+			<Parameter Name="K" Value="0.7" />
+		</FB>
+		<FB Name="sub" Type="SUBTRACTOR" x="354.53547556176" y="264.18035644969" >
+		</FB>
+		<FB Name="control" Type="DIFF_EQUATION" x="682.4830492311" y="250.26249514781" >
+			<Parameter Name="y_coef" Value="[1, -1]" />
+			<Parameter Name="u_coef" Value="[0.66, -0.56]" />
+		</FB>
+		<FB Name="plant" Type="SerialFB" x="1017.0328604154" y="117.26249514781" >
+			<Parameter Name="T" Value="0.1" />
+			<Parameter Name="port_name" Value="/dev/ttyACM0" />
+		</FB>
+		<FB Name="Ganho" Type="GAIN" x="734.83887065164" y="415.16497970473" >
+			<Parameter Name="K" Value="0.004882813" />
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="368.42992059195" y="409.79867301805" >
+			<Parameter Name="dt" Value="0.1" />
+		</FB>
+		<FB Name="close" Type="STARTER" x="695" y="46" >
+		</FB>
+		<EventConnections>
+			<Connection Source="sub.Finish" Destination="control.Init" />
+			<Connection Source="close.start" Destination="plant.close" />
+			<Connection Source="plant.Cnf" Destination="Ganho.Init" />
+			<Connection Source="control.Cnf" Destination="plant.Init" />
+			<Connection Source="start.start" Destination="step.Start" />
+			<Connection Source="scope.Cnf" Destination="step.Init" />
+			<Connection Source="step.Finish" Destination="sub.Init" />
+			<Connection Source="Ganho.Cnf" Destination="scope.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="scope.DataOut" Destination="sub.X2" />
+			<Connection Source="step.U" Destination="sub.X1" />
+			<Connection Source="control.y_out" Destination="plant.input" />
+			<Connection Source="sub.U" Destination="control.u_input" />
+			<Connection Source="plant.output" Destination="Ganho.Input" />
+			<Connection Source="Ganho.Output" Destination="scope.DataIn" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="E_CYCLE" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="IECVM" Date="10-12-2013" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="START" >
+			</Event>
+			<Event Name="STOP" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="EO" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="DT" Type="BYTE" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+		</ECC>
+	</BasicFB>
+</FBType>

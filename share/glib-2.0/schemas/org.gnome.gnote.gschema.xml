@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/org/gnome/gnote/" id="org.gnome.gnote">
+    <key type="b" name="enable-spellchecking">
+      <default>true</default>
+      <summary>Enable spellchecking</summary>
+      <description>If true, misspellings will be underlined in red, and correct spelling suggestions shown in the right-click menu.</description>
+    </key>
+    <key type="b" name="enable-wikiwords">
+      <default>false</default>
+      <summary>Enable WikiWord highlighting</summary>
+      <description>Enable this option to highlight words ThatLookLikeThis. Clicking the word will create a note with that name.</description>
+    </key>
+    <key type="b" name="enable-bulleted-lists">
+      <default>true</default>
+      <summary>Enable Auto bulleted lists</summary>
+      <description>Enable this option if you want bulleted lists to be automatic when you place - or * at the beginning of a line.</description>
+    </key>
+    <key type="b" name="enable-icon-paste">
+      <default>false</default>
+      <summary>Enable Middle-Click Paste On Icon</summary>
+      <description>Enable this option if you want to be able to middle-click the Gnote icon to paste timestamped content into the Start Here note.</description>
+    </key>
+    <key type="b" name="enable-custom-font">
+      <default>false</default>
+      <summary>Enable custom font</summary>
+      <description>If true, the font name set in custom-font-face will be used as the font when displaying notes. Otherwise the desktop default font will be used.</description>
+    </key>
+    <key type="s" name="custom-font-face">
+      <default>'Serif 11'</default>
+      <summary>Custom Font Face</summary>
+      <description>If enable-custom-font is true, the font name set here will be used as the font when displaying notes.</description>
+    </key>
+    <key type="b" name="enable-keybindings">
+      <default>true</default>
+      <summary>Enable global keybindings</summary>
+      <description>If true, the desktop-global keybindings set in /org/gnome/gnote/global-keybindings will be enabled, allowing for useful Gnote actions to be available from any application.</description>
+    </key>
+    <key type="s" name="start-note">
+      <default>''</default>
+      <summary>Start Here Note</summary>
+      <description>The note URI of the note that should be considered the "Start Here" note, which is always placed at the bottom of the Gnote note menu and also accessible by hotkey.</description>
+    </key>
+    <key type="i" name="menu-note-count">
+      <default>10</default>
+      <summary>Minimum number of notes to show in menu</summary>
+      <description>Integer determining the minimum number of notes to show in the Gnote note menu.</description>
+    </key>
+    <key type="s" name="menu-pinned-notes">
+      <default>''</default>
+      <summary>List of pinned notes</summary>
+      <description>Whitespace-separated list of note URIs for notes that should always appear in the Gnote note menu.</description>
+    </key>
+    <key type="b" name="enable-startup-notes">
+      <default>true</default>
+      <summary>Enable startup notes</summary>
+      <description>If enabled, all notes that were open when Gnote quit will automatically be reopened at startup.</description>
+    </key>
+    <key type="i" name="search-window-height">
+      <default>0</default>
+      <summary>Saved height of Search window</summary>
+      <description>Determines pixel height of Search window; stored on Gnote exit.</description>
+    </key>
+    <key type="i" name="search-window-width">
+      <default>550</default>
+      <summary>Saved width of Search window</summary>
+      <description>Determines pixel width of Search window; stored on Gnote exit.</description>
+    </key>
+    <key type="i" name="search-window-x-pos">
+      <default>0</default>
+      <summary>Saved horizontal position of Search window</summary>
+      <description>Determines X coordinate of Search window; stored on Gnote exit.</description>
+    </key>
+    <key type="i" name="search-window-y-pos">
+      <default>0</default>
+      <summary>Saved vertical position of Search window</summary>
+      <description>Determines Y coordinate of Search window; stored on Gnote exit.</description>
+    </key>
+    <key type="i" name="search-window-splitter-pos">
+      <default>150</default>
+      <summary>Saved splitter position of Search window splitter.</summary>
+      <description>Determines Search window splitter position in pixels; stored on Gnote exit.</description>
+    </key>
+    <key type="i" name="sync-fuse-mount-timeout-ms">
+      <default>10000</default>
+      <summary>FUSE Mounting Timeout (ms)</summary>
+      <description>Time (in milliseconds) Gnote should wait for a response when using FUSE to mount a sync share.</description>
+    </key>
+    <key type="s" name="sync-sshfs-folder">
+      <default>''</default>
+      <summary>SSHFS Remote Synchronization Folder</summary>
+      <description>Path on SSH server to Gnote synchronization directory (optional).</description>
+    </key>
+    <key type="s" name="sync-sshfs-server">
+      <default>''</default>
+      <summary>SSHFS Synchronization Server URL</summary>
+      <description>URL of SSH server containing Gnote synchronization directory.</description>
+    </key>
+    <key type="s" name="sync-sshfs-username">
+      <default>''</default>
+      <summary>SSHFS Remote Synchronization User Name</summary>
+      <description>User name to use when connecting to the synchronization server via SSH.</description>
+    </key>
+    <key type="i" name="sync-sshfs-port">
+      <default>22</default>
+      <summary>SSHFS Synchronization Server Port</summary>
+      <description>The port to use when connecting to the synchronization server via SSH.</description>
+    </key>
+    <key type="i" name="note-rename-behavior">
+      <default>0</default>
+      <summary>Link Updating Behavior on Note Rename</summary>
+      <description>Integer value indicating if there is a preference to always perform a specific link updating behavior when a note is renamed, instead of prompting the user. The values map to an internal enumeration. 0 indicates that the user wishes to be prompted when renaming a note may impact links that exist in other notes. 1 indicates that links should automatically be removed. 2 indicates that link text should be updated to the new note name so that it will continue linking to the renamed note.</description>
+    </key>
+    <key type="b" name="enable-close-note-on-escape">
+      <default>true</default>
+      <summary>Enable closing notes with escape</summary>
+      <description>If enabled, an opened note can be closed by hitting the escape key.</description>
+    </key>
+    <key type="b" name="use-status-icon">
+      <default>false</default>
+      <summary>Use status icon, when started as an application</summary>
+      <description>Has affect only when started as an application. When set to TRUE, shows a status icon. If set to FALSE, Search All Notes window is used as main application window, closing which makes application to exit.</description>
+    </key>
+    <child schema="org.gnome.gnote.global-keybindings" name="global-keybindings"/>
+    <child schema="org.gnome.gnote.export-html" name="export-html"/>
+    <child schema="org.gnome.gnote.sync" name="sync"/>
+    <child schema="org.gnome.gnote.insert-timestamp" name="insert-timestamp"/>
+  </schema>
+  <schema path="/org/gnome/gnote/global-keybindings/" id="org.gnome.gnote.global-keybindings">
+    <key type="s" name="show-note-menu">
+      <default>'&lt;Alt&gt;F12'</default>
+      <summary>Show applet menu</summary>
+      <description>The global keybinding for showing the Gnote applet's menu. The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+    <key type="s" name="open-start-here">
+      <default>'&lt;Alt&gt;F11'</default>
+      <summary>Open Start Here</summary>
+      <description>The global keybinding for opening the "Start Here" note. The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+    <key type="s" name="create-new-note">
+      <default>'disabled'</default>
+      <summary>Create a new Note</summary>
+      <description>The global keybinding for creating and displaying a new Note. The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+    <key type="s" name="open-search">
+      <default>'disabled'</default>
+      <summary>Open Search Dialog</summary>
+      <description>The global keybinding for opening the Note Search dialog. The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+    <key type="s" name="open-recent-changes">
+      <default>'disabled'</default>
+      <summary>Open Recent Changes</summary>
+      <description>The global keybinding for opening the Recent Changes dialog. The format looks like "&lt;Control&gt;a" or "&lt;Shift&gt;&lt;Alt&gt;F1". The parser is fairly liberal and allows lower or upper case, and also abbreviations such as "&lt;Ctl&gt;" and "&lt;Ctrl&gt;". If you set the option to the special string "disabled", then there will be no keybinding for this action.</description>
+    </key>
+  </schema>
+  <schema path="/org/gnome/gnote/export-html/" id="org.gnome.gnote.export-html">
+    <key type="s" name="last-directory">
+      <default>''</default>
+      <summary>HTML Export Last Directory</summary>
+      <description>The last directory a note was exported to using the Export To HTML plugin.</description>
+    </key>
+    <key type="b" name="export-linked">
+      <default>true</default>
+      <summary>HTML Export Linked Notes</summary>
+      <description>The last setting for the 'Export linked notes' checkbox in the Export to HTML plugin.</description>
+    </key>
+    <key type="b" name="export-linked-all">
+      <default>false</default>
+      <summary>HTML Export All Linked Notes</summary>
+      <description>The last setting for the 'Include all other linked notes' checkbox in the Export to HTML plugin. This setting is used in conjunction with the 'HTML Export Linked Notes' setting and is used to specify whether all notes (found recursively) should be included during an export to HTML.</description>
+    </key>
+  </schema>
+  <schema path="/org/gnome/gnote/sync/" id="org.gnome.gnote.sync">
+    <key type="s" name="sync-guid">
+      <default>''</default>
+      <summary>Synchronization Client ID</summary>
+      <description>Unique identifier for this Gnote client, used when communicating with a sychronization server.</description>
+    </key>
+    <key type="s" name="sync-local-path">
+      <default>''</default>
+      <summary>Synchronization Local Server Path</summary>
+      <description>Path to the synchronization server when using the filesystem synchronization service addin.</description>
+    </key>
+    <key type="s" name="sync-selected-service-addin">
+      <default>''</default>
+      <summary>Selected Synchronization Service Addin</summary>
+      <description>Unique identifier for the currently configured note synchronization service addin.</description>
+    </key>
+    <key type="i" name="sync-conflict-behavior">
+      <default>0</default>
+      <summary>Note Synchronization Conflict Saved Behavior</summary>
+      <description>Integer value indicating if there is a preference to always perform a specific behavior when a conflict is detected, instead of prompting the user. The values map to an internal enumeration. 0 indicates that the user wishes to be prompted when a conflict occurs, so that they may handle each conflict situation on a case-by-case basis.</description>
+    </key>
+    <child schema="org.gnome.gnote.sync.wdfs" name="wdfs"/>
+  </schema>
+  <schema path="/org/gnome/gnote/sync/wdfs/" id="org.gnome.gnote.sync.wdfs">
+    <key type="b" name="accept-sslcert">
+      <default>false</default>
+      <summary>Accept SSL Certificates</summary>
+      <description>Use wdfs option "-ac" to accept SSL certificates without prompting the user.</description>
+    </key>
+  </schema>
+  <schema path="/org/gnome/gnote/insert-timestamp/" id="org.gnome.gnote.insert-timestamp">
+    <key type="s" name="format">
+      <default>'%c'</default>
+      <summary>Timestamp format</summary>
+      <description>The date format that is used for the timestamp. It follows the format of strftime(3).</description>
+    </key>
+  </schema>
+</schemalist>

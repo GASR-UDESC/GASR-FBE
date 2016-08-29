@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "www.LAPASrules.com" >
+<FBType Name="STARTER_BUTTON" Comment="Start Interface" >
+    <Identification Standard="61499-2" />
+    <VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="BETA"  Date="17/01/2012" />
+    <CompilerInfo BaseFile="Starter_Button.lua" IsLua="true" />
+    <InterfaceList> 
+        <EventOutputs>
+            <Event Name="start"/>
+        </EventOutputs>
+    </InterfaceList>
+    <Service RightInterface="STARTER" LeftInterface="USER" Comment="Starter Service" >
+    <ServiceSequence Name="START" >
+      <ServiceTransaction >
+        <InputPrimitive  Interface="USER" Event="USER"/>
+        <OutputPrimitive Interface="STARTER_BUTTON" Event="start" />
+      </ServiceTransaction>
+    </ServiceSequence>
+  </Service>
+</FBType>
+

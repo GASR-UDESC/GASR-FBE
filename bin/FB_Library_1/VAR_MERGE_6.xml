@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="VAR_MERGE_6" >
+	<Identification Standard="61499-2" />
+	<VersionInfo />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Ev1" >
+				<With Var="Var1"/>
+			</Event>
+			<Event Name="Ev2" >
+				<With Var="Var2"/>
+			</Event>
+			<Event Name="Ev3" >
+				<With Var="Var3"/>
+			</Event>
+			<Event Name="Ev4" >
+				<With Var="Var4"/>
+			</Event>
+			<Event Name="Ev5" >
+				<With Var="Var5"/>
+			</Event>
+			<Event Name="Ev6" >
+				<With Var="Var6"/>
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="Out_Var"/>
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Var1" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Var2" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Var3" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Var4" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Var5" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="Var6" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="Out_Var" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="S1" x="0" y="0" >
+				<ECAction Algorithm="V1" Output="Cnf" />
+			</ECState>
+			<ECState Name="S2" x="0" y="0" >
+				<ECAction Algorithm="V2" Output="Cnf" />
+			</ECState>
+			<ECState Name="S3" x="0" y="0" >
+				<ECAction Algorithm="V3" Output="Cnf" />
+			</ECState>
+			<ECState Name="S4" x="0" y="0" >
+				<ECAction Algorithm="V4" Output="Cnf" />
+			</ECState>
+			<ECState Name="S5" x="0" y="0" >
+				<ECAction Algorithm="V5" Output="Cnf" />
+			</ECState>
+			<ECState Name="S6" x="0" y="0" >
+				<ECAction Algorithm="V6" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="S1" Condition="Ev1" x="0" y="0" />
+			<ECTransition Source="START" Destination="S2" Condition="Ev2" x="0" y="0" />
+			<ECTransition Source="START" Destination="S3" Condition="Ev3" x="0" y="0" />
+			<ECTransition Source="START" Destination="S4" Condition="Ev4" x="0" y="0" />
+			<ECTransition Source="START" Destination="S5" Condition="Ev5" x="0" y="0" />
+			<ECTransition Source="START" Destination="S6" Condition="Ev6" x="0" y="0" />
+			<ECTransition Source="S1" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="S2" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="S3" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="S4" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="S5" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="S6" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="V1" >
+			<Lua Text = "
+Out_Var = Var1
+			"/>
+		</Algorithm>
+	</BasicFB>
+		<Algorithm Name="V2" >
+			<Lua Text = "
+Out_Var = Var2
+			"/>
+		</Algorithm>
+	</BasicFB>
+		<Algorithm Name="V3" >
+			<Lua Text = "
+Out_Var = Var3
+			"/>
+		</Algorithm>
+	</BasicFB>
+		<Algorithm Name="V4" >
+			<Lua Text = "
+Out_Var = Var4
+			"/>
+		</Algorithm>
+	</BasicFB>
+		<Algorithm Name="V5" >
+			<Lua Text = "
+Out_Var = Var5
+			"/>
+		</Algorithm>
+	</BasicFB>
+		<Algorithm Name="V6" >
+			<Lua Text = "
+Out_Var = Var6
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SET_APPROACH_STRATEGY_XY" Comment="Sets the xy coords for the initial point at the retract plane to perform a certain approach strategy" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="approach_strategy" />
+				<With Var="parameters" />
+				<With Var="start_point" />
+				<With Var="retract_plane" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="initial_point" />
+				<With Var="strategy" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="approach_strategy" Type="STRING" />
+			<VarDeclaration Name="parameters" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="start_point" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="retract_plane" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="initial_point" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="strategy" Type="STRING" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="approach_data_manager" Type="MILLING_APPROACH_DATA_MANAGER" x="1" y="1" >
+			<Parameter Name="default_strategy" Value="'plunge_toolaxis'" />
+			<Parameter Name="not_implemented" Value="{2,3,4,5,6,7}" />
+		</FB>
+		<FB Name="plunge_toolaxis" Type="PLUNGE_TOOLAXIS_STRATEGY" x="1" y="1" />
+		<FB Name="merge_out" Type="E_MERGE_7" x="1" y="1" />
+		<EventConnections>
+			<Connection Source="Init" Destination="approach_data_manager.Init" dx="1" dy="1" />
+			<Connection Source="approach_data_manager.plunge_toolaxis" Destination="plunge_toolaxis.Init" dx="1" dy="1" />
+			<Connection Source="plunge_toolaxis.Cnf" Destination="merge_out.EI1" dx="1" dy="1" />
+			<Connection Source="merge_out.EO" Destination="Cnf" dx="1" dy="1" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="approach_strategy" Destination="approach_data_manager.approach_strategy" dx="1" dy="1" />
+			<Connection Source="parameters" Destination="approach_data_manager.parameters" dx="1" dy="1" />
+			<Connection Source="start_point" Destination="approach_data_manager.start_point" dx="1" dy="1" />
+			<Connection Source="retract_plane" Destination="plunge_toolaxis.retract_plane" dx="1" dy="1" />
+			<Connection Source="approach_data_manager.point" Destination="plunge_toolaxis.xy" dx="1" dy="1" />
+			<Connection Source="plunge_toolaxis.initial_point" Destination="initial_point" dx="1" dy="1" />
+			<Connection Source="approach_data_manager.strategy" Destination="strategy" dx="0" dy="0" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

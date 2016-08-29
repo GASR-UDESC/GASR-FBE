@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="LIMIT_SWITCH_3" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="x" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="low" >
+				<With Var="x_out" />
+			</Event>
+			<Event Name="high" >
+				<With Var="x_out" />
+			</Event>
+			<Event Name="out_limit" >
+				<With Var="x_out" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="x" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="limits" Type="REAL" ArraySize="2" InitialValue="[10,20]" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="x_out" Type="REAL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="st_out" x="300" y="300"  >
+				<ECAction Output="out_limit" />
+			</ECState>
+			<ECState Name="st_low" x="436" y="363"  >
+				<ECAction Output="low" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECState Name="st_high" x="553" y="299"  >
+				<ECAction Output="high" />
+			</ECState>
+			<ECState Name="Exe_alg" x="499" y="203"  >
+				<ECAction Algorithm="Alg"/>
+			</ECState>
+			<ECTransition Source="START" Destination="Exe_alg" Condition="Init" />
+			<ECTransition Source="Exe_alg" Destination="st_out" Condition="x==3" />
+			<ECTransition Source="Exe_alg" Destination="st_low" Condition="x==1" />
+			<ECTransition Source="Exe_alg" Destination="st_high" Condition="x==2" />
+			<ECTransition Source="st_high" Destination="START" Condition="1" />
+			<ECTransition Source="st_low" Destination="START" Condition="1" />
+			<ECTransition Source="st_out" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="Alg"  >
+			<Lua Text= "
+		if limits[1] > x then
+			x = 1
+		elseif x > limits[2] then
+			x = 2
+		else
+			x = 3
+		end
+		x_out = x" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

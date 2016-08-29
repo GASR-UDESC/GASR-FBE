@@ -1,0 +1,28 @@
+COEF_FILE  = io.open('COEF_FILE', 'w')
+LOG_FILE   = io.open('LOG_FILE',  'w')
+GEOM_FILE  = io.open('GEOM_FILE', 'w')
+GEOM_FILE:write( "equations = {\n" )
+System = {}
+require 'System'
+require 'DrawNetwork'
+require 'FBViewer'
+
+--local SYSTEM_3_HOLE = System.importXML('XML/', 'SYSTEM_3_HOLE.xml', 'SYSTEM_3_HOLE')
+--SYSTEM_3_HOLE['Device1']['STEP']['Starter_STEP-NC_DATA']:exe()
+
+--~ local D = Device.importXML('XML/', 'DeviceTeste.xml', 'D')
+--~ local R = Resource.importXML('TESTE/', 'STEP-NC_DATA.xml', 'R')
+--~ local RS = Resource.importXML('XML/', 'STEP-NC_DATA2.xml', 'R')
+--~ local Rg = Resource.importXML('BibliotecaFB(oficial)/', 'DRILLING-ROUND_HOLE_RES.xml', 'Rg')
+
+--R['START_WORK']:exe()
+--D['STEP']['Starter_STEP-NC_DATA2']:exe()
+F = FBViewer.new()
+F:run()
+
+--RS['Starter_STEP-NC_DATA2']:exe()
+GEOM_FILE:write( "}\n" )
+GEOM_FILE:close()
+
+
+

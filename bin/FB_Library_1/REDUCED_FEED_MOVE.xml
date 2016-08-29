@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="REDUCED_FEED_MOVE" Comment="Drilling with reduced spindle/feed speed (or not)" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="29-03-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialization" >
+				<With Var="spindle_nominal_speed" />
+				<With Var="percent_of_spindle" />
+				<With Var="tool_diameter" />
+				<With Var="nominal_feed" />
+				<With Var="percent_of_feed" />
+				<With Var="pos" />
+				<With Var="depth_location" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Execution confirmed" >
+				<With Var="final_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="spindle_nominal_speed" Type="REAL" Comment="Spindle nominal speed" />
+			<VarDeclaration Name="percent_of_spindle" Type="REAL" InitialValue="100" Comment="Fraction of spindle speed" />
+			<VarDeclaration Name="tool_diameter" Type="REAL" InitialValue="100" />
+			<VarDeclaration Name="nominal_feed" Type="REAL" />
+			<VarDeclaration Name="percent_of_feed" Type="REAL" />
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" Comment="Machine position" />
+			<VarDeclaration Name="depth_location" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="final_pos" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="start_cutting_speed" Type="PERCENT_AJUST" x="1" y="1" />
+		<FB Name="set_start_rps" Type="SPINDLE_SPEED" x="1" y="1" />
+		<FB Name="order_set_start_rps" Type="FILE_WRITER_1" x="1" y="1" />
+		<FB Name="set_start_feed" Type="PERCENT_AJUST" x="1" y="1" />
+		<FB Name="moveto_reduced_feed_depth" Type="LINEAR_MOVE" x="1" y="1" />
+		<FB Name="order_moveto_reduced_feed_depth" Type="FILE_WRITER_7_LINEAR_MOVE" x="1" y="1" />
+			<EventConnections>
+				<Connection Source="Init" Destination="start_cutting_speed.Init" dx="1" dy="1" />
+				<Connection Source="start_cutting_speed.Cnf" Destination="set_start_rps.Init" dx="1" dy="1" />
+				<Connection Source="set_start_rps.call" Destination="order_set_start_rps.REQ" dx="1" dy="1" />
+				<Connection Source="order_set_start_rps.RSP" Destination="set_start_rps.Req" dx="1" dy="1" />
+				<Connection Source="set_start_rps.Cnf" Destination="set_start_feed.Init" dx="1" dy="1" />
+				<Connection Source="set_start_feed.Cnf" Destination="moveto_reduced_feed_depth.Init" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.Send" Destination="order_moveto_reduced_feed_depth.REQ" dx="1" dy="1" />
+				<Connection Source="order_moveto_reduced_feed_depth.RSP" Destination="moveto_reduced_feed_depth.Req" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.Cnf" Destination="Cnf" dx="1" dy="1" />
+			<EventConnections/>
+			<DataConnections>
+				<Connection Source="spindle_nominal_speed" Destination="start_cutting_speed.nominal" dx="1" dy="1" />
+				<Connection Source="percent_of_spindle" Destination="start_cutting_speed.percent_of_nominal" dx="1" dy="1" />
+				<Connection Source="start_cutting_speed.result" Destination="set_start_rps.spindle_speed" dx="1" dy="1" />
+				<Connection Source="tool_diameter" Destination="set_start_rps.tool_diameter" dx="1" dy="1" />
+				<Connection Source="set_start_rps.process_id" Destination="order_set_start_rps.P0" dx="1" dy="1" />
+				<Connection Source="set_start_rps.speed_in_rps" Destination="order_set_start_rps.P1" dx="1" dy="1" />
+				<Connection Source="nominal_feed" Destination="set_start_feed.nominal" dx="1" dy="1" />
+				<Connection Source="percent_of_feed" Destination="set_start_feed.percent_of_nominal" dx="1" dy="1" />
+				<Connection Source="set_start_feed.result" Destination="moveto_reduced_feed_depth.speed" dx="1" dy="1" />
+				<Connection Source="pos" Destination="moveto_reduced_feed_depth.pos" dx="1" dy="1" />
+				<Connection Source="depth_location" Destination="moveto_reduced_feed_depth.destination" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.eq_id" Destination="order_moveto_reduced_feed_depth.P0" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.coef_a" Destination="order_moveto_reduced_feed_depth.P1" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.coef_b" Destination="order_moveto_reduced_feed_depth.P2" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.t0" Destination="order_moveto_reduced_feed_depth.P3" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.t" Destination="order_moveto_reduced_feed_depth.P4" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.final_pos" Destination="order_moveto_reduced_feed_depth.P5" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.out_speed" Destination="order_moveto_reduced_feed_depth.P6" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.v_coef" Destination="order_moveto_reduced_feed_depth.P7" dx="1" dy="1" />
+				<Connection Source="moveto_reduced_feed_depth.final_pos" Destination="final_pos" dx="1" dy="1" />
+			<DataConnections/>
+	</FBNetwork>
+</FBType>

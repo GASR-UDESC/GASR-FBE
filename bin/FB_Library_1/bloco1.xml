@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="bloco1" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+		</EventInputs>
+		<EventOutputs>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="var" Type="REAL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="242" y="123"  >
+			</ECState>
+		</ECC>
+		<Algorithm Name="Alg1"  >
+			<Lua Text="print('oi')" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

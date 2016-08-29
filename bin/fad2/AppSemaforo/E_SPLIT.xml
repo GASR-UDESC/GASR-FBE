@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="E_SPLIT" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="slimrte" Date="11-09-13" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="EI1" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="EO1" >
+			</Event>
+			<Event Name="EO2" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="RUN" x="247" y="300"  >
+				<ECAction Output="EO1" />
+				<ECAction Output="EO2" />
+			</ECState>
+			<ECState Name="START" x="248" y="220"  >
+			</ECState>
+			<ECTransition Source="START" Destination="RUN" Condition="EI1" />
+			<ECTransition Source="RUN" Destination="START" Condition="1" />
+		</ECC>
+	</BasicFB>
+</FBType>

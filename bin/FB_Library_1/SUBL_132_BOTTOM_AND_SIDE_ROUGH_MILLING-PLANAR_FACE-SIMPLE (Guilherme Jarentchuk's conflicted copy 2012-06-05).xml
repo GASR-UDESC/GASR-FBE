@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SUBL_132_BOTTOM_AND_SIDE_ROUGH_MILLING-PLANAR_FACE-SIMPLE" Comment="132-variable local group publisher for milling a planar_face" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="21-03-12" />
+	<CompilerInfo BaseFile="SIFB_Subl.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" Comment="Service Initialization" >
+				<With Var="ID" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="INITO" Comment="Initialization Confirm" />
+			<Event Name="IND" Comment="Service Request" >
+				<With Var="RD_1" />
+				<With Var="RD_2" />
+				<With Var="RD_3" />
+				<With Var="RD_4" />
+				<With Var="RD_5" />
+				<With Var="RD_6" />
+				<With Var="RD_7" />
+				<With Var="RD_8" />
+				<With Var="RD_9" />
+				<With Var="RD_10" />
+				<With Var="RD_11" />
+				<With Var="RD_12" />
+				<With Var="RD_13" />
+				<With Var="RD_14" />
+				<With Var="RD_15" />
+				<With Var="RD_16" />
+				<With Var="RD_17" />
+				<With Var="RD_18" />
+				<With Var="RD_19" />
+				<With Var="RD_20" />
+				<With Var="RD_21" />
+				<With Var="RD_22" />
+				<With Var="RD_23" />
+				<With Var="RD_24" />
+				<With Var="RD_25" />
+				<With Var="RD_26" />
+				<With Var="RD_27" />
+				<With Var="RD_28" />
+				<With Var="RD_29" />
+				<With Var="RD_30" />
+				<With Var="RD_31" />
+				<With Var="RD_32" />
+				<With Var="RD_33" />
+				<With Var="RD_34" />
+				<With Var="RD_35" />
+				<With Var="RD_36" />
+				<With Var="RD_37" />
+				<With Var="RD_38" />
+				<With Var="RD_39" />
+				<With Var="RD_40" />
+				<With Var="RD_41" />
+				<With Var="RD_42" />
+				<With Var="RD_43" />
+				<With Var="RD_44" />
+				<With Var="RD_45" />
+				<With Var="RD_46" />
+				<With Var="RD_47" />
+				<With Var="RD_48" />
+				<With Var="RD_49" />
+				<With Var="RD_50" />
+				<With Var="RD_51" />
+				<With Var="RD_52" />
+				<With Var="RD_53" />
+				<With Var="RD_54" />
+				<With Var="RD_55" />
+				<With Var="RD_56" />
+				<With Var="RD_57" />
+				<With Var="RD_58" />
+				<With Var="RD_59" />
+				<With Var="RD_60" />
+				<With Var="RD_61" />
+				<With Var="RD_62" />
+				<With Var="RD_63" />
+				<With Var="RD_64" />
+				<With Var="RD_65" />
+				<With Var="RD_66" />
+				<With Var="RD_67" />
+				<With Var="RD_68" />
+				<With Var="RD_69" />
+				<With Var="RD_70" />
+				<With Var="RD_71" />
+				<With Var="RD_72" />
+				<With Var="RD_73" />
+				<With Var="RD_74" />
+				<With Var="RD_75" />
+				<With Var="RD_76" />
+				<With Var="RD_77" />
+				<With Var="RD_78" />
+				<With Var="RD_79" />
+				<With Var="RD_80" />
+				<With Var="RD_81" />
+				<With Var="RD_82" />
+				<With Var="RD_83" />
+				<With Var="RD_84" />
+				<With Var="RD_85" />
+				<With Var="RD_86" />
+				<With Var="RD_87" />
+				<With Var="RD_88" />
+				<With Var="RD_89" />
+				<With Var="RD_90" />
+				<With Var="RD_91" />
+				<With Var="RD_92" />
+				<With Var="RD_93" />
+				<With Var="RD_94" />
+				<With Var="RD_95" />
+				<With Var="RD_96" />
+				<With Var="RD_97" />
+				<With Var="RD_98" />
+				<With Var="RD_99" />
+				<With Var="RD_100" />
+				<With Var="RD_101" />
+				<With Var="RD_102" />
+				<With Var="RD_103" />
+				<With Var="RD_104" />
+				<With Var="RD_105" />
+				<With Var="RD_106" />
+				<With Var="RD_107" />
+				<With Var="RD_108" />
+				<With Var="RD_109" />
+				<With Var="RD_110" />
+				<With Var="RD_111" />
+				<With Var="RD_112" />
+				<With Var="RD_113" />
+				<With Var="RD_114" />
+				<With Var="RD_115" />
+				<With Var="RD_116" />
+				<With Var="RD_117" />
+				<With Var="RD_118" />
+				<With Var="RD_119" />
+				<With Var="RD_120" />
+				<With Var="RD_121" />
+				<With Var="RD_122" />
+				<With Var="RD_123" />
+				<With Var="RD_124" />
+				<With Var="RD_125" />
+				<With Var="RD_126" />
+				<With Var="RD_127" />
+				<With Var="RD_128" />
+				<With Var="RD_129" />
+				<With Var="RD_130" />
+				<With Var="RD_131" />
+				<With Var="RD_132" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration	Name="ID" Type="STRING" Comment="PLANAR_FACE instance name, SUBL instance name" />
+			<VarDeclaration	Name="RD_1" Type="REAL" Comment="pos"/>
+			<VarDeclaration	Name="RD_2" Type="STRING" Comment="current_tool" />
+			<VarDeclaration	Name="RD_3" Type="REAL" ArraySize="3" Comment="setup.its_secplane.position.location.coordinates" />
+			<VarDeclaration	Name="RD_4" Type="STRING" ArraySize="3" Comment="manufacturing_feature.its_id" />
+			<VarDeclaration	Name="RD_5" Type="STRING" Comment="manufacturing_feature.its_workpiece.its_id" />
+			<VarDeclaration	Name="RD_6" Type="ANY" Comment="manufacturing_feature.its_operations" />
+			<VarDeclaration	Name="RD_7" Type="STRING" ArraySize="3" Comment="two5d_manufacturing_feature.Feature_placement.Name" />
+			<VarDeclaration	Name="RD_8" Type="REAL" Comment="two5d_manufacturing_feature.Feature_placement.Location.Coordinates" />
+			<VarDeclaration	Name="RD_9" Type="STRING" ArraySize="3" Comment="two5d_manufacturing_feature.Feature_placement.Location.Name" />
+			<VarDeclaration	Name="RD_10" Type="STRING" Comment="two5d_manufacturing_feature.Feature_placement.OP Axis.its_id" />
+			<VarDeclaration	Name="RD_11" Type="REAL" Comment="two5d_manufacturing_feature.Feature_placement.OP Axis.Direction_ratios" />
+			<VarDeclaration	Name="RD_12" Type="STRING" Comment="two5d_manufacturing_feature.Feature_placement.OP Ref_direction.its_id" />
+			<VarDeclaration	Name="RD_13" Type="REAL" ArraySize="3" Comment="two5d_manufacturing_feature.Feature_placement.OP Ref_direction.Direction_ratios" />
+			<VarDeclaration	Name="RD_14" Type="STRING" Comment="machining_feature.Depth.Name" />
+			<VarDeclaration	Name="RD_15" Type="STRING" ArraySize="3" Comment="machining_feature.Depth.Position.Name" />
+			<VarDeclaration	Name="RD_16" Type="STRING" Comment="machining_feature.Depth.Position.Location.Name" />
+			<VarDeclaration	Name="RD_17" Type="REAL" ArraySize="3" Comment="machining_feature.Depth.Position.Location.Coordinates" />
+			<VarDeclaration	Name="RD_18" Type="STRING" Comment="machining_feature.Depth.Position.OP Axis.its_id" />
+			<VarDeclaration	Name="RD_19" Type="REAL" ArraySize="3" Comment="machining_feature.Depth.Position.OP Axis.Direction_ratios" />
+			<VarDeclaration	Name="RD_20" Type="STRING" Comment="machining_feature.Depth.Position.OP Ref_direction.its_id" />
+			<VarDeclaration	Name="RD_21" Type="REAL" ArraySize="3" Comment="machining_feature.Depth.Position.OP Ref_direction.Direction_ratios" />
+			<VarDeclaration	Name="RD_22" Type="ANY" Comment="Planar_Face.Course_of_Travel.Distance" />
+			<VarDeclaration	Name="RD_23" Type="REAL" Comment="Planar_Face.Course_of_Travel.Distance.Theoretical_Size" />
+			<VarDeclaration	Name="RD_24" Type="REAL" Comment="Planar_Face.Course_of_Travel.Distance.Implicit_Tolerance" />
+			<VarDeclaration	Name="RD_25" Type="ANY" Comment="Planar_Face.Course_of_Travel.Distance.{vector} = {upper_limit, lower_limit, significant_digits} or {deviation, grade, its_fitting_type}" />
+			<VarDeclaration	Name="RD_26" Type="STRING" Comment="Planar_Face.Course_of_Travel.Its_Direction.Its_Id" />
+			<VarDeclaration	Name="RD_27" Type="REAL" ArraySize="3" Comment="Planar_Face.Course_of_Travel.Its_Direction.Direction_Ratios" />
+			<VarDeclaration	Name="RD_28" Type="REAL" Comment="Planar_Face.Removal_Boundary.Profile_Length.Its_Parameter_Value" />
+			<VarDeclaration	Name="RD_29" Type="STRING" Comment="Planar_Face.Removal_Boundary.Profile_Length.Its_Parameter_Unit" />
+			<VarDeclaration	Name="RD_30" Type="STRING" Comment="Planar_Face.Face_Boundary" />
+			<VarDeclaration	Name="RD_31" Type="STRING" ArraySize="3" Comment="Planar_Face.Face_Boundary.Placement.Name" />
+			<VarDeclaration	Name="RD_32" Type="REAL" Comment="Planar_Face.Face_Boundary.Placement.Location.Coordinates" />
+			<VarDeclaration	Name="RD_33" Type="STRING" Comment="Planar_Face.Face_Boundary.Placement.Location.Name" />
+			<VarDeclaration	Name="RD_34" Type="STRING" ArraySize="3" Comment="Planar_Face.Face_Boundary.Placement.OP Axis.its_id" />
+			<VarDeclaration	Name="RD_35" Type="REAL" Comment="Planar_Face.Face_Boundary.Placement.OP Axis.Direction_Ratios" />
+			<VarDeclaration	Name="RD_36" Type="STRING" ArraySize="3" Comment="Planar_Face.Face_Boundary.Placement.OP Ref_Direction.its_id" />
+			<VarDeclaration	Name="RD_37" Type="REAL" Comment="Planar_Face.Face_Boundary.Placement.OP Ref_Direction.Direction_ratios" />
+			<VarDeclaration	Name="RD_38" Type="AN	" Comment="Planar_Face.Face_Boundary.Diameter" />
+			<VarDeclaration	Name="RD_39" Type="REAL" Comment="Planar_Face.Face_Boundary.Diameter.Theoretical_Size" />
+			<VarDeclaration	Name="RD_40" Type="REAL" Comment="Planar_Face.Face_Boundary.Diameter.Implicit_Tolerance" />
+			<VarDeclaration	Name="RD_41" Type="ANY" Comment="Planar_Face.Face_Boundary.Diameter.{vector} = {upper_limit, lower_limit, significant_digits} or {deviation, grade, its_fitting_type}" />
+			<VarDeclaration	Name="RD_42" Type="INT" Comment="Planar_Face.Face_Boundary.Number_of_Sides" />
+			<VarDeclaration	Name="RD_43" Type="BOOL" Comment="Planar_Face.Face_Boundary.Circumscribed_or_Across_Flats" />
+			<VarDeclaration	Name="RD_44" Type="ANY" Comment="Planar_Face.Face_Boundary.Profile_Width" />
+			<VarDeclaration	Name="RD_45" Type="REAL" Comment="Planar_Face.Face_Boundary.Profile_Width.Theoretical_Size" />
+			<VarDeclaration	Name="RD_46" Type="REAL" Comment="Planar_Face.Face_Boundary.Profile_Width.Implicit_Tolerance" />
+			<VarDeclaration	Name="RD_47" Type="ANY" Comment="Planar_Face.Face_Boundary.Profile_Width.{vector} = {upper_limit, lower_limit, significant_digits} or {deviation, grade, its_fitting_type}" />
+			<VarDeclaration	Name="RD_48" Type="ANY" Comment="Planar_Face.Face_Boundary.Profile_Length" />
+			<VarDeclaration	Name="RD_49" Type="REAL" Comment="Planar_Face.Face_Boundary.Profile_Length.Theoretical_Size" />
+			<VarDeclaration	Name="RD_50" Type="REAL" Comment="Planar_Face.Face_Boundary.Profile_Width.Length_Tolerance" />
+			<VarDeclaration	Name="RD_51" Type="ANY" Comment="Planar_Face.Face_Boundary.Profile_Length.{vector} = {upper_limit, lower_limit, significant_digits} or {deviation, grade, its_fitting_type}" />
+			<VarDeclaration	Name="RD_52" Type="STRING" Comment="Planar_Face.Its_Boss.its_id" />
+			<VarDeclaration	Name="RD_53" Type="STRING" Comment="Planar_Face.Face_Boundary.General_Closed_Profile" />
+			<VarDeclaration	Name="RD_54" Type="STRING" Comment="Planar_Face.Face_Boundary.Closed_Profile_Shape.Name" />
+			<VarDeclaration	Name="RD_55" Type="STRING" Comment="Planar_Face.Face_Boundary.Closed_Profile_Shape.Points.Name" />
+			<VarDeclaration	Name="RD_56" Type="REAL" Comment="Planar_Face.Face_Boundary.Closed_Profile_Shape.Points.Coordinates" />
+			<VarDeclaration	Name="RD_57" Type="STRING" Comment="bottom_and_side_rough_milling.its_id" />
+			<VarDeclaration	Name="RD_58" Type="STRING" Comment="its_toolpath.its_list" />
+			<VarDeclaration	Name="RD_59" Type="REAL" ArraySize="3" Comment="its_tool_direction" />
+			<VarDeclaration	Name="RD_60" Type="REAL" Comment="retract_plane" />
+			<VarDeclaration	Name="RD_61" Type="STRING" Comment="start_point.name" />
+			<VarDeclaration	Name="RD_62" Type="REAL" ArraySize="3" Comment="start_point.coordinates" />
+			<VarDeclaration	Name="RD_63" Type="STRING" Comment="its_tool.its_id" />
+			<VarDeclaration	Name="RD_64" Type="REAL" Comment="its_tool.its_tool_body.dimension.diameter" />
+			<VarDeclaration	Name="RD_65" Type="REAL" Comment="its_tool.its_tool_body.dimension.tool_tip_half_angle" />
+			<VarDeclaration	Name="RD_66" Type="REAL" Comment="its_tool.its_tool_body.dimension.tool_circumference_angle" />
+			<VarDeclaration	Name="RD_67" Type="REAL" Comment="its_tool.its_tool_body.dimension.cutting_edge_lenght" />
+			<VarDeclaration	Name="RD_68" Type="REAL" Comment="its_tool.its_tool_body.dimension.edge_radius" />
+			<VarDeclaration	Name="RD_69" Type="REAL" Comment="its_tool.its_tool_body.dimension.edge_center_vertical" />
+			<VarDeclaration	Name="RD_70" Type="REAL" Comment="its_tool.its_tool_body.dimension.edge_center_horizontal" />
+			<VarDeclaration	Name="RD_71" Type="REAL" Comment="its_tool.its_tool_body.number_of_teeth" />
+			<VarDeclaration	Name="RD_72" Type="REAL" Comment="its_tool.its_tool_body.hand_of_cut" />
+			<VarDeclaration	Name="RD_73" Type="STRING" Comment="its_tool.its_tool_body.coolant_through" />
+			<VarDeclaration	Name="RD_74" Type="REAL" Comment="its_tool.its_tool_body.pilot_length" />
+			<VarDeclaration	Name="RD_75" Type="STRING" Comment="its_tool.its_tool_body.{other_tool_body_parameter}" />
+			<VarDeclaration	Name="RD_76" Type="REAL" Comment="its_tool.its_cutting_edge.tool_offset_length" />
+			<VarDeclaration	Name="RD_77" Type="STRING" Comment="its_tool.its_cutting_edge.its_material.standard_identifier" />
+			<VarDeclaration	Name="RD_78" Type="STRING" Comment="its_tool.its_cutting_edge.its_material.material_identifier" />
+			<VarDeclaration	Name="RD_79" Type="STRING" Comment="its_tool.its_cutting_edge.its_material.material_property.{list_of_parameters}" />
+			<VarDeclaration	Name="RD_80" Type="REAL" Comment="its_tool.its_cutting_edge.its_technological_data.cutting_angle" />
+			<VarDeclaration	Name="RD_81" Type="REAL" Comment="its_tool.its_cutting_edge.its_technological_data.free_angle" />
+			<VarDeclaration	Name="RD_82" Type="REAL" Comment="its_tool.its_cutting_edge.its_technological_data.aux_angle" />
+			<VarDeclaration	Name="RD_83" Type="REAL" Comment="its_tool.its_cutting_edge.expected_tool_life" />
+			<VarDeclaration	Name="RD_84" Type="REAL" Comment="its_tool.its_cutting_edge.its_technology.feedrate" />
+			<VarDeclaration	Name="RD_85" Type="STRING" Comment="its_tool.its_cutting_edge.its_technology.feedrate_reference" />
+			<VarDeclaration	Name="RD_86" Type="REAL" Comment="its_tool.its_cutting_edge.its_technology.cutspeed" />
+			<VarDeclaration	Name="RD_87" Type="REAL" Comment="its_tool.its_cutting_edge.its_technology.spindle" />
+			<VarDeclaration	Name="RD_88" Type="REAL" Comment="its_tool.its_cutting_edge.its_technology.feedrate_per_tooth" />
+			<VarDeclaration	Name="RD_89" Type="STRING" Comment="its_tool.its_cutting_edge.its_technology.sincronize_spindle_with_feed" />
+			<VarDeclaration	Name="RD_90" Type="STRING" Comment="its_tool.its_cutting_edge.its_technology.inhibit_feedrate_override" />
+			<VarDeclaration	Name="RD_91" Type="STRING" Comment="its_tool.its_cutting_edge.its_technology.inhibit_spindle_override" />
+			<VarDeclaration	Name="RD_92" Type="STRING" Comment="its_tool.its_cutting_edge.its_technology.its_adaptive_control" />
+			<VarDeclaration	Name="RD_93" Type="REAL" Comment="its_tool.overall_assembly_length" />
+			<VarDeclaration	Name="RD_94" Type="STRING" Comment="its_tool.direction_for_spindle_orientation.its_id" />
+			<VarDeclaration	Name="RD_95" Type="REAL" ArraySize="3" Comment="its_tool.direction_for_spindle_orientation.direction_ratios" />
+			<VarDeclaration	Name="RD_96" Type="STRING" Comment="its_tool.tool_holder_diameter_for_spindle_orientation" />
+			<VarDeclaration	Name="RD_97" Type="REAL" Comment="its_technology.feedrate" />
+			<VarDeclaration	Name="RD_98" Type="STRING" Comment="its_technology.feedrate_reference" />
+			<VarDeclaration	Name="RD_99" Type="REAL" Comment="its_technology.cutspeed" />
+			<VarDeclaration	Name="RD_100" Type="REAL" Comment="its_technology.spindle" />
+			<VarDeclaration	Name="RD_101" Type="REAL" Comment="its_technology.feedrate_per_tooth" />
+			<VarDeclaration	Name="RD_102" Type="STRING" Comment="its_technology.sincronize_spindle_with_feed" />
+			<VarDeclaration	Name="RD_103" Type="STRING" Comment="its_technology.inhibit_feedrate_override" />
+			<VarDeclaration	Name="RD_104" Type="STRING" Comment="its_technology.inhibit_spindle_override" />
+			<VarDeclaration	Name="RD_105" Type="STRING" Comment="its_technology.its_adaptive_control" />
+			<VarDeclaration	Name="RD_106" Type="STRING" Comment="its_machine_functions.coolant" />
+			<VarDeclaration	Name="RD_107" Type="REAL" Comment="its_machine_functions.coolant_pressure" />
+			<VarDeclaration	Name="RD_108" Type="STRING" Comment="its_machine_functions.mist" />
+			<VarDeclaration	Name="RD_109" Type="STRING" Comment="its_machine_functions.through_spindle_coolant" />
+			<VarDeclaration	Name="RD_110" Type="REAL" Comment="its_machine_functions.through_pressure" />
+			<VarDeclaration	Name="RD_111" Type="STRING" Comment="its_machine_functions.axis_clamping" />
+			<VarDeclaration	Name="RD_112" Type="STRING" Comment="its_machine_functions.chip_removal" />
+			<VarDeclaration	Name="RD_113" Type="STRING" Comment="its_machine_functions.oriented_spindle_stop.its_id" />
+			<VarDeclaration	Name="RD_114" Type="REAL" ArraySize="3" Comment="its_machine_functions.oriented_spindle_stop.direction_ratios" />
+			<VarDeclaration	Name="RD_115" Type="STRING" Comment="its_machine_functions.its_process_model.ini_data_file" />
+			<VarDeclaration	Name="RD_116" Type="STRING" Comment="its_machine_functions.its_process_model.its_type" />
+			<VarDeclaration	Name="RD_117" Type="STRING" Comment="its_machine_functions.other_functions" />
+			<VarDeclaration	Name="RD_118" Type="REAL" Comment="overcut_length" />
+			<VarDeclaration	Name="RD_119" Type="STRING" Comment="approach.tool_orientation.its_id" />
+			<VarDeclaration	Name="RD_120" Type="REAL" ArraySize="3" Comment="approach.tool_orientation.direction_ratios" />
+			<VarDeclaration	Name="RD_121" Type="STRING" Comment="approach.approach_retract_strategy (name of it)" />
+			<VarDeclaration	Name="RD_122" Type="STRING" ArraySize="3" Comment="approach.approach_retract_strategy.list of parameters" />
+			<VarDeclaration	Name="RD_123" Type="STRING" Comment="retract.tool_orientation.its_id" />
+			<VarDeclaration	Name="RD_124" Type="REAL" ArraySize="3" Comment="retract.tool_orientation.direction_ratios" />
+			<VarDeclaration	Name="RD_125" Type="STRING" Comment="retract.approach_retract_strategy (name of it)" />
+			<VarDeclaration	Name="RD_126" Type="STRING" ArraySize="3" Comment="retract.approach_retract_strategy.list of parameters" />
+			<VarDeclaration	Name="RD_127" Type="STRING" Comment="its_machining_strategy" />
+			<VarDeclaration	Name="RD_128" Type="REAL" Comment="its_machining_strategy.overlap" />
+			<VarDeclaration	Name="RD_129" Type="BOOLEAN" Comment="its_machining_strategy.allow_multiple_passes" />
+			<VarDeclaration	Name="RD_130" Type="STRING" ArraySize="4" Comment="its_machining_strategy.list of parameters" />
+			<VarDeclaration	Name="RD_131" Type="REAL" Comment="axial_cutting_depth" />
+			<VarDeclaration	Name="RD_132" Type="REAL" Comment="allowance_bottom" />
+		</OutputVars>
+	</InterfaceList>
+	<Service RightInterface="SUBL_132" LeftInterface="PUBL_132" Comment="Data publication service" >
+        <ServiceSequence Name="normal_establishment" >
+            <ServiceTransaction >
+                <InputPrimitive Interface="PUBL_132" Event="INIT" Parameters="ID" />
+                <OutputPrimitive Interface="SUBL_132" Event="INITO" Parameters="" />
+            </ServiceTransaction>
+            <ServiceTransaction >
+                <InputPrimitive Interface="SUBL_132" Event="INIT" Parameters="ID" />
+                <OutputPrimitive Interface="SUBL_132" Event="INITO" Parameters="" />
+            </ServiceTransaction>
+        </ServiceSequence>
+        <ServiceSequence Name="normal_data_transfer" >
+            <ServiceTransaction >
+                <InputPrimitive Interface="PUBL_132" Event="REQ" Parameters="SD_1,SD_2,SD_3,SD_4,SD_5,SD_6,SD_7,SD_8,SD_9,SD_10,SD_11,SD_12,SD_13,SD_14,SD_15,SD_16,SD_17,SD_18,SD_19,SD_20,SD_21,SD_22,SD_23,SD_24,SD_25,SD_26,SD_27,SD_28,SD_29,SD_30,SD_31,SD_32,SD_33,SD_34,SD_35,SD_36,SD_37,SD_38,SD_39,SD_40,SD_41,SD_42,SD_43,SD_44,SD_45,SD_46,SD_47,SD_48,SD_49,SD_50,SD_51,SD_52,SD_53,SD_54,SD_55,SD_56,SD_57,SD_58,SD_59,SD_60,SD_61,SD_62,SD_63,SD_64,SD_65,SD_66,SD_67,SD_68,SD_69,SD_70,SD_71,SD_72,SD_73,SD_74,SD_75,SD_76,SD_77,SD_78,SD_79,SD_80,SD_81,SD_82,SD_83,SD_84,SD_85,SD_86,SD_87,SD_88,SD_89,SD_90,SD_91,SD_92,SD_93,SD_94,SD_95,SD_96,SD_97,SD_98,SD_99,SD_100,SD_101,SD_102,SD_103,SD_104,SD_105,SD_106,SD_107,SD_108,SD_109,SD_110,SD_111,SD_112,SD_113,SD_114,SD_115,SD_116,SD_117,SD_118,SD_119,SD_120,SD_121,SD_122,SD_123,SD_124,SD_125,SD_126,SD_127,SD_128,SD_129,SD_130,SD_131,SD_132" />
+                <OutputPrimitive Interface="SUBL_132" Event="IND" Parameters="RD_1,RD_2,RD_3,RD_4,RD_5,RD_6,RD_7,RD_8,RD_9,RD_10,RD_11,RD_12,RD_13,RD_14,RD_15,RD_16,RD_17,RD_18,RD_19,RD_20,RD_21,RD_22,RD_23,RD_24,RD_25,RD_26,RD_27,RD_28,RD_29,RD_30,RD_31,RD_32,RD_33,RD_34,RD_35,RD_36,RD_37,RD_38,RD_39,RD_40,RD_41,RD_42,RD_43,RD_44,RD_45,RD_46,RD_47,RD_48,RD_49,RD_50,RD_51,RD_52,RD_53,RD_54,RD_55,RD_56,RD_57,RD_58,RD_59,RD_60,RD_61,RD_62,RD_63,RD_64,RD_65,RD_66,RD_67,RD_68,RD_69,RD_70,RD_71,RD_72,RD_73,RD_74,RD_75,RD_76,RD_77,RD_78,RD_79,RD_80,RD_81,RD_82,RD_83,RD_84,RD_85,RD_86,RD_87,RD_88,RD_89,RD_90,RD_91,RD_92,RD_93,RD_94,RD_95,RD_96,RD_97,RD_98,RD_99,RD_100,RD_101,RD_102,RD_103,RD_104,RD_105,RD_106,RD_107,RD_108,RD_109,RD_110,RD_111,RD_112,RD_113,RD_114,RD_115,RD_116,RD_117,RD_118,RD_119,RD_120,RD_121,RD_122,RD_123,RD_124,RD_125,RD_126,RD_127,RD_128,RD_129,RD_130,RD_131,RD_132" />
+            </ServiceTransaction>
+        </ServiceSequence>
+    </Service>
+</FBType>

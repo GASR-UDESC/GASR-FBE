@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE_RES" Comment= "Rough milling a slot. Not all functions implemented" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="11-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<VarDeclaration Name="SUB_ID" Type="STRING" InitialValue="BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE_RES_SUBL" Comment="Main SUBL id" />
+	<VarDeclaration Name="PUB_OK_ID" Type="STRING" Comment="OK SUBL id" />
+	<VarDeclaration Name="INSTANCE_NAME" Type="STRING" Comment="Instance name" />
+	<FBNetwork>
+		<FB Name="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE" Type="SUBL_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE" x="1" y="1" >
+		</FB>
+		<FB Name="check_tool" Type="CHECK_TOOL" x="1" y="1" >
+		</FB>
+		<FB Name="order_tool_change" Type="FILE_WRITER_1_STRING" x="1" y="1" >
+		</FB>
+		<FB Name="ok_tool" Type="E_MERGE" x="1" y="1" >
+		</FB>
+		<FB Name="compensate_tool_length_to_position" Type="ADD_VALUE_TO_VECTOR" x="1" y="1" >
+			<Parameter Name="direction" Value="z" />
+		</FB>
+		<FB Name="moveto_sec_plane" Type="ORDER_1D_MOVETO_PARALLEL_PLANE" x="1" y="1" >
+			<Parameter Name="speed" Value="0.04" />
+			<Parameter Name="move_in_axis" Value="z" />
+		</FB>
+		<FB Name="get_slot_start_point" Type="GET_FEATURE_START_POINT" x="1" y="1" >
+		</FB>
+		<FB Name="retract_plane_coordinate" Type="FLOAT_TO_VECTOR_Z" x="1" y="1" >
+		</FB>
+		<FB Name="get_retract_plane" Type="PRIOR_IF_NOT_000_2" x="1" y="1" >
+		</FB>
+		<FB Name="set_approach_strategy_xy" Type="SET_APPROACH_STRATEGY_XY" x="1" y="1" >
+		</FB>
+		<FB Name="moveto_initial_point" Type="ORDER_LINEAR_MOVE" x="1" y="1" >
+			<Parameter Name="speed" Value="0.04" />
+		</FB>
+		<FB Name="set_nominal_feed" Type="FEED_AJUST" x="1" y="1" >
+			<Parameter Name="percentage_of_feed" Value="100" />
+		</FB>
+		<FB Name="set_nominal_spindle" Type="SPINDLE_SPEED" x="1" y="1" >
+		</FB>
+		<FB Name="order_set_nominal_spindle" Type="FILE_WRITER_1_STRING" x="1" y="1" >
+		</FB>
+		<FB Name="set_spindle_on" Type="SPINDLE_ON_OFF" x="1" y="1" >
+			<Parameter Name="action" Value="on" />
+		</FB>
+		<FB Name="order_set_spindle_on" Type="FILE_WRITER_1_STRING" x="1" y="1" >
+		</FB>
+		<FB Name="chip_removal" Type="CHIP_REMOVAL_ON_OFF" x="1" y="1" >
+		</FB>
+		<FB Name="order_chip_removal" Type="FILE_WRITER_1_STRING" x="1" y="1" >
+		</FB>
+		<FB Name="moveto_start_point" Type="ORDER_LINEAR_MOVE" x="1" y="1" >
+		</FB>
+		<FB Name="get_width" Type="GET_TABLE_VALUE" x="1" y="1" >
+			<Parameter Name="position" Value="1" />
+		</FB>
+		<FB Name="milling_loop_setup" Type="SLOT_LOOP_SETUP" x="1" y="1" >
+		</FB>
+		<FB Name="milling_main_loop" Type="SLOT_SIMPLE_LOOP" x="1" y="1" >
+		</FB>
+		<FB Name="moveto_retract_plane" Type="1D_MOVETO_PARALLEL_PLANE" x="1" y="1" >
+			<Parameter Name="move_in_axis" Value="z" />
+		</FB>
+		<FB Name="order_moveto_retract_plane" Type="FILE_WRITER_7_LINEAR_MOVE" x="1" y="1" >
+		</FB>
+		<FB Name="set_spindle_off" Type="SPINDLE_ON_OFF" x="580.915" y="339.4675" >
+			<Parameter Name="action" Value="'off'" />
+		</FB>
+		<FB Name="order_spindle_off" Type="FILE_WRITER_1_STRING" x="837.27" y="243.985" >
+		</FB>
+		<FB Name="decompensate_tool_length_to_position" Type="ADD_VALUE_TO_VECTOR" x="859.22" y="525.3175" >
+			<Parameter Name="direction" Value="z" />
+		</FB>
+		<FB Name="finish_milling" Type="PUBL_3_OK" x="501.275" y="527.3675" >
+		</FB>
+		<FB Name="print" Type="PRINT" x="596.0475" y="94.5025" >
+		</FB>
+		<EventConnections>
+			<Connection Source="get_width.Cnf" Destination="milling_loop_setup.Init" />
+			<Connection Source="set_approach_strategy_xy.Cnf" Destination="moveto_initial_point.Init" />
+			<Connection Source="decompensate_tool_length_to_position.Res" Destination="finish_milling.REQ" />
+			<Connection Source="set_spindle_on.call" Destination="order_set_spindle_on.REQ" />
+			<Connection Source="set_spindle_on.Cnf" Destination="chip_removal.Init" />
+			<Connection Source="order_spindle_off.RSP" Destination="set_spindle_off.Req" />
+			<Connection Source="print.Cnf" Destination="moveto_retract_plane.Init" />
+			<Connection Source="get_retract_plane.Cnf" Destination="set_approach_strategy_xy.Init" />
+			<Connection Source="set_nominal_feed.Cnf" Destination="set_nominal_spindle.Init" />
+			<Connection Source="order_tool_change.RSP" Destination="ok_tool.EI1" />
+			<Connection Source="moveto_start_point.Cnf" Destination="get_width.Init" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.IND" Destination="check_tool.INIT" />
+			<Connection Source="order_chip_removal.RSP" Destination="chip_removal.Req" />
+			<Connection Source="order_set_nominal_spindle.RSP" Destination="set_nominal_spindle.Req" />
+			<Connection Source="retract_plane_coordinate.Cnf" Destination="get_retract_plane.Init" />
+			<Connection Source="moveto_retract_plane.Send" Destination="order_moveto_retract_plane.REQ" />
+			<Connection Source="moveto_retract_plane.Cnf" Destination="set_spindle_off.Init" />
+			<Connection Source="compensate_tool_length_to_position.Res" Destination="moveto_sec_plane.Init" />
+			<Connection Source="milling_loop_setup.Cnf" Destination="milling_main_loop.Init" />
+			<Connection Source="moveto_sec_plane.Cnf" Destination="get_slot_start_point.Init" />
+			<Connection Source="milling_main_loop.Cnf" Destination="print.Vector" />
+			<Connection Source="get_slot_start_point.Cnf" Destination="retract_plane_coordinate.Init" />
+			<Connection Source="order_set_spindle_on.RSP" Destination="set_spindle_on.Req" />
+			<Connection Source="order_moveto_retract_plane.RSP" Destination="moveto_retract_plane.Req" />
+			<Connection Source="moveto_initial_point.Cnf" Destination="set_nominal_feed.Init" />
+			<Connection Source="chip_removal.call" Destination="order_chip_removal.REQ" />
+			<Connection Source="chip_removal.Cnf" Destination="moveto_start_point.Init" />
+			<Connection Source="check_tool.NO_TOOL" Destination="order_tool_change.REQ" />
+			<Connection Source="check_tool.OK_TOOL" Destination="ok_tool.EI2" />
+			<Connection Source="set_spindle_off.call" Destination="order_spindle_off.REQ" />
+			<Connection Source="set_spindle_off.Cnf" Destination="decompensate_tool_length_to_position.Add" />
+			<Connection Source="ok_tool.EO" Destination="compensate_tool_length_to_position.Sub" />
+			<Connection Source="set_nominal_spindle.call" Destination="order_set_nominal_spindle.REQ" />
+			<Connection Source="set_nominal_spindle.Cnf" Destination="set_spindle_on.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_30" Destination="get_width.table" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_3" Destination="get_retract_plane.V2" />
+			<Connection Source="retract_plane_coordinate.vector" Destination="get_retract_plane.V1" />
+			<Connection Source="moveto_retract_plane.final_pos" Destination="decompensate_tool_length_to_position.vector" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_77" Destination="decompensate_tool_length_to_position.value" />
+			<Connection Source="set_nominal_feed.feed_in_m_per_s" Destination="moveto_start_point.speed" />
+			<Connection Source="get_slot_start_point.fsp" Destination="moveto_start_point.destination" />
+			<Connection Source="moveto_initial_point.out_pos" Destination="moveto_start_point.pos" />
+			<Connection Source="set_spindle_off.process_id" Destination="order_spindle_off.P0" />
+			<Connection Source="set_spindle_off.spindle_state" Destination="order_spindle_off.P1" />
+			<Connection Source="get_retract_plane.VOUT" Destination="print.V" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_55" Destination="set_nominal_feed.number_of_teeth" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_85" Destination="set_nominal_feed.feedrate_per_tooth" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_81" Destination="set_nominal_feed.feed" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_84" Destination="set_nominal_feed.spindle_speed" />
+			<Connection Source="set_approach_strategy_xy.initial_point" Destination="moveto_initial_point.destination" />
+			<Connection Source="moveto_sec_plane.final_pos" Destination="moveto_initial_point.pos" />
+			<Connection Source="check_tool.process_id" Destination="order_tool_change.P0" />
+			<Connection Source="check_tool.tool_id" Destination="order_tool_change.P1" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_44" Destination="retract_plane_coordinate.number" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_83" Destination="set_nominal_spindle.cutting_speed" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_48" Destination="set_nominal_spindle.tool_diameter" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_84" Destination="set_nominal_spindle.spindle_speed" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_1" Destination="compensate_tool_length_to_position.vector" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_77" Destination="compensate_tool_length_to_position.value" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_117" Destination="milling_loop_setup.allowance_side" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_27" Destination="milling_loop_setup.travel_path_direction" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_17" Destination="milling_loop_setup.slot_depth" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_11" Destination="milling_loop_setup.feature_z_axis" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_38" Destination="milling_loop_setup.end_end_vars" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_111" Destination="milling_loop_setup.its_machining_strategy" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_118" Destination="milling_loop_setup.allowance_bottom" />
+			<Connection Source="moveto_start_point.out_pos" Destination="milling_loop_setup.pos" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_34" Destination="milling_loop_setup.origin_end_vars" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_9" Destination="milling_loop_setup.feature_placement" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_23" Destination="milling_loop_setup.travel_path_radius" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_28" Destination="milling_loop_setup.travel_path_sweep_angle" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_48" Destination="milling_loop_setup.tool_diameter" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_27" Destination="milling_loop_setup.travel_path_ref_axis" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_11" Destination="milling_loop_setup.travel_path_z_axis" />
+			<Connection Source="get_width.value" Destination="milling_loop_setup.slot_width" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_119" Destination="milling_loop_setup.travel_path_placement" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_22" Destination="milling_loop_setup.travel_path_type" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_13" Destination="milling_loop_setup.feature_ref_axis" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_33" Destination="milling_loop_setup.end_condition" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_23" Destination="milling_loop_setup.travel_path_distance" />
+			<Connection Source="get_retract_plane.VOUT" Destination="set_approach_strategy_xy.retract_plane" />
+			<Connection Source="get_slot_start_point.fsp" Destination="set_approach_strategy_xy.start_point" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_105" Destination="set_approach_strategy_xy.approach_strategy" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_106" Destination="set_approach_strategy_xy.parameters" />
+			<Connection Source="set_nominal_spindle.process_id" Destination="order_set_nominal_spindle.P0" />
+			<Connection Source="set_nominal_spindle.speed_in_rps" Destination="order_set_nominal_spindle.P1" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_60" Destination="get_slot_start_point.tool_offset_length" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_46" Destination="get_slot_start_point.start_point" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_77" Destination="get_slot_start_point.overall_assembly_length" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_17" Destination="get_slot_start_point.depth" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_118" Destination="get_slot_start_point.allowance_bottom" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_9" Destination="get_slot_start_point.feature_placement" />
+			<Connection Source="set_spindle_on.process_id" Destination="order_set_spindle_on.P0" />
+			<Connection Source="set_spindle_on.spindle_state" Destination="order_set_spindle_on.P1" />
+			<Connection Source="moveto_retract_plane.v_coef" Destination="order_moveto_retract_plane.P7" />
+			<Connection Source="moveto_retract_plane.out_speed" Destination="order_moveto_retract_plane.P6" />
+			<Connection Source="moveto_retract_plane.final_pos" Destination="order_moveto_retract_plane.P5" />
+			<Connection Source="moveto_retract_plane.t0" Destination="order_moveto_retract_plane.P4" />
+			<Connection Source="moveto_retract_plane.coef_b" Destination="order_moveto_retract_plane.P2" />
+			<Connection Source="moveto_retract_plane.t" Destination="order_moveto_retract_plane.P3" />
+			<Connection Source="moveto_retract_plane.eq_id" Destination="order_moveto_retract_plane.P0" />
+			<Connection Source="moveto_retract_plane.coef_a" Destination="order_moveto_retract_plane.P1" />
+			<Connection Source="set_nominal_feed.feed_in_m_per_s" Destination="moveto_retract_plane.speed" />
+			<Connection Source="get_retract_plane.VOUT" Destination="moveto_retract_plane.plane_distance" />
+			<Connection Source="milling_main_loop.out_pos" Destination="moveto_retract_plane.pos" />
+			<Connection Source="milling_loop_setup.origin_y" Destination="milling_main_loop.origin_y" />
+			<Connection Source="milling_loop_setup.origin_z" Destination="milling_main_loop.origin_z" />
+			<Connection Source="milling_loop_setup.end_y" Destination="milling_main_loop.end_y" />
+			<Connection Source="milling_loop_setup.offsets" Destination="milling_main_loop.offsets" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_9" Destination="milling_main_loop.feature_placement" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_23" Destination="milling_main_loop.distance" />
+			<Connection Source="milling_loop_setup.end_x" Destination="milling_main_loop.end_x" />
+			<Connection Source="milling_loop_setup.real_width" Destination="milling_main_loop.width" />
+			<Connection Source="milling_loop_setup.end_z" Destination="milling_main_loop.end_z" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_22" Destination="milling_main_loop.travel_path" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_37" Destination="milling_main_loop.end_type" />
+			<Connection Source="milling_loop_setup.origin_x" Destination="milling_main_loop.origin_x" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_33" Destination="milling_main_loop.origin_type" />
+			<Connection Source="milling_loop_setup.real_depth" Destination="milling_main_loop.depth" />
+			<Connection Source="set_nominal_feed.feed_in_m_per_s" Destination="milling_main_loop.feed" />
+			<Connection Source="moveto_start_point.out_pos" Destination="milling_main_loop.pos" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_47" Destination="check_tool.workingstep_tool" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_2" Destination="check_tool.current_tool" />
+			<Connection Source="chip_removal.process_id" Destination="order_chip_removal.P0" />
+			<Connection Source="chip_removal.state" Destination="order_chip_removal.P1" />
+			<Connection Source="Subl_119_BOTTOM_AND_SIDE_ROUGH_MILLING-SLOT-SIMPLE.RD_3" Destination="moveto_sec_plane.plane_distance" />
+			<Connection Source="compensate_tool_length_to_position.result" Destination="moveto_sec_plane.pos" />
+			<Connection Source="decompensate_tool_length_to_position.result" Destination="finish_milling.SD_2" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

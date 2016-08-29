@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="TRAJECTORY_VIEWER_COMM" Comment="Sends geom_file" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="03-07-12" />
+	<CompilerInfo BaseFile="Trajectory_Viewer_Comm.lua" IsLua="true" >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="REQ" Comment="Request file storage" >
+				<With Var="P0" />
+				<With Var="P1" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="RSP" Comment="Finished operation" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="P0" Type="STRING" InitialValue="COEF_FILE" Comment="Filename" />
+			<VarDeclaration Name="P1" Type="ANY" Comment="Var1" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<Service>
+	</Service>
+</FBType>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="VECTOR_MULT_BY_SCALAR" Comment="Multiply vector by scalar" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="02-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="v" />
+				<With Var="s" />
+				<With Var="div" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="vout" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="v" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="s" Type="REAL" />
+			<VarDeclaration Name="div" Type="INT" InitialValue="0" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="vout" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="multiply" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="multiply" >
+			<Lua Text = "
+if( div == 1 ) then s = 1/s end
+vout[1] = s*v[1]
+vout[2] = s*v[2]
+vout[3] = s*v[3]
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

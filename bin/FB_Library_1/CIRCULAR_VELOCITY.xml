@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="CIRCULAR_VELOCITY" Comment="Circular velocity equations" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="02-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+                <With Var="angle" />
+                <With Var="U" />
+                <With Var="V" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+                <With Var="V_U" />
+                <With Var="V_V" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="angle" Type="REAL" />
+			<VarDeclaration Name="U" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="V" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="V_U" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="V_V" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="EXE" x="0" y="0" >
+				<ECAction Algorithm="equations" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" x="0" y="0" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="equations" >
+			<Lua Text = "
+V_U[1] = U[1]*angle
+V_U[2] = U[2]*angle
+V_U[3] = U[3]*angle
+V_V[1] = V[1]*angle
+V_V[2] = V[2]*angle
+V_V[3] = V[3]*angle
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

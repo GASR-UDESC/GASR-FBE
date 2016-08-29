@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="RES_SEMAPHORE" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="IECVM" Date="17-12-2013" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="start" Type="START" x="371.43120312601" y="270.95815332139" >
+		</FB>
+		<FB Name="sem1" Type="CAR_SEMAPHORE" x="629.7869931493" y="384.84419085027" >
+		</FB>
+		<FB Name="s1_red" Type="IO_WRITER" x="935.4501135471" y="234.52557210398" >
+			<Parameter Name="SD_1" Value="1" />
+		</FB>
+		<FB Name="s1_yellow" Type="IO_WRITER" x="935.97515009176" y="404.46875662981" >
+			<Parameter Name="SD_1" Value="2" />
+		</FB>
+		<FB Name="s1_green" Type="IO_WRITER" x="934.1056080728" y="564.86538186817" >
+			<Parameter Name="SD_1" Value="3" />
+		</FB>
+		<FB Name="sub1" Type="SUB_2" x="367" y="423" >
+			<Parameter Name="ID" Value="71" />
+		</FB>
+		<FB Name="walker" Type="IO_WRITER" x="575.09945444542" y="595.72975252081" >
+			<Parameter Name="SD_1" Value="4" />
+		</FB>
+		<EventConnections>
+			<Connection Source="walker.CNF" Destination="sem1.SET" />
+			<Connection Source="start.COLD" Destination="sem1.INIT" />
+			<Connection Source="sem1.INIT0" Destination="sub1.INIT" />
+			<Connection Source="sem1.OUT_RED" Destination="s1_red.REQ" />
+			<Connection Source="sem1.OUT_GREEN" Destination="s1_green.REQ" />
+			<Connection Source="sem1.OUT_YELLOW" Destination="s1_yellow.REQ" />
+			<Connection Source="sub1.RSP" Destination="walker.REQ" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="sub1.SD_2" Destination="walker.SD_2" />
+			<Connection Source="sem1.RED" Destination="s1_red.SD_2" />
+			<Connection Source="sub1.SD_1" Destination="sem1.CYCLE" />
+			<Connection Source="sem1.YELLOW" Destination="s1_yellow.SD_2" />
+			<Connection Source="sem1.GREEN" Destination="s1_green.SD_2" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

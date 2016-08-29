@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="novobloc" Comment= "oi" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="ev1" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="ev2" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="var" Type="INT" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="st2" x="558" y="289"  >
+				<ECAction Output="ev2" />
+			</ECState>
+			<ECState Name="START" x="364" y="225"  >
+			</ECState>
+			<ECTransition Source="st2" Destination="START" Condition="init" />
+			<ECTransition Source="START" Destination="st2" Condition="1" />
+		</ECC>
+	</BasicFB>
+</FBType>

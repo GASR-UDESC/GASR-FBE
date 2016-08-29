@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="resource_teste" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="" Date="" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="starter" Type="STARTER" x="42" y="108" >
+		</FB>
+		<FB Name="check_tool" Type="CHECK_TOOL" x="258" y="215" >
+			<Parameter Name="current_tool" Value="a" />
+			<Parameter Name="workingstep_tool" Value="a" />
+		</FB>
+		<FB Name="l1" Type="BLUE_LIGHT" x="617.8975" y="81" >
+		</FB>
+		<FB Name="l2" Type="RED_LIGHT" x="697.2275" y="237.485" >
+		</FB>
+		<EventConnections>
+			<Connection Source="check_tool.NO_TOOL" Destination="l1.Init" />
+			<Connection Source="check_tool.OK_TOOL" Destination="l2.Init" />
+			<Connection Source="starter.start" Destination="check_tool.INIT" />
+		</EventConnections>
+		<DataConnections>
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

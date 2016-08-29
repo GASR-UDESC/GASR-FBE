@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="SEND_SPINDLE_DATA" Comment="Send linear movement data" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="17-04-2012" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="INIT" >
+				<With Var="C1" />
+				<With Var="S1" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="CNF" />
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="C1" Type="REAL" Comment="Coeficient 1" />
+			<VarDeclaration Name="S1" Type="STRING" Comment="String 1" />
+		</InputVars>
+		<OutputVars>
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="set_spindle_data" Type="SET_SPINDLE_DATA" x="1" y="1" />
+		<FB Name="comm_machine" Type="GENERAL_DATA_SENDER" x="1" y="1" >
+			<Parameter Name="PORT" Value="localhost:502" />
+			<Parameter Name="NUM_REG" Value="2" />
+			<Parameter Name="INIT_REG" Value="1050" />
+		</FB>
+		<EventConnections>
+			<Connection Source="INIT" Destination="set_spindle_data.INIT" dx="1" dy="1" />
+			<Connection Source="set_spindle_data.CNF" Destination="comm_machine.INIT" dx="1" dy="1" />
+			<Connection Source="comm_machine.CNF" Destination="CNF" dx="1" dy="1" />
+		<EventConnections/>
+		<DataConnections>
+			<Connection Source="C1" Destination="set_spindle_data.C1" dx="1" dy="1" />
+			<Connection Source="S1" Destination="set_spindle_data.S1" dx="1" dy="1" />
+			<Connection Source="set_spindle_data.id" Destination="comm_machine.ID" dx="1" dy="1" />
+			<Connection Source="set_spindle_data.status" Destination="comm_machine.SD_1" dx="1" dy="1" />
+		<DataConnections/>
+	</FBNetwork>
+</FBType>

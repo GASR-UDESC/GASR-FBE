@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="TIMER_SET_S" Comment="Sets output for a timer in seconds" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="Guilherme Jarentchuk" Date="09-01-12" />
+	<CompilerInfo  >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialize execution" >
+				<With Var="time_in_s" />
+			</Event>
+			<Event Name="Req" Comment="Request to finish" />
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Confirm execution" />
+			<Event Name="call" Comment="Call execution device" >
+				<With Var="process_id" />
+				<With Var="time" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="time_in_s" Type="REAL" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="process_id" Type="REAL" />
+			<VarDeclaration Name="time" Type="REAL" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="1" y="1" >
+			</ECState>
+			<ECState Name="EXE" x="2" y="2" >
+				<ECAction Algorithm="set_time" Output="call" />
+			</ECState>
+			<ECState Name="FINISH" x="3" y="3" >
+				<ECAction Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="EXE" Condition="Init" />
+			<ECTransition Source="START" Destination="FINISH" Condition="Req" />
+			<ECTransition Source="EXE" Destination="START" Condition="1" />
+			<ECTransition Source="FINISH" Destination="START" Condition="1" />
+		</ECC>
+		<Algorithm Name="set_time" >
+			<Lua Text = "
+time = time_in_s
+process_id = -6
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="MOVE_BETWEEN_REDUCTIONS" Comment="Move between drilling speed reductions" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="29-03-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" Comment="Initialization" >
+				<With Var="nominal_spindle_speed" />
+				<With Var="pos" />
+				<With Var="depth_location" />
+				<With Var="nominal_feed" />
+				<With Var="tool_diameter" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" Comment="Confirm execution" >
+				<With Var="out_pos" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="nominal_spindle_speed" Type="REAL" />
+			<VarDeclaration Name="pos" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="depth_location" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="nominal_feed" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="tool_diameter" Type="REAL" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="out_pos" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<FBNetwork>
+		<FB Name="between_spindle" Type="SPINDLE_SPEED" x="1" y="1" />
+		<FB Name="order_between_spindle" Type="FILE_WRITER_1" x="1" y="1" />
+		<FB Name="moveto_between_red_depth" Type="LINEAR_MOVE" x="1" y="1" />
+		<FB Name="order_moveto_between_red_depth" Type="FILE_WRITER_7_LINEAR_MOVE" x="1" y="1" />
+			<EventConnections>
+				<Connection Source="Init" Destination="between_spindle.Init" dx="0" dy="0" />
+				<Connection Source="between_spindle.call" Destination="order_between_spindle.REQ" dx="0" dy="0" />
+				<Connection Source="order_between_spindle.RSP" Destination="between_spindle.Req" dx="0" dy="0" />
+				<Connection Source="between_spindle.Cnf" Destination="moveto_between_red_depth.Init" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.Send" Destination="order_moveto_between_red_depth.REQ" dx="0" dy="0" />
+				<Connection Source="order_moveto_between_red_depth.RSP" Destination="moveto_between_red_depth.Req" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.Cnf" Destination="Cnf" dx="0" dy="0" />
+			<EventConnections/>
+			<DataConnections>
+				<Connection Source="nominal_spindle_speed" Destination="between_spindle.spindle_speed" dx="0" dy="0" />
+				<Connection Source="between_spindle.process_id" Destination="order_between_spindle.P0" dx="0" dy="0" />
+				<Connection Source="between_spindle.speed_in_rps" Destination="order_between_spindle.P1" dx="0" dy="0" />
+				<Connection Source="pos" Destination="moveto_between_red_depth.pos" dx="0" dy="0" />
+				<Connection Source="depth_location" Destination="moveto_between_red_depth.destination" dx="0" dy="0" />
+				<Connection Source="nominal_feed" Destination="moveto_between_red_depth.speed" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.v_coef" Destination="order_moveto_between_red_depth.P7" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.out_speed" Destination="order_moveto_between_red_depth.P6" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.final_pos" Destination="order_moveto_between_red_depth.P5" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.t" Destination="order_moveto_between_red_depth.P4" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.t0" Destination="order_moveto_between_red_depth.P3" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.coef_b" Destination="order_moveto_between_red_depth.P2" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.coef_a" Destination="order_moveto_between_red_depth.P1" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.eq_id" Destination="order_moveto_between_red_depth.P0" dx="0" dy="0" />
+				<Connection Source="moveto_between_red_depth.final_pos" Destination="out_pos" dx="0" dy="0" />
+			<DataConnections/>
+	</FBNetwork>
+</FBType>

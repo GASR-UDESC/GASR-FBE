@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="VECTOR_ADDITION" Comment="Adds or subtracts two vectors" >
+	<Identification Standard="61499-2" />
+	<VersionInfo Organization="Universidade do Estado de Santa Catarina" Version="1.0" Author="GASR" Date="02-05-12" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Add" >
+				<With Var="v1" />
+				<With Var="v2" />
+			</Event>
+			<Event Name="Sub" >
+				<With Var="v1" />
+				<With Var="v2" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Cnf" >
+				<With Var="vout" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="v1" Type="REAL" ArraySize="3" />
+			<VarDeclaration Name="v2" Type="REAL" ArraySize="3" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="vout" Type="REAL" ArraySize="3" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="0" y="0" >
+			</ECState>
+			<ECState Name="ADD" x="0" y="0" >
+				<ECAction Algorithm="add" Output="Cnf" />
+			</ECState>
+			<ECState Name="SUB" x="0" y="0" >
+				<ECAction Algorithm="sub" Output="Cnf" />
+			</ECState>
+			<ECTransition Source="START" Destination="ADD" Condition="Add" x="0" y="0" />
+			<ECTransition Source="START" Destination="SUB" Condition="Sub" x="0" y="0" />
+			<ECTransition Source="ADD" Destination="START" Condition="1" x="0" y="0" />
+			<ECTransition Source="SUB" Destination="START" Condition="1" x="0" y="0" />
+		</ECC>
+		<Algorithm Name="add" >
+			<Lua Text = "
+vout[1] = v1[1] + v2[1]
+vout[2] = v1[2] + v2[2]
+vout[3] = v1[3] + v2[3]
+			"/>
+		</Algorithm>
+	</BasicFB>
+		<Algorithm Name="sub" >
+			<Lua Text = "
+vout[1] = v1[1] - v2[1]
+vout[2] = v1[2] - v2[2]
+vout[3] = v1[3] - v2[3]
+			"/>
+		</Algorithm>
+	</BasicFB>
+</FBType>

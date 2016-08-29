@@ -1,0 +1,87 @@
+      COMMANDS
+========================================================
+1. Criar instancia 'start' de 'START' em D10 R0
+2. Criar instancia 'sem1' de 'CAR_SEMAPHORE' em D10 R0
+3. Criar instancia 's1_red' de 'IO_WRITER' em D10 R0
+4. Criar conexao (dados) de -001.0 para s1_red.SD_1 em D10 R0
+5. Criar instancia 's1_yellow' de 'IO_WRITER' em D10 R0
+6. Criar conexao (dados) de -002.0 para s1_yellow.SD_1 em D10 R0
+7. Criar instancia 's1_green' de 'IO_WRITER' em D10 R0
+8. Criar conexao (dados) de -003.0 para s1_green.SD_1 em D10 R0
+9. Criar instancia 'sub1' de 'SUB_2' em D10 R0
+10. Criar conexao (dados) de -004.0 para sub1.ID em D10 R0
+11. Criar instancia 'walker' de 'IO_WRITER' em D10 R0
+12. Criar conexao (dados) de -005.0 para walker.SD_1 em D10 R0
+13. Criar conexao (evento) de walker.CNF para sem1.SET em D10 R0
+14. Criar conexao (evento) de start.COLD para sem1.INIT em D10 R0
+15. Criar conexao (evento) de sem1.INIT0 para sub1.INIT em D10 R0
+16. Criar conexao (evento) de sem1.OUT_RED para s1_red.REQ em D10 R0
+17. Criar conexao (evento) de sem1.OUT_GREEN para s1_green.REQ em D10 R0
+18. Criar conexao (evento) de sem1.OUT_YELLOW para s1_yellow.REQ em D10 R0
+19. Criar conexao (evento) de sub1.RSP para walker.REQ em D10 R0
+20. Criar conexao (dados) de sub1.SD_2 para walker.SD_2 em D10 R0
+21. Criar conexao (dados) de sem1.RED para s1_red.SD_2 em D10 R0
+22. Criar conexao (dados) de sub1.SD_1 para sem1.CYCLE em D10 R0
+23. Criar conexao (dados) de sem1.YELLOW para s1_yellow.SD_2 em D10 R0
+24. Criar conexao (dados) de sem1.GREEN para s1_green.SD_2 em D10 R0
+25. Alterar estado do bloco 'sem1' para 1 em D10 R0
+26. Alterar estado do bloco 's1_red' para 1 em D10 R0
+27. Alterar estado do bloco 's1_yellow' para 1 em D10 R0
+28. Alterar estado do bloco 's1_green' para 1 em D10 R0
+29. Alterar estado do bloco 'sub1' para 1 em D10 R0
+30. Alterar estado do bloco 'walker' para 1 em D10 R0
+31. Alterar estado do bloco 'start' para 1 em D10 R0
+32. Criar instancia 'start' de 'START' em D20 R0
+33. Criar instancia 'scontrol' de 'SEM_CONTROL' em D20 R0
+34. Criar instancia 'scycle' de 'E_CYCLE' em D20 R0
+35. Criar conexao (dados) de -006.0 para scycle.DT em D20 R0
+36. Criar instancia 'car1' de 'CAR_SEMAPHORE' em D20 R0
+37. Criar instancia 'pub1' de 'PUB_2' em D20 R0
+38. Criar conexao (dados) de -007.0 para pub1.ID em D20 R0
+39. Criar instancia 'sp1' de 'E_SPLIT' em D20 R0
+40. Criar instancia 'lred' de 'IO_WRITER' em D20 R0
+41. Criar conexao (dados) de -008.0 para lred.SD_1 em D20 R0
+42. Criar instancia 'lyellow' de 'IO_WRITER' em D20 R0
+43. Criar conexao (dados) de -009.0 para lyellow.SD_1 em D20 R0
+44. Criar instancia 'lgreen' de 'IO_WRITER' em D20 R0
+45. Criar conexao (dados) de -010.0 para lgreen.SD_1 em D20 R0
+46. Criar instancia 'btwalker' de 'IO_READER' em D20 R0
+47. Criar conexao (dados) de -011.0 para btwalker.SD_1 em D20 R0
+48. Criar instancia 'walk_split' de 'E_SPLIT' em D20 R0
+49. Criar instancia 'w2_split' de 'E_SPLIT' em D20 R0
+50. Criar conexao (evento) de pub1.INIT0 para walk_split.EI1 em D20 R0
+51. Criar conexao (evento) de sp1.EO1 para car1.SET em D20 R0
+52. Criar conexao (evento) de sp1.EO2 para pub1.REQ em D20 R0
+53. Criar conexao (evento) de scontrol.SET_SEMAPHORE para sp1.EI1 em D20 R0
+54. Criar conexao (evento) de scontrol.INIT0 para car1.INIT em D20 R0
+55. Criar conexao (evento) de car1.OUT_RED para lred.REQ em D20 R0
+56. Criar conexao (evento) de car1.INIT0 para pub1.INIT em D20 R0
+57. Criar conexao (evento) de car1.OUT_GREEN para lgreen.REQ em D20 R0
+58. Criar conexao (evento) de car1.OUT_YELLOW para lyellow.REQ em D20 R0
+59. Criar conexao (evento) de scycle.EO para scontrol.ETIME em D20 R0
+60. Criar conexao (evento) de btwalker.IND para w2_split.EI1 em D20 R0
+61. Criar conexao (evento) de start.COLD para scontrol.INIT em D20 R0
+62. Criar conexao (evento) de walk_split.EO1 para scycle.START em D20 R0
+63. Criar conexao (evento) de walk_split.EO2 para btwalker.RSP em D20 R0
+64. Criar conexao (evento) de w2_split.EO1 para scontrol.BTWALKER em D20 R0
+65. Criar conexao (evento) de w2_split.EO2 para btwalker.RSP em D20 R0
+66. Criar conexao (dados) de scontrol.SEMAPHORE_2 para pub1.RD_1 em D20 R0
+67. Criar conexao (dados) de scontrol.WALKER para pub1.RD_2 em D20 R0
+68. Criar conexao (dados) de car1.YELLOW para lyellow.SD_2 em D20 R0
+69. Criar conexao (dados) de car1.RED para lred.SD_2 em D20 R0
+70. Criar conexao (dados) de scontrol.SEMAPHORE_1 para car1.CYCLE em D20 R0
+71. Criar conexao (dados) de btwalker.RD_1 para scontrol.btwalker em D20 R0
+72. Criar conexao (dados) de car1.GREEN para lgreen.SD_2 em D20 R0
+73. Alterar estado do bloco 'scontrol' para 1 em D20 R0
+74. Alterar estado do bloco 'scycle' para 1 em D20 R0
+75. Alterar estado do bloco 'car1' para 1 em D20 R0
+76. Alterar estado do bloco 'pub1' para 1 em D20 R0
+77. Alterar estado do bloco 'sp1' para 1 em D20 R0
+78. Alterar estado do bloco 'lred' para 1 em D20 R0
+79. Alterar estado do bloco 'lyellow' para 1 em D20 R0
+80. Alterar estado do bloco 'lgreen' para 1 em D20 R0
+81. Alterar estado do bloco 'btwalker' para 1 em D20 R0
+82. Alterar estado do bloco 'walk_split' para 1 em D20 R0
+83. Alterar estado do bloco 'w2_split' para 1 em D20 R0
+84. Alterar estado do bloco 'start' para 1 em D20 R0
+========================================================

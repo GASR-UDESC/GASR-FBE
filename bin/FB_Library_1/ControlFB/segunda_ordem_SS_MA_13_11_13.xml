@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ResourceType >
+<ResourceType Name="segunda_ordem_SS_MA_13_11_13" Comment= "first test with state-space system" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="gabriel" Date="13_11_2013" />
+	<CompilerInfo>
+	</CompilerInfo>
+	<FBNetwork>
+		<FB Name="step" Type="STEP_SOURCE" x="320.266125" y="104.059375" >
+			<Parameter Name="K" Value="1" />
+			<Parameter Name="t_end" Value="20" />
+			<Parameter Name="delay" Value="0" />
+			<Parameter Name="dt" Value="0.05" />
+		</FB>
+		<FB Name="scope" Type="SCOPE" x="357.047" y="469.8945" >
+			<Parameter Name="dt" Value="0.05" />
+		</FB>
+		<FB Name="plant" Type="SECOND_ORDER_SYSTEM_SS" x="712" y="105" >
+			<Parameter Name="u2" Value="0" />
+			<Parameter Name="A1" Value="[0, 1]" />
+			<Parameter Name="A2" Value="[-1, -1]" />
+			<Parameter Name="B1" Value="[0, 0]" />
+			<Parameter Name="B2" Value="[1, 0]" />
+			<Parameter Name="C1" Value="[1, 0]" />
+			<Parameter Name="x1_0" Value="0" />
+			<Parameter Name="x2_0" Value="0" />
+			<Parameter Name="dt" Value="0.05" />
+			<Parameter Name="C2" Value="[0, 1]" />
+		</FB>
+		<FB Name="scope2" Type="SCOPE" x="720" y="492" >
+			<Parameter Name="dt" Value="0.05" />
+		</FB>
+		<FB Name="starter" Type="STARTER_BUTTON" x="32" y="90" >
+		</FB>
+		<EventConnections>
+			<Connection Source="scope2.Cnf" Destination="step.Init" />
+			<Connection Source="plant.Finish" Destination="scope.Init" />
+			<Connection Source="scope.Cnf" Destination="scope2.Init" />
+			<Connection Source="starter.start" Destination="step.Start" />
+			<Connection Source="step.Finish" Destination="plant.Init" />
+		</EventConnections>
+		<DataConnections>
+			<Connection Source="plant.y1" Destination="scope.DataIn" />
+			<Connection Source="plant.y2" Destination="scope2.DataIn" />
+			<Connection Source="step.U" Destination="plant.u1" />
+		</DataConnections>
+	</FBNetwork>
+</ResourceType>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="INTEGRATOR" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="Gabriel" Date="15-04-2013" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="Init" >
+				<With Var="Xin" />
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Finish" >
+				<With Var="Xout" />
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="Xin" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="K" Type="REAL" ArraySize="" />
+			<VarDeclaration Name="dt" Type="REAL" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="Xout" Type="REAL" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="Exe" x="300" y="300"  >
+				<ECAction Algorithm="Integrate" Output="Finish" />
+			</ECState>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+			<ECTransition Source="Exe" Destination="START" Condition="1" />
+			<ECTransition Source="START" Destination="Exe" Condition="Init" />
+		</ECC>
+		<Algorithm Name="Integrate"  >
+			<Lua Text="Xout = Xout + K*dt*Xin" />
+		</Algorithm>
+	</BasicFB>
+</FBType>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType >
+<FBType Name="TESTE" Comment= "" >
+	<Identification Standard="61499-2"/>
+	<VersionInfo Author="GASR" Date="11-01-12" />
+	<CompilerInfo >
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="e1" >
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="e2" >
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="A" Type="INT" ArraySize="" />
+		</InputVars>
+		<OutputVars>
+			<VarDeclaration Name="B" Type="INT" ArraySize="" />
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" x="320" y="200"  >
+			</ECState>
+		</ECC>
+	</BasicFB>
+</FBType>
